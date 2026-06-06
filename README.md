@@ -97,6 +97,7 @@ print(formatter.format_enterprise_risk(result))
 | [financial-intelligence](skills/financial-intelligence/) | 6 | 发票查验、预算管控、财报速读、税务筹划、费用报销、资金预测 | ✅ 已发布 |
 | [wealth-management](skills/wealth-management/) | 8 | 资产配置、财务健康、退休规划、保险规划、税务优化、教育金、房产规划、智能投顾 | ✅ 已发布 |
 | [risk-compliance](skills/risk-compliance/) | 9 | 企业风险评估、信用评级、反欺诈、合规检查、财务诊断、监管政策、贷后监控、产业链风险、市场情绪 | ✅ 已发布 |
+| [wecom-template-card](skills/wecom-template-card/) | 5 | 尽调摘要卡、行情快讯卡、风险预警卡、图文报告卡、交互确认卡 | ✅ 已发布 |
 
 ---
 
