@@ -1,24 +1,23 @@
 ---
 name: risk-compliance
-description: "Financial AI Skill - 风控合规智能体。提供企业风险评估、信用评级、反欺诈检测、合规检查、财务诊断、监管政策查询、贷后监控、产业链风险追踪、市场情绪监测等9大能力。基于规则引擎的轻量级风控系统，零API费用。"
-version: 1.0.0
+description: "Financial AI Skill - 风控合规智能体。提供企业风险评估、信用评级、反欺诈检测、合规检查、财务诊断、监管政策查询、贷后监控、产业链风险追踪、市场情绪监测、关联图谱分析等10大能力。基于规则引擎的轻量级风控系统，零API费用。"
+version: 1.1.0
 author: Financial AI Community
 license: MIT
 metadata:
   hermes:
-    tags: [risk, compliance, fraud, credit, enterprise, audit, policy, monitoring]
+    tags: [risk, compliance, fraud, credit, enterprise, audit, policy, monitoring, knowledge-graph, anti-money-laundering]
     related_skills: [financial-intelligence, wealth-management]
 prerequisites:
   commands: [python3]
 ---
 
-# 风控合规智能体 v1.0
-
-> 基于规则引擎的轻量级风控系统，9大场景全覆盖。
+# 风控合规智能体 v1.1
+> 基于规则引擎的轻量级风控系统，10大场景全覆盖。
 >
 > ⚡ 零API费用 | 🚀 毫秒级响应 | 📦 开箱即用
 
-## 一、9大风控合规能力
+## 一、10大风控合规能力
 
 | 能力 | 触发关键词 | 核心功能 |
 |------|-----------|---------|
@@ -31,6 +30,7 @@ prerequisites:
 | **贷后监控** | 贷后、监控 | 授信客户动态监控 |
 | **产业链风险** | 产业链、供应链 | 上下游风险传导分析 |
 | **市场情绪** | 市场情绪、舆情 | 市场情绪监测与预警 |
+| **关联图谱分析** ⭐新增 | 关联图谱、团伙、洗钱 | 星型/循环/链式转账检测、担保链、隐性关联 |
 
 ## 二、快速开始
 
@@ -90,21 +90,60 @@ print(formatter.format_compliance(result))
 
 ```
 risk-compliance/
-├── risk_engine.py      # 核心引擎 + 格式化器
-└── SKILL.md            # 本文件
+├── risk_engine.py          # 核心引擎 + 格式化器
+├── knowledge_graph.py      # ⭐新增：关联图谱分析模块
+└── SKILL.md                # 本文件
 ```
 
-## 五、技术特点
+## 五、关联图谱分析（⭐v1.1新增）
+
+### 核心能力
+
+| 检测模式 | 风险场景 | 输出 |
+|---------|---------|------|
+| **星型转账** | 非法集资、洗钱 | 中心账户、关联账户数、涉及金额 |
+| **循环转账** | 虚构交易、洗钱 | 循环路径、涉及节点、金额 |
+| **链式转账** | 多层嵌套、规避监管 | 链长、总金额、风险等级 |
+| **隐性关联** | 空壳公司集群 | 共同地址/电话/IP、关联主体 |
+| **担保链** | 风险传导、连环违约 | 担保路径、链长、总敞口 |
+
+### 快速使用
+
+```python
+from knowledge_graph import KnowledgeGraphBuilder, FraudPatternDetector, GraphFormatter
+
+# 构建图谱（从交易数据）
+graph = KnowledgeGraphBuilder()
+graph.add_node("A001", "账户", "企业A")
+graph.add_node("A002", "账户", "企业B")
+graph.add_edge("A002", "A001", "转账", 500000, amount=500000)
+
+# 检测欺诈模式
+detector = FraudPatternDetector(graph)
+patterns = {
+    "star": detector.detect_star_pattern(),
+    "cycle": detector.detect_cycle_pattern(),
+    "hidden": detector.detect_hidden_association(),
+    "guarantee": detector.detect_guarantee_chain(),
+}
+
+# 格式化输出
+formatter = GraphFormatter()
+print(formatter.format_comprehensive_report(patterns))
+```
+
+## 六、技术特点
 
 - **纯Python实现**：无外部API依赖，零调用成本
 - **规则引擎**：100%可复现结果，适合合规审计场景
 - **Markdown输出**：适配IM平台（企业微信、飞书、钉钉等）
 - **可扩展**：基于类结构，易于添加新企业和新规则
 
-## 六、版本记录
+## 七、版本记录
 
 | 版本 | 日期 | 说明 |
 |------|------|------|
+| v1.1 | 2026-06-06 | 新增关联图谱分析模块（knowledge_graph.py），支持星型/循环/链式转账检测、隐性关联发现、担保链分析 |
 | v1.0 | 2026-06-06 | 初始发布，9大风控合规能力完整实现 |
 
 ## 许可证
