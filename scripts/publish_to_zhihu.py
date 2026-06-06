@@ -18,7 +18,7 @@ except ImportError:
     sys.exit(1)
 
 # 知乎API基础URL
-ZHIHU_API = "https://www.zhihu.com/api/v4"
+ZHIHU_API = "https://zhuanlan.zhihu.com/api"
 
 class ZhihuPublisher:
     def __init__(self, cookies_str: str):
@@ -70,24 +70,14 @@ class ZhihuPublisher:
             "Content-Type": "application/json",
         }
 
-        # 构建话题标签
-        topic_ids = []
-        if topics:
-            for topic in topics:
-                tid = self._search_topic(topic)
-                if tid:
-                    topic_ids.append(tid)
-
         payload = {
             "title": title,
             "content": content,
             "table_of_contents": False,
             "delta_time": 5,
         }
-        if topic_ids:
-            payload["topics"] = topic_ids
 
-        url = f"{ZHIHU_API}/articles/draft"
+        url = f"{ZHIHU_API}/articles/drafts"
         resp = self.session.post(url, headers=headers, json=payload, timeout=30)
         return resp.json()
 
