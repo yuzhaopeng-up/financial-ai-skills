@@ -227,6 +227,17 @@ financial-ai-skills/
 │   └── risk-compliance/            # 风控合规（9 大能力）
 │       ├── risk_engine.py
 │       └── SKILL.md
+├── scripts/                        # 知识中枢自动化脚本
+│   ├── feishu_base_writer.py      # 飞书多维表格写入器
+│   ├── github_stars_sync.py       # GitHub Stars同步
+│   ├── daily_metrics_cron.py      # 每日指标汇总
+│   └── verify_setup.py            # 一键验证配置
+├── .github/workflows/              # GitHub Actions
+│   ├── sync-stars.yml             # 自动同步Stars
+│   └── daily-metrics.yml          # 自动汇总指标
+├── docs/                           # 文档
+│   ├── QUICK_START.md             # 快速上手指南
+│   └── SETUP_CHECKLIST.md         # 配置检查清单
 ├── LICENSE
 └── README.md
 ```
@@ -283,6 +294,7 @@ financial-ai-skills/
 - **🔧 模块化设计**：各引擎独立，可单独使用或组合
 - **🧪 内置演示数据**：Mock 数据支持，无需配置即可体验全部功能
 - **📦 零依赖**：仅使用 Python 标准库，无需 pip install
+- **🔄 知识中枢集成**：自动同步 GitHub Stars、文章发布、节点状态到飞书多维表格
 
 ---
 
@@ -301,6 +313,8 @@ financial-ai-skills/
         Markdown 格式化
                 ↓
         企业微信 / 飞书 / 钉钉
+                ↓
+        飞书多维表格（知识中枢）
 ```
 
 ---
