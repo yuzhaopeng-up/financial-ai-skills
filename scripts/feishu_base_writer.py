@@ -10,9 +10,9 @@ import requests
 from datetime import datetime
 from typing import Dict, List, Optional
 
-# 飞书应用凭证（Hermes应用 - 已开通bitable权限）
-FEISHU_APP_ID = os.environ.get("FEISHU_APP_ID", "cli_a9792a1a6eb8dbc1")
-FEISHU_APP_SECRET = os.environ.get("FEISHU_APP_SECRET", "FJsPVw6eTP4duaQKiqZt2chlxXZ7o33m")
+# 飞书应用凭证（从环境变量读取）
+FEISHU_APP_ID = os.environ.get("FEISHU_APP_ID", "")
+FEISHU_APP_SECRET = os.environ.get("FEISHU_APP_SECRET", "")
 BASE_TOKEN = "G1kgbpDYlaFO8DsoTE2c3vBonBh"
 
 # 表ID映射（ArkClaw已创建）
