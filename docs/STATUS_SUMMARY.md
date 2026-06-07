@@ -13,15 +13,15 @@
 ### 1. 飞书多维表格基础设施
 - ✅ 创建「龙马集群知识中枢」多维表格
 - ✅ 5张表已创建并验证：
-  - Skill追踪 (tblqnknKfbFfLBzn)
-  - 文章发布 (tblRU0knKUahGzm5)
-  - 节点状态 (tblY6mT9YCnwrmo0)
-  - 任务看板 (tblAhofAW6ehXqKJ)
-  - 每日指标 (tblFFP8qTWOn0SAN)
-- ✅ Base Token: G1kgbpDYlaFO8DsoTE2c3vBonBh
+  - Skill追踪
+  - 文章发布
+  - 节点状态
+  - 任务看板
+  - 每日指标
+- ✅ Base Token（已脱敏，请从环境变量 `FEISHU_BASE_TOKEN` 读取）
 
 ### 2. 飞书应用权限
-- ✅ Hermes 应用（cli_a9792a1a6eb8dbc1）开通 bitable 权限
+- ✅ Hermes 应用开通 bitable 权限
 - ✅ 验证读取权限（GET /tables、GET /records）
 - ✅ 验证写入权限（POST /records、PUT /records）
 - ✅ 已写入测试数据验证
@@ -53,8 +53,14 @@
 **链接**: https://github.com/yuzhaopeng-up/financial-ai-skills/settings/secrets/actions
 **需要添加**:
 ```
-FEISHU_APP_ID = cli_a9792a1a6eb8dbc1
-FEISHU_APP_SECRET = FJsPVw6eTP4duaQKiqZt2chlxXZ7o33m
+FEISHU_APP_ID = your-app-id
+FEISHU_APP_SECRET = your-app-secret
+FEISHU_BASE_TOKEN = your-base-token
+FEISHU_TABLE_SKILL_TRACKING = your-table-id
+FEISHU_TABLE_ARTICLE_PUBLISH = your-table-id
+FEISHU_TABLE_NODE_STATUS = your-table-id
+FEISHU_TABLE_TASK_BOARD = your-table-id
+FEISHU_TABLE_DAILY_METRICS = your-table-id
 ```
 **预计时间**: 2分钟
 **影响**: GitHub Actions 无法运行直到配置完成
@@ -63,11 +69,16 @@ FEISHU_APP_SECRET = FJsPVw6eTP4duaQKiqZt2chlxXZ7o33m
 **操作**: SSH 登录服务器并编辑 ~/.bashrc
 **命令**:
 ```bash
-ssh root@175.24.131.184
 nano ~/.bashrc
 # 添加:
-export FEISHU_APP_ID="cli_a9792a1a6eb8dbc1"
-export FEISHU_APP_SECRET="FJsPVw6eTP4duaQKiqZt2chlxXZ7o33m"
+export FEISHU_APP_ID="your-app-id"
+export FEISHU_APP_SECRET="your-app-secret"
+export FEISHU_BASE_TOKEN="your-base-token"
+export FEISHU_TABLE_SKILL_TRACKING="your-table-id"
+export FEISHU_TABLE_ARTICLE_PUBLISH="your-table-id"
+export FEISHU_TABLE_NODE_STATUS="your-table-id"
+export FEISHU_TABLE_TASK_BOARD="your-table-id"
+export FEISHU_TABLE_DAILY_METRICS="your-table-id"
 source ~/.bashrc
 ```
 **预计时间**: 1分钟

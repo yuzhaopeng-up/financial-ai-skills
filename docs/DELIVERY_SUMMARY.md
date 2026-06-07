@@ -8,10 +8,10 @@
 ### 1. 飞书多维表格基础设施 ✅
 - 创建「龙马集群知识中枢」多维表格
 - 5张表：Skill追踪、文章发布、节点状态、任务看板、每日指标
-- Base Token: G1kgbpDYlaFO8DsoTE2c3vBonBh
+- Base Token（已脱敏，请从环境变量 `FEISHU_BASE_TOKEN` 读取）
 
 ### 2. 飞书应用权限 ✅
-- Hermes 应用（cli_a9792a1a6eb8dbc1）开通 bitable 权限
+- Hermes 应用开通 bitable 权限
 - 验证读取/写入权限全部通过
 
 ### 3. 自动化脚本（6个）✅

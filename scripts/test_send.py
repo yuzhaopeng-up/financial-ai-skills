@@ -8,10 +8,25 @@ import sys
 import requests
 
 # 从环境变量读取凭证（避免硬编码）
-CORP_ID = os.environ.get("WECOM_CORP_ID", "wwbdae461005eaad63")
-AGENT_ID = int(os.environ.get("WECOM_AGENT_ID", "1000005"))
+# 请设置以下环境变量：
+#   export WECOM_CORP_ID="your-corp-id"
+#   export WECOM_AGENT_ID="your-agent-id"
+#   export WECOM_SECRET="your-secret"
+#   export WECOM_USER_ID="your-user-id"
+CORP_ID = os.environ.get("WECOM_CORP_ID", "")
+AGENT_ID = int(os.environ.get("WECOM_AGENT_ID", "0"))
 SECRET = os.environ.get("WECOM_SECRET", "")
-USER_ID = os.environ.get("WECOM_USER_ID", "YuZhaoPeng")
+USER_ID = os.environ.get("WECOM_USER_ID", "")
+
+if not CORP_ID:
+    print("❌ 错误: 请设置环境变量 WECOM_CORP_ID")
+    print("   例如: export WECOM_CORP_ID='your-corp-id'")
+    sys.exit(1)
+
+if AGENT_ID == 0:
+    print("❌ 错误: 请设置环境变量 WECOM_AGENT_ID")
+    print("   例如: export WECOM_AGENT_ID='1000001'")
+    sys.exit(1)
 
 if not SECRET:
     print("❌ 错误: 请设置环境变量 WECOM_SECRET")

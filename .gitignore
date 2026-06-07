@@ -37,12 +37,23 @@ env/
 .DS_Store
 Thumbs.db
 
-# Secrets (never commit)
+# Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment variables (NEVER commit these!)
 .env
-*.pem
-*.key
-secrets.yaml
-secrets.json
+.env.local
+.env.*.local
+*.env
+
+# Sensitive data
+secrets/
+credentials/
+config.local.yaml
+config.local.yml
+config.local.json
 
 # Logs
 *.log
@@ -52,5 +63,16 @@ logs/
 tmp/
 temp/
 *.tmp
-__pycache__/
-*.pyc
+
+# Node.js (if any frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Article drafts with personal info
+articles/drafts/
+
+# Backup files
+*.bak
+*.backup

@@ -5,7 +5,7 @@
 
 ## 来源
 CodeBuddy 提交的 `wecom-template-card` Skill
-仓库: yuzhaopeng-up/openclaw-workspace (私有)
+来源: 内部开发仓库（已脱敏处理）
 
 ## 代码检查结果
 

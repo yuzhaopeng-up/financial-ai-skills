@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 龙马集群知识中枢 - 飞书多维表格自动写入器
-app_token: G1kgbpDYlaFO8DsoTE2c3vBonBh
 
 使用 Hermes 飞书应用凭证（已开通 bitable 权限）
 """
@@ -10,18 +9,27 @@ import requests
 from datetime import datetime
 from typing import Dict, List, Optional
 
-# 飞书应用凭证（从环境变量读取）
+# 飞书多维表格配置（从环境变量读取，避免硬编码）
+# 请设置以下环境变量：
+#   export FEISHU_APP_ID="your-app-id"
+#   export FEISHU_APP_SECRET="your-app-secret"
+#   export FEISHU_BASE_TOKEN="your-base-token"
+#   export FEISHU_TABLE_SKILL_TRACKING="your-table-id"
+#   export FEISHU_TABLE_ARTICLE_PUBLISH="your-table-id"
+#   export FEISHU_TABLE_NODE_STATUS="your-table-id"
+#   export FEISHU_TABLE_TASK_BOARD="your-table-id"
+#   export FEISHU_TABLE_DAILY_METRICS="your-table-id"
 FEISHU_APP_ID = os.environ.get("FEISHU_APP_ID", "")
 FEISHU_APP_SECRET = os.environ.get("FEISHU_APP_SECRET", "")
-BASE_TOKEN = "G1kgbpDYlaFO8DsoTE2c3vBonBh"
+BASE_TOKEN = os.environ.get("FEISHU_BASE_TOKEN", "")
 
-# 表ID映射（ArkClaw已创建）
+# 表ID映射（从环境变量读取）
 TABLE_IDS = {
-    "skill_tracking": "tblqnknKfbFfLBzn",      # Skill追踪
-    "article_publish": "tblRU0knKUahGzm5",      # 文章发布
-    "node_status": "tblY6mT9YCnwrmo0",          # 节点状态
-    "task_board": "tblAhofAW6ehXqKJ",           # 任务看板
-    "daily_metrics": "tblFFP8qTWOn0SAN",        # 每日指标
+    "skill_tracking": os.environ.get("FEISHU_TABLE_SKILL_TRACKING", ""),
+    "article_publish": os.environ.get("FEISHU_TABLE_ARTICLE_PUBLISH", ""),
+    "node_status": os.environ.get("FEISHU_TABLE_NODE_STATUS", ""),
+    "task_board": os.environ.get("FEISHU_TABLE_TASK_BOARD", ""),
+    "daily_metrics": os.environ.get("FEISHU_TABLE_DAILY_METRICS", ""),
 }
 
 
@@ -29,6 +37,8 @@ class FeishuBaseWriter:
     """飞书多维表格写入器"""
     
     def __init__(self):
+        if not BASE_TOKEN:
+            raise ValueError("请设置环境变量 FEISHU_BASE_TOKEN")
         self.app_token = BASE_TOKEN
         self.tenant_access_token = self._get_tenant_access_token()
     
@@ -239,8 +249,8 @@ def record_daily_summary() -> dict:
 if __name__ == "__main__":
     # 测试写入
     print("=== 飞书多维表格写入器测试 ===")
-    print(f"App ID: {FEISHU_APP_ID}")
-    print(f"Base Token: {BASE_TOKEN}")
+    print(f"App ID: {FEISHU_APP_ID[:10] if FEISHU_APP_ID else '未设置'}...")
+    print(f"Base Token: {BASE_TOKEN[:10] if BASE_TOKEN else '未设置'}...")
     print()
     
     try:

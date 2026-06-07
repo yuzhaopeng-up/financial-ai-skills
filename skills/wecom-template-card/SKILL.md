@@ -67,8 +67,8 @@ from wecom_card_builder import send_template_card
 
 result = await send_template_card(
     access_token="YOUR_TOKEN",
-    to_user="YuZhaoPeng",
-    agent_id=1000005,
+    to_user="USER_ID",
+    agent_id=AGENT_ID,
     card=card
 )
 ```
@@ -114,13 +114,13 @@ async def main():
         score=95,
         change_percent=-0.45,
         sentiment="正面",
-        h5_url="http://175.24.131.184:8080/dd-report?company=贵州茅台&code=600519"
+        h5_url="http://your-domain.com/dd-report?company=贵州茅台&code=600519"
     )
     
     result = await send_template_card(
         access_token=await get_token(),
-        to_user="YuZhaoPeng",
-        agent_id=1000005,
+        to_user="USER_ID",
+        agent_id=AGENT_ID,
         card=card
     )
     print(result)

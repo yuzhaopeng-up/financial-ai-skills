@@ -5,10 +5,10 @@
 ### 1. 飞书多维表格
 - [x] 创建「龙马集群知识中枢」多维表格
 - [x] 创建5张表：Skill追踪、文章发布、节点状态、任务看板、每日指标
-- [x] 获取 Base Token: `G1kgbpDYlaFO8DsoTE2c3vBonBh`
+- [x] 获取 Base Token（已脱敏，请从环境变量 `FEISHU_BASE_TOKEN` 读取）
 
 ### 2. 飞书应用权限
-- [x] Hermes 应用（cli_a9792a1a6eb8dbc1）开通 bitable 权限
+- [x] Hermes 应用开通 bitable 权限
 - [x] 验证读取权限（GET /tables、GET /records）
 - [x] 验证写入权限（POST /records、PUT /records）
 
@@ -34,20 +34,30 @@
 https://github.com/yuzhaopeng-up/financial-ai-skills/settings/secrets/actions
 ```
 
-- [ ] **FEISHU_APP_ID** = `cli_a9792a1a6eb8dbc1`
-- [ ] **FEISHU_APP_SECRET** = `FJsPVw6eTP4duaQKiqZt2chlxXZ7o33m`
+- [ ] **FEISHU_APP_ID** = `your-app-id`
+- [ ] **FEISHU_APP_SECRET** = `your-app-secret`
+- [ ] **FEISHU_BASE_TOKEN** = `your-base-token`
+- [ ] **FEISHU_TABLE_SKILL_TRACKING** = `your-table-id`
+- [ ] **FEISHU_TABLE_ARTICLE_PUBLISH** = `your-table-id`
+- [ ] **FEISHU_TABLE_NODE_STATUS** = `your-table-id`
+- [ ] **FEISHU_TABLE_TASK_BOARD** = `your-table-id`
+- [ ] **FEISHU_TABLE_DAILY_METRICS** = `your-table-id`
 
 ### 2. 服务器环境变量（必须）
 SSH 登录服务器后执行：
 ```bash
-ssh root@175.24.131.184
-
 # 编辑环境变量
 nano ~/.bashrc
 
 # 添加以下行
-export FEISHU_APP_ID="cli_a9792a1a6eb8dbc1"
-export FEISHU_APP_SECRET="FJsPVw6eTP4duaQKiqZt2chlxXZ7o33m"
+export FEISHU_APP_ID="your-app-id"
+export FEISHU_APP_SECRET="your-app-secret"
+export FEISHU_BASE_TOKEN="your-base-token"
+export FEISHU_TABLE_SKILL_TRACKING="your-table-id"
+export FEISHU_TABLE_ARTICLE_PUBLISH="your-table-id"
+export FEISHU_TABLE_NODE_STATUS="your-table-id"
+export FEISHU_TABLE_TASK_BOARD="your-table-id"
+export FEISHU_TABLE_DAILY_METRICS="your-table-id"
 
 # 生效
 source ~/.bashrc

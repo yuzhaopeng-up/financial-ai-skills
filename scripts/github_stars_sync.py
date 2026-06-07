@@ -39,7 +39,10 @@ def sync_stars_to_feishu(repo_full_name: str) -> dict:
     writer = FeishuBaseWriter()
     
     # 先搜索是否已有记录
-    table_id = "tblqnknKfbFfLBzn"  # Skill追踪表
+    table_id = os.environ.get("FEISHU_TABLE_SKILL_TRACKING", "")
+    if not table_id:
+        print("   ⚠️ FEISHU_TABLE_SKILL_TRACKING 未设置，跳过飞书同步")
+        return {"code": 0, "msg": "skipped"}
     search_result = writer._request("POST", f"/{table_id}/records/search", json={
         "filter": {
             "conjunction": "and",

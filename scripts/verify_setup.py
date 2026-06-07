@@ -70,7 +70,11 @@ def check_tables(token):
     print("🔍 检查多维表格访问")
     print("=" * 60)
     
-    base_token = "G1kgbpDYlaFO8DsoTE2c3vBonBh"
+    base_token = os.environ.get("FEISHU_BASE_TOKEN", "")
+    if not base_token:
+        print(f"{RED}❌ FEISHU_BASE_TOKEN 未设置{RESET}")
+        return False
+    
     headers = {"Authorization": f"Bearer {token}"}
     
     try:
@@ -99,8 +103,16 @@ def check_write(token):
     print("🔍 检查写入权限")
     print("=" * 60)
     
-    base_token = "G1kgbpDYlaFO8DsoTE2c3vBonBh"
-    table_id = "tblY6mT9YCnwrmo0"  # 节点状态表
+    base_token = os.environ.get("FEISHU_BASE_TOKEN", "")
+    table_id = os.environ.get("FEISHU_TABLE_NODE_STATUS", "")
+    
+    if not base_token:
+        print(f"{RED}❌ FEISHU_BASE_TOKEN 未设置{RESET}")
+        return False
+    if not table_id:
+        print(f"{RED}❌ FEISHU_TABLE_NODE_STATUS 未设置{RESET}")
+        return False
+    
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     
     try:
