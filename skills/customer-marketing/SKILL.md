@@ -1,7 +1,7 @@
 ---
 name: customer-marketing
 description: "Financial AI Skill - 客户经理营销话术实时生成器。输入客户画像和营销目标，AI自动生成电话/微信/拜访话术，支持异议处理预演、方言适配、多风格切换。覆盖零售/对公/理财/私行/信用卡全营销岗位。"
-version: 1.0.0
+version: 1.1.0
 author: Financial AI Community
 license: MIT
 metadata:
@@ -28,6 +28,7 @@ prerequisites:
 | **风格切换** | 风格、语气、正式 | 支持正式/亲和/专业/简洁多种风格 |
 | **方言适配** | 方言、本地化 | 支持粤语/闽南语/四川话等方言话术（文本版） |
 | **场景模板** | 场景、模板 | 开户/贷款/理财/信用卡等预置场景模板 |
+| **扩展模板库 (v1.1)** | - | templates/ 目录提供 10 个开场白 + 10 个产品话术 + 10 个异议 + 5 同业案例可直接调用 |
 
 ## 二、快速开始
 
@@ -230,3 +231,67 @@ customer-marketing/
 ---
 
 *金融AI技能库 | MIT License | 由龙马集群六节点协同开发*
+
+---
+
+## 十、v1.1 扩展模板库（2026-06-07 新增）
+
+`templates/` 目录新增四份开箱即用的话术资产：
+
+### `templates/opening_templates.json` — 10 个场景开场白
+| ID | 场景 | 渠道 |
+|----|------|------|
+| OPEN-001 | 新客户首次电话 | phone |
+| OPEN-002 | 存量客户回访 | phone |
+| OPEN-003 | 微信首次触达 | wechat |
+| OPEN-004 | 节假日问候 | wechat |
+| OPEN-005 | 高净值面访 | face-to-face |
+| OPEN-006 | 潜在客户陌拜 | phone |
+| OPEN-007 | 客户流失预警 | phone |
+| OPEN-008 | 小微企业主电话 | phone |
+| OPEN-009 | 理财到期续作 | wechat |
+| OPEN-010 | 新产品上线推介 | sms |
+
+### `templates/product_templates.json` — 10 个产品介绍话术
+覆盖：大额存单、基金定投、信用卡白金卡、小微企业贷、家族信托、重疾险、教育金保险、私行理财、QDII海外基金、黄金积存。每条包含核心价值、目标客户、适配场景、异议预案、Closing hook。
+
+### `templates/objection_templates.json` — 10 个异议应答
+| ID | 异议类型 |
+|----|---------|
+| OBJ-001 | 收益太低/对比同业 |
+| OBJ-002 | 我再考虑考虑 |
+| OBJ-003 | 资金紧张 |
+| OBJ-004 | 怕亏钱/担心风险 |
+| OBJ-005 | 我自己投资就好 |
+| OBJ-006 | 费用太贵 |
+| OBJ-007 | 对你们行不了解 |
+| OBJ-008 | 等卖了房子再说 |
+| OBJ-009 | 需要家人同意 |
+| OBJ-010 | 不要再联系我了 |
+
+### `templates/peer_cases.json` — 5 个同业最佳实践案例
+- **招商银行** — 私行 + 智谱AI投顾（NPS+18 points）
+- **平安银行** — 知鸟 AI 信贷工厂（审批 3 天 → 10 分钟）
+- **工商银行** — 工银智涌反欺诈大模型（日拦截 50 万笔）
+- **建设银行** — 惠懂你 310 模式（累计放款 2 万亿）
+- **网商银行** — 310模式AI小微贷（5300 万户、不良率 1.5%）
+
+附 cross_cases_insights：4 项共性成功因素 + 4 项常见陷阱。
+
+### Python 调用示例
+
+```python
+import json, os
+path = os.path.expanduser("~/.hermes/skills/customer-marketing/templates")
+opens = json.load(open(f"{path}/opening_templates.json"))
+products = json.load(open(f"{path}/product_templates.json"))
+objections = json.load(open(f"{path}/objection_templates.json"))
+cases = json.load(open(f"{path}/peer_cases.json"))
+
+# 找到匹配的开场白
+for s in opens["scenarios"]:
+    if "高净值" in str(s.get("best_for")):
+        print(s["templates"][0])
+        break
+```
+
