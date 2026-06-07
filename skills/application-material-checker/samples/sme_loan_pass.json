@@ -1,0 +1,57 @@
+{
+  "scenario": "sme_loan",
+  "case_name": "小微贷款 - 正常通过样本",
+  "documents": [
+    {
+      "doc_type": "business_license",
+      "file_name": "营业执照.pdf",
+      "fields": {
+        "uscc": "91110108MA01ABCDXY",
+        "company_name": "北京启航科技有限公司",
+        "legal_person": "张三",
+        "registered_capital": "100万元",
+        "establish_date": "2022-03-15",
+        "business_scope": "技术开发、技术咨询、计算机软硬件"
+      }
+    },
+    {
+      "doc_type": "legal_id_card",
+      "file_name": "法人身份证.jpg",
+      "fields": {
+        "id_no": "110108198501012345",
+        "name": "张三",
+        "valid_to": "2030-12-31"
+      }
+    },
+    {
+      "doc_type": "bank_statement",
+      "file_name": "12个月对公流水.pdf",
+      "fields": {
+        "account_no": "6225885511112222",
+        "period_start": "2025-06-01",
+        "period_end": "2026-06-01",
+        "total_credit": "8650000.00",
+        "total_debit": "7920000.00"
+      }
+    },
+    {
+      "doc_type": "tax_payment_record",
+      "file_name": "纳税记录.pdf",
+      "fields": {
+        "tax_no": "91110108MA01ABCDXY",
+        "amount": "182350.00",
+        "period": "2025"
+      }
+    },
+    {
+      "doc_type": "loan_application",
+      "file_name": "贷款申请表.pdf",
+      "fields": {
+        "amount": "1000000",
+        "purpose": "用于公司原材料采购及运营周转",
+        "term_months": 12,
+        "applicant": "张三"
+      }
+    }
+  ]
+}

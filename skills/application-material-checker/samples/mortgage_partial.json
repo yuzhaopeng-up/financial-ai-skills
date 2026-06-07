@@ -1,0 +1,52 @@
+{
+  "scenario": "personal_mortgage",
+  "case_name": "个人房贷 - 已婚未提交配偶证件+首付不足",
+  "documents": [
+    {
+      "doc_type": "id_card",
+      "fields": {
+        "id_no": "110108198803053456",
+        "name": "李华",
+        "valid_to": "2028-06-30"
+      }
+    },
+    {
+      "doc_type": "marriage_certificate",
+      "fields": {
+        "status": "married"
+      }
+    },
+    {
+      "doc_type": "income_proof",
+      "fields": {
+        "monthly_income": "35000",
+        "employer": "腾讯科技（北京）有限公司",
+        "issued_date": "2026-05-20"
+      }
+    },
+    {
+      "doc_type": "bank_statement",
+      "fields": {
+        "period_start": "2025-06-01",
+        "period_end": "2026-06-01",
+        "avg_monthly_credit": "32000"
+      }
+    },
+    {
+      "doc_type": "purchase_contract",
+      "fields": {
+        "property_address": "北京市朝阳区望京中环路1号",
+        "total_price": "6000000",
+        "buyer_name": "李华",
+        "signature_date": "2026-05-15"
+      }
+    },
+    {
+      "doc_type": "down_payment_proof",
+      "fields": {
+        "amount": "1200000",
+        "payment_date": "2026-05-20"
+      }
+    }
+  ]
+}

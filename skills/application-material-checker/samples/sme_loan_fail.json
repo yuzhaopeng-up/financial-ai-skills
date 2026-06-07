@@ -1,0 +1,42 @@
+{
+  "scenario": "sme_loan",
+  "case_name": "小微贷款 - 多问题样本（缺失+过期+用途违规+流水不足）",
+  "documents": [
+    {
+      "doc_type": "business_license",
+      "fields": {
+        "uscc": "91110108MA01ABCDXY",
+        "company_name": "北京启航科技有限公司",
+        "legal_person": "张三",
+        "establish_date": "2025-09-01"
+      }
+    },
+    {
+      "doc_type": "legal_id_card",
+      "fields": {
+        "id_no": "110108198501012345",
+        "name": "张四",
+        "valid_to": "2024-01-01"
+      }
+    },
+    {
+      "doc_type": "bank_statement",
+      "fields": {
+        "account_no": "6225885511112222",
+        "period_start": "2026-01-01",
+        "period_end": "2026-06-01",
+        "total_credit": "320000.00",
+        "total_debit": "298000.00"
+      }
+    },
+    {
+      "doc_type": "loan_application",
+      "fields": {
+        "amount": "6800000",
+        "purpose": "购买商业房地产并部分用于股市投资",
+        "term_months": 24,
+        "applicant": "张三"
+      }
+    }
+  ]
+}

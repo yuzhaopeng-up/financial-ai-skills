@@ -1,0 +1,17 @@
+[
+  {"q": "金葵花理财起购金额是多少", "expected_product": "招行金葵花理财", "expected_section": "申购"},
+  {"q": "金葵花赎回到账时间", "expected_product": "招行金葵花理财", "expected_section": "申购"},
+  {"q": "金葵花客户准入资产门槛", "expected_product": "招行金葵花理财", "expected_section": "申购起点"},
+  {"q": "金葵花理财风险等级有哪些", "expected_product": "招行金葵花理财", "expected_section": "风险"},
+  {"q": "金葵花投资收益要不要交个人所得税", "expected_product": "招行金葵花理财", "expected_section": "税务"},
+  {"q": "平安白金卡年费多少", "expected_product": "平安信用卡白金卡", "expected_section": "年费"},
+  {"q": "平安白金卡积分多久过期", "expected_product": "平安信用卡白金卡", "expected_section": "积分"},
+  {"q": "平安白金卡机场贵宾厅次数", "expected_product": "平安信用卡白金卡", "expected_section": "出行"},
+  {"q": "平安白金卡逾期还款怎么算违约金", "expected_product": "平安信用卡白金卡", "expected_section": "还款"},
+  {"q": "平安白金卡航空意外险保额", "expected_product": "平安信用卡白金卡", "expected_section": "保险"},
+  {"q": "建行惠懂你最高额度是多少", "expected_product": "建行惠懂你小微贷", "expected_section": "产品要素"},
+  {"q": "建行惠懂你贷款利率多少", "expected_product": "建行惠懂你小微贷", "expected_section": "产品要素"},
+  {"q": "建行惠懂你申请需要什么材料", "expected_product": "建行惠懂你小微贷", "expected_section": "材料"},
+  {"q": "建行惠懂你 310 模式具体是什么", "expected_product": "建行惠懂你小微贷", "expected_section": "申请流程"},
+  {"q": "建行惠懂你贷款资金可以买股票吗", "expected_product": "建行惠懂你小微贷", "expected_section": "风控"}
+]

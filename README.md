@@ -98,6 +98,9 @@ print(formatter.format_enterprise_risk(result))
 | [wealth-management](skills/wealth-management/) | 8 | 资产配置、财务健康、退休规划、保险规划、税务优化、教育金、房产规划、智能投顾 | ✅ 已发布 |
 | [risk-compliance](skills/risk-compliance/) | 9 | 企业风险评估、信用评级、反欺诈、合规检查、财务诊断、监管政策、贷后监控、产业链风险、市场情绪 | ✅ 已发布 |
 | [wecom-template-card](skills/wecom-template-card/) | 5 | 尽调摘要卡、行情快讯卡、风险预警卡、图文报告卡、交互确认卡 | ✅ 已发布 |
+| [customer-marketing](skills/customer-marketing/) | 18 | 客户经理营销话术生成、异议处理、多风格适配、方言话术 | ✅ 已发布 |
+| [product-manual-rag](skills/product-manual-rag/) ⭐ | 3+ | 产品手册智能问答（BM25+TF-IDF 双路 RAG）、出处标注、产品自动识别、Hit@1=100% | ✅ P0-2 新发布 |
+| [application-material-checker](skills/application-material-checker/) ⭐ | 3 | 进件材料自动核对、完整性+合规性检查、18 条业务规则、4 种报告格式 | ✅ P0-3 新发布 |
 
 ---
 
