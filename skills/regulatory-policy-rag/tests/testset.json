@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "question": "理财销售双录要求是什么？",
+    "expected_section": "双录要求",
+    "agency": "cbirc"
+  },
+  {
+    "id": 2,
+    "question": "金融资产风险分类分为哪几类？",
+    "expected_section": "风险分类",
+    "agency": "cbirc"
+  },
+  {
+    "id": 3,
+    "question": "客户身份资料要保存多久？",
+    "expected_section": "资料保存",
+    "agency": "pboc"
+  },
+  {
+    "id": 4,
+    "question": "年度报告什么时候披露？",
+    "expected_section": "年度报告",
+    "agency": "csrc"
+  },
+  {
+    "id": 5,
+    "question": "高风险客户采取哪些强化措施？",
+    "expected_section": "高风险客户",
+    "agency": "pboc"
+  },
+  {
+    "id": 6,
+    "question": "可疑交易要报告吗？",
+    "expected_section": "可疑交易",
+    "agency": "pboc"
+  },
+  {
+    "id": 7,
+    "question": "重组资产观察期多久？",
+    "expected_section": "重组观察期",
+    "agency": "cbirc"
+  },
+  {
+    "id": 8,
+    "question": "重大事件披露时限是多少？",
+    "expected_section": "披露程序",
+    "agency": "csrc"
+  },
+  {
+    "id": 9,
+    "question": "理财销售录音录像保存几年？",
+    "expected_section": "双录保存",
+    "agency": "cbirc"
+  },
+  {
+    "id": 10,
+    "question": "风险分类频率是多久一次？",
+    "expected_section": "分类频率",
+    "agency": "cbirc"
+  },
+  {
+    "id": 11,
+    "question": "次级类资产的定义是什么？",
+    "expected_section": "次级类",
+    "agency": "cbirc"
+  },
+  {
+    "id": 12,
+    "question": "半年报披露时限是多久？",
+    "expected_section": "半年度报告",
+    "agency": "csrc"
+  },
+  {
+    "id": 13,
+    "question": "客户初次尽职调查包括哪些内容？",
+    "expected_section": "初次调查",
+    "agency": "pboc"
+  },
+  {
+    "id": 14,
+    "question": "信息披露的基本原则是什么？",
+    "expected_section": "信息披露原则",
+    "agency": "csrc"
+  },
+  {
+    "id": 15,
+    "question": "销售人员需要什么资质？",
+    "expected_section": "资质要求",
+    "agency": "cbirc"
+  }
+]
