@@ -34,14 +34,14 @@ prerequisites:
 
 ### 文字输入
 ```
-纪要生成 今天上午调研宁德时代关于储能业务的情况
-纪要 招商银行零售业务交流会 老张/老李参会
+纪要生成 今天上午调研某新能源公司关于储能业务的情况
+纪要 某银行A零售业务交流会 老张/老李参会
 ```
 
 ### 音频文件路径输入（模拟语音转文字）
 ```
 python3 scripts/minutes_cli.py generate "语音转文字 会议录音.wav"
-python3 scripts/minutes_cli.py generate "实地调研_宁德时代_20240601.mp3"
+python3 scripts/minutes_cli.py generate "实地调研_某新能源公司_20240601.mp3"
 python3 scripts/minutes_cli.py generate "策略会演讲记录.m4a"
 ```
 
@@ -56,7 +56,7 @@ python3 scripts/minutes_cli.py generate "策略会演讲记录.m4a"
   "title": "日期 公司 会议类型纪要",
   "meeting_type": "实地调研",          // 原始会议类型
   "meeting_category": "实地调研",       // 标准分类：策略会/业绩会/实地调研/电话会议/投资者日/交流会
-  "company": "宁德时代",
+  "company": "某新能源公司",
   "date": "2024年6月1日",
   "core_topics": ["储能业务", "海外业务", "竞争格局"],
   "sentiment_analysis": {              // 情感分析结果
@@ -78,7 +78,7 @@ python3 scripts/minutes_cli.py generate "策略会演讲记录.m4a"
     {"signal": "...", "type": "竞争风险", "severity": "中"}
   ],
   "competitor_info": [                 // 竞品信息
-    {"company": "比亚迪", "ticker": "BYD", "context_sentiment": "中性"}
+    {"company": "某汽车公司", "ticker": "BYD", "context_sentiment": "中性"}
   ],
   "industry_data": [                   // 行业数据
     {"data": "行业规模约2000亿元", "type": "市场规模", "context": "..."}

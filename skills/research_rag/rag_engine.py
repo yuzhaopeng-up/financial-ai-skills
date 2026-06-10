@@ -53,7 +53,7 @@ class Chunk:
     """知识块。"""
     chunk_id: str
     source_type: str           # "industry" | "company" | "report"
-    source_name: str           # "新能源" | "宁德时代" | "研报_XXX"
+    source_name: str           # "新能源" | "某新能源公司" | "研报_XXX"
     section: str               # "行业趋势" | "公司基本面" | "财务" | "风险" | ...
     content: str               # 原始文本
     tokens: List[str] = field(default_factory=list)   # 分词结果
@@ -460,8 +460,8 @@ def generate_answer(query: str, results: List[SearchResult]) -> str:
 
     # 判断查询类型
     is_company_query = any(
-        kw in query for kw in ["公司", "企业", "龙头", "宁德", "比亚迪",
-                               "招商银行", "贵州茅台", "宝钢"]
+        kw in query for kw in ["公司", "企业", "龙头", "宁德", "某汽车公司",
+                               "某银行A", "某白酒公司", "宝钢"]
     )
     is_industry_query = any(
         kw in query for kw in ["行业", "趋势", "市场", "赛道"]
@@ -691,7 +691,7 @@ class ResearchRAGEngine:
         主入口：接收用户查询，返回带引用的答案。
 
         Args:
-            user_query: 自然语言查询，例如 "宁德时代储能业务竞争力分析"
+            user_query: 自然语言查询，例如 "某新能源公司储能业务竞争力分析"
         """
         # 检索
         results = self.search(user_query)

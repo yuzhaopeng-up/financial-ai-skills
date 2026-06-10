@@ -35,7 +35,7 @@ HISTORICAL_CASES: List[Dict[str, Any]] = [
     },
     {
         "id": "case_002",
-        "stock": "中信证券",
+        "stock": "某券商A",
         "seller": "公募基金",
         "buyer": "产业资本",
         "buyer_type": "机构",
@@ -49,7 +49,7 @@ HISTORICAL_CASES: List[Dict[str, Any]] = [
     },
     {
         "id": "case_003",
-        "stock": "招商银行",
+        "stock": "某银行A",
         "seller": "大股东",
         "buyer": "养老金",
         "buyer_type": "机构",
@@ -63,7 +63,7 @@ HISTORICAL_CASES: List[Dict[str, Any]] = [
     },
     {
         "id": "case_004",
-        "stock": "中国平安",
+        "stock": "某保险集团",
         "seller": "大股东",
         "buyer": "员工持股计划",
         "buyer_type": "大股东",
@@ -77,7 +77,7 @@ HISTORICAL_CASES: List[Dict[str, Any]] = [
     },
     {
         "id": "case_005",
-        "stock": "宁德时代",
+        "stock": "某新能源公司",
         "seller": "财务投资者",
         "buyer": "产业链资本",
         "buyer_type": "机构",
@@ -91,7 +91,7 @@ HISTORICAL_CASES: List[Dict[str, Any]] = [
     },
     {
         "id": "case_006",
-        "stock": "比亚迪股份",
+        "stock": "某汽车公司股份",
         "seller": "定增机构",
         "buyer": "私募基金",
         "buyer_type": "私募",
@@ -161,7 +161,7 @@ HISTORICAL_CASES: List[Dict[str, Any]] = [
     },
     {
         "id": "case_011",
-        "stock": "中国人保",
+        "stock": "某财险公司",
         "seller": "社保基金",
         "buyer": "保险资管",
         "buyer_type": "机构",
@@ -283,12 +283,12 @@ BUYER_TYPE_MAP = {
 # 默认收盘价（当未提供时使用模拟值）
 DEFAULT_SIMULATED_CLOSING_PRICES: Dict[str, float] = {
     "某股票": 12.0,
-    "贵州茅台": 1850.0,
-    "宁德时代": 440.0,
-    "比亚迪": 300.0,
-    "中信证券": 22.5,
-    "招商银行": 35.2,
-    "中国平安": 49.0,
+    "某白酒公司": 1850.0,
+    "某新能源公司": 440.0,
+    "某汽车公司": 300.0,
+    "某券商A": 22.5,
+    "某银行A": 35.2,
+    "某保险集团": 49.0,
     "万科A": 20.0,
 }
 

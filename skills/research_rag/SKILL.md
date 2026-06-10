@@ -10,7 +10,7 @@ metadata:
     related_skills: [research-report, financial-intelligence]
     coverage:
       industries: [新能源, 金融, 半导体, 医药, 消费, 汽车, 通用]
-      companies: [宁德时代, 比亚迪, 招商银行, 贵州茅台, 宝钢股份]
+      companies: [某新能源公司, 某汽车公司, 某银行A, 某白酒公司, 某钢铁公司]
 prerequisites:
   commands: [python3]
 ---
@@ -46,8 +46,8 @@ prerequisites:
 cd /tmp/financial-ai-skills/skills/research_rag
 
 # CLI 查询（单轮）
-python3 scripts/rag_cli.py query "研报RAG 宁德时代 储能业务竞争力分析"
-python3 scripts/rag_cli.py query "招商银行净息差走势" --format json
+python3 scripts/rag_cli.py query "研报RAG 某新能源公司 储能业务竞争力分析"
+python3 scripts/rag_cli.py query "某银行A净息差走势" --format json
 
 # 多轮对话（交互式）
 python3 scripts/rag_cli.py chat
@@ -64,7 +64,7 @@ python3 scripts/rag_cli.py search "新能源储能"
 复用 `research-report` skill 的行业公司数据：
 
 - **行业维度**：新能源 / 金融 / 半导体 / 医药 / 消费 / 汽车 / 通用
-- **公司维度**：宁德时代 / 比亚迪 / 招商银行 / 贵州茅台 / 宝钢股份
+- **公司维度**：某新能源公司 / 某汽车公司 / 某银行A / 某白酒公司 / 某钢铁公司
 - **章节维度**：行业趋势 / 增长驱动 / 龙头公司 / 关键指标 / 风险提示 / 护城河 / 公司亮点 / 公司风险
 
 ## 五、检索流程
@@ -91,23 +91,23 @@ RAGAnswer（含 citations / sources / conversation_turns）
 from research_rag import ResearchRAGEngine, query
 
 # 单次查询
-answer = query("宁德时代储能业务竞争力分析")
+answer = query("某新能源公司储能业务竞争力分析")
 print(answer.answer)
 for c in answer.citations:
     print(f"[{c.source_type}] {c.source_name} · {c.section}")
 
 # 多轮对话
 eng = ResearchRAGEngine(max_turns=3)
-ans1 = eng.query("宁德时代储能业务如何？")
-ans2 = eng.query("那和比亚迪比呢？")   # 自动带入历史上下文
+ans1 = eng.query("某新能源公司储能业务如何？")
+ans2 = eng.query("那和某汽车公司比呢？")   # 自动带入历史上下文
 ```
 
 ## 七、输出格式
 
 ```
-🏢 **宁德时代** 关键信息：
+🏢 **某新能源公司** 关键信息：
   • 护城河：全球动力电池龙头(37%全球市占率)...
   • 主营业务：动力电池|储能电池|电池材料
   • 近期亮点：储能业务高速增长|海外建厂...
-  ⚠️ 关注风险：国内竞争加剧(比亚迪/中创新航)...
+  ⚠️ 关注风险：国内竞争加剧(某汽车公司/中创新航)...
 ```

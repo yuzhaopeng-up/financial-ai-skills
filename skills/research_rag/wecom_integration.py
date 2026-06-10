@@ -41,13 +41,13 @@ def _build_source_buttons(sources: List[str]) -> List[Dict[str, str]]:
     btns = []
     for src in sources[:3]:
         if "宁德" in src:
-            btns.append({"text": "🔋 宁德时代详情", "action_url": "/research/company/catl"})
-        elif "比亚迪" in src:
-            btns.append({"text": "🚗 比亚迪详情", "action_url": "/research/company/byd"})
-        elif "招商银行" in src:
-            btns.append({"text": "🏦 招商银行详情", "action_url": "/research/company/cmb"})
-        elif "贵州茅台" in src:
-            btns.append({"text": "🍶 贵州茅台详情", "action_url": "/research/company/moutai"})
+            btns.append({"text": "🔋 某新能源公司详情", "action_url": "/research/company/catl"})
+        elif "某汽车公司" in src:
+            btns.append({"text": "🚗 某汽车公司详情", "action_url": "/research/company/byd"})
+        elif "某银行A" in src:
+            btns.append({"text": "🏦 某银行A详情", "action_url": "/research/company/cmb"})
+        elif "某白酒公司" in src:
+            btns.append({"text": "🍶 某白酒公司详情", "action_url": "/research/company/moutai"})
         else:
             btns.append({"text": f"📊 查看{src}", "action_url": "/research/list"})
     return btns
@@ -122,7 +122,7 @@ def rag_to_wecom_card_interactive(answer: RAGAnswer) -> Dict[str, Any]:
     """
     # 判断查询类型
     q = answer.query
-    is_company = any(k in q for k in ["公司", "宁德", "比亚迪", "招商", "茅台"])
+    is_company = any(k in q for k in ["公司", "宁德", "某汽车公司", "招商", "茅台"])
     is_industry = any(k in q for k in ["行业", "趋势", "赛道", "市场"])
     is_risk = any(k in q for k in ["风险", "危机", "隐患"])
     is_metric = any(k in q for k in ["指标", "估值", "财务", "ROE"])
@@ -187,16 +187,16 @@ def build_home_card() -> Dict[str, Any]:
         "button_list": [
             {"text": "💬 输入研究问题", "action_url": "/research/rag/input"},
             {"text": "📚 浏览知识库", "action_url": "/research/rag/knowledge"},
-            {"text": "🔋 宁德时代", "action_url": "/research/rag/search?query=宁德时代"},
-            {"text": "🏦 招商银行", "action_url": "/research/rag/search?query=招商银行"},
+            {"text": "🔋 某新能源公司", "action_url": "/research/rag/search?query=某新能源公司"},
+            {"text": "🏦 某银行A", "action_url": "/research/rag/search?query=某银行A"},
         ],
         "quote_area": {
             "title": "💡 示例问题",
             "quote_text": (
-                "宁德时代储能业务竞争力分析\n"
-                "招商银行净息差走势与风险\n"
+                "某新能源公司储能业务竞争力分析\n"
+                "某银行A净息差走势与风险\n"
                 "半导体行业国产替代进展\n"
-                "比亚迪和特斯拉对比"
+                "某汽车公司和特斯拉对比"
             ),
         },
     }
@@ -212,7 +212,7 @@ if __name__ == "__main__":
 
     print("\n=== 示例查询卡片 ===")
     from rag_engine import query
-    ans = query("宁德时代储能业务竞争力分析")
+    ans = query("某新能源公司储能业务竞争力分析")
     print("\n--- 基础卡片 ---")
     print(json.dumps(rag_to_wecom_card(ans), ensure_ascii=False, indent=2))
     print("\n--- 交互卡片 ---")
