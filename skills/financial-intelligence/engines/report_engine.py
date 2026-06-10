@@ -53,7 +53,7 @@ class ReportEngine:
                 "rd": 1,
             }
         },
-        "招商银行": {
+        "某股份制银行A": {
             "year": 2025,
             "period": "年报",
             "revenue": 331000000000,

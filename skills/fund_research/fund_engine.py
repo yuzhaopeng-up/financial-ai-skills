@@ -217,7 +217,7 @@ def generate_top_holdings(fund_name: str, fund_type: str) -> List[Dict]:
     holdings_pool = [
         {"name": "贵州茅台", "code": "600519.SH", "industry": "食品饮料", "weight": "8-10%"},
         {"name": "宁德时代", "code": "300750.SZ", "industry": "新能源", "weight": "6-8%"},
-        {"name": "招商银行", "code": "600036.SH", "industry": "银行", "weight": "5-7%"},
+        {"name": "某股份制银行A", "code": "600036.SH", "industry": "银行", "weight": "5-7%"},
         {"name": "比亚迪", "code": "002594.SZ", "industry": "汽车", "weight": "4-6%"},
         {"name": "中国平安", "code": "601318.SH", "industry": "保险", "weight": "4-6%"},
         {"name": "五粮液", "code": "000858.SZ", "industry": "食品饮料", "weight": "3-5%"},
