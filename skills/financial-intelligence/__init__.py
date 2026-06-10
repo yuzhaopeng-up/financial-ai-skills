@@ -1,0 +1,1 @@
+"""financial-intelligence Skill Package."""
