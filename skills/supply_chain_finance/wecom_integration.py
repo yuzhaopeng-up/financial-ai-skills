@@ -2,7 +2,7 @@
 企微（WeCom / 企业微信）集成模块
 用于将供应链金融方案以卡片形式推送到企业微信
 
-依赖：wecom_mcp 插件（openclaw 内置）
+依赖：wecom_mcp 插件（OpenClaw 内置）
 用法：
     from wecom_integration import send_scf_card
     send_scf_card(core_enterprise, ap, term, supplier_type)

@@ -16,7 +16,7 @@ class BacktestEngine:
     def __init__(
         self,
         strategy: str = "ma_cross",
-        symbol: str = "000001.SH",
+        symbol: str = "XXXXXX.SH",
         start_date: str = "2024-01-01",
         end_date: str = "2024-12-31",
         initial_capital: float = 1_000_000,
@@ -603,11 +603,11 @@ def parse_date_range(text: str) -> Tuple[str, str]:
 def parse_symbol(text: str) -> str:
     """从文本解析标的代码"""
     if "上证" in text or "沪" in text:
-        return "000001.SH"
+        return "XXXXXX.SH"
     elif "深证" in text or "深" in text:
         return "399001.SZ"
     elif "创业板" in text:
         return "399006.SZ"
     elif "科创" in text:
         return "000688.SH"
-    return "000001.SH"
+    return "XXXXXX.SH"

@@ -20,7 +20,7 @@ BUILTIN_FUNDS: Dict[str, Dict[str, Any]] = {
     "创业板指": {"code": "399006.SZ", "name": "创业板指", "type": "A股宽基"},
     "科创50": {"code": "000922.CSI", "name": "科创50", "type": "科创板"},
     "深证100": {"code": "139930.SZ", "name": "深证100", "type": "A股宽基"},
-    "上证指数": {"code": "000001.SH", "name": "上证指数", "type": "A股宽基"},
+    "上证指数": {"code": "XXXXXX.SH", "name": "上证指数", "type": "A股宽基"},
     "纳斯达克100": {"code": "NDX.O", "name": "纳斯达克100", "type": "美股"},
     "标普500": {"code": "SPX.GI", "name": "标普500", "type": "美股"},
     "德国DAX": {"code": "GDAXI.GI", "name": "德国DAX", "type": "欧股"},

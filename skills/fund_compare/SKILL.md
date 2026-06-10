@@ -7,7 +7,7 @@
 ## 核心功能
 
 - **多维度对比**：区间收益、风险指标、基金基本信息、基金经理、资产配置
-- **智能解析**：支持基金代码（如 110011）或基金名称（如 易方达中小盘）混合输入
+- **智能解析**：支持基金代码（如 XXXXXX）或基金名称（如 某基金公司中小盘）混合输入
 - **综合推荐**：基于量化打分给出综合评价和差异分析
 - **企微卡片**：支持输出企微消息卡片格式
 
@@ -59,13 +59,13 @@
 
 ```bash
 # 基金对比（代码）
-python3 scripts/compare_cli.py generate "基金对比 110011 163402"
+python3 scripts/compare_cli.py generate "基金对比 XXXXXX 163402"
 
 # 基金对比（名称）
-python3 scripts/compare_cli.py generate "比较 易方达中小盘 兴全趋势"
+python3 scripts/compare_cli.py generate "比较 某基金公司中小盘 兴全趋势"
 
 # 企微卡片格式
-python3 scripts/compare_cli.py generate "基金对比 110011 163402" --format wecom
+python3 scripts/compare_cli.py generate "基金对比 XXXXXX 163402" --format wecom
 ```
 
 ### Python API
@@ -74,7 +74,7 @@ python3 scripts/compare_cli.py generate "基金对比 110011 163402" --format we
 from fund_compare import FundCompareEngine
 
 engine = FundCompareEngine()
-result = engine.compare(["110011", "163402"])
+result = engine.compare(["XXXXXX", "163402"])
 print(result["summary"])
 ```
 

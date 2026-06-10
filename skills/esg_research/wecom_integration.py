@@ -265,6 +265,6 @@ if __name__ == "__main__":
     # 测试
     from esg_engine import ESGEngine
     engine = ESGEngine()
-    result = engine.generate_report("宁德时代", format="json")
+    result = engine.generate_report("某新能源龙头企业", format="json")
     card = WecomCard.build_esg_card(result)
     print(json.dumps(card, ensure_ascii=False, indent=2)[:2000])

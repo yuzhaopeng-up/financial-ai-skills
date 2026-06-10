@@ -2,10 +2,10 @@
 """
 基金对比 CLI
 用法:
-    python3 compare_cli.py generate "基金对比 110011 163402"
-    python3 compare_cli.py generate "比较 易方达中小盘 兴全趋势"
-    python3 compare_cli.py generate "基金对比 110011 163402 260101" --format markdown
-    python3 compare_cli.py generate "基金对比 110011 163402" --format wecom
+    python3 compare_cli.py generate "基金对比 XXXXXX 163402"
+    python3 compare_cli.py generate "比较 某基金公司中小盘 兴全趋势"
+    python3 compare_cli.py generate "基金对比 XXXXXX 163402 260101" --format markdown
+    python3 compare_cli.py generate "基金对比 XXXXXX 163402" --format wecom
 """
 
 import sys
@@ -78,7 +78,7 @@ def main():
     sub = parser.add_subparsers(dest="cmd", help="子命令")
 
     gen = sub.add_parser("generate", help="生成基金对比报告")
-    gen.add_argument("query", help="查询语句，如 '基金对比 110011 163402' 或 '比较 易方达中小盘 兴全趋势'")
+    gen.add_argument("query", help="查询语句，如 '基金对比 XXXXXX 163402' 或 '比较 某基金公司中小盘 兴全趋势'")
     gen.add_argument("--format", "-f", choices=["markdown", "json", "wecom"],
                      default="markdown", help="输出格式（默认 markdown）")
 

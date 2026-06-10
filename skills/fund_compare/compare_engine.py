@@ -75,18 +75,18 @@ def _init_builtin():
 
     data = {
         # ---- 明星股票/混合型 ----
-        "110011": FundProfile(
-            code="110011", name="易方达中小盘混合",
+        "XXXXXX": FundProfile(
+            code="XXXXXX", name="某基金公司中小盘混合",
             returns=ReturnData(m1=3.2, m3=8.5, m6=15.3, y1=28.6, y3=89.2),
             risk=RiskData(sharpe=1.85, max_drawdown=23.5, volatility=18.2, calmar=1.22),
             info=FundInfo(
-                code="110011", name="易方达中小盘混合",
+                code="XXXXXX", name="某基金公司中小盘混合",
                 fund_type="混合型", scale=189.5, establish_date="2008-06-19",
                 management_fee=0.015, manager="张坤", manager_tenure="6年2个月", manager_exp=12
             ),
             allocation=AssetAllocation(
                 stock_pct=80.5, bond_pct=0.0, cash_pct=19.5,
-                top_holdings=["贵州茅台", "五粮液", "泸州老窖", "海康威视", "上海机场"]
+                top_holdings=["某白酒龙头企业", "某白酒企业", "泸州老窖", "海康威视", "上海机场"]
             ),
         ),
         "163402": FundProfile(
@@ -100,7 +100,7 @@ def _init_builtin():
             ),
             allocation=AssetAllocation(
                 stock_pct=72.3, bond_pct=10.2, cash_pct=17.5,
-                top_holdings=["中国平安", "万科A", "招商银行", "三一重工", "紫金矿业"]
+                top_holdings=["某大型保险集团", "万科A", "某股份制银行", "三一重工", "紫金矿业"]
             ),
         ),
         "260101": FundProfile(
@@ -114,7 +114,7 @@ def _init_builtin():
             ),
             allocation=AssetAllocation(
                 stock_pct=85.2, bond_pct=0.0, cash_pct=14.8,
-                top_holdings=["五粮液", "泸州老窖", "贵州茅台", "中国中免", "迈瑞医疗"]
+                top_holdings=["某白酒企业", "泸州老窖", "某白酒龙头企业", "中国中免", "迈瑞医疗"]
             ),
         ),
         "519068": FundProfile(
@@ -128,7 +128,7 @@ def _init_builtin():
             ),
             allocation=AssetAllocation(
                 stock_pct=78.6, bond_pct=5.3, cash_pct=16.1,
-                top_holdings=["招商银行", "中国平安", "宁波银行", "美的集团", "海螺水泥"]
+                top_holdings=["某股份制银行", "某大型保险集团", "某城商行", "某家电龙头企业", "海螺水泥"]
             ),
         ),
         "000831": FundProfile(
@@ -157,30 +157,30 @@ def _init_builtin():
             ),
             allocation=AssetAllocation(
                 stock_pct=99.2, bond_pct=0.0, cash_pct=0.8,
-                top_holdings=["贵州茅台", "招商银行", "中国平安", "隆基绿能", "五粮液"]
+                top_holdings=["某白酒龙头企业", "某股份制银行", "某大型保险集团", "某光伏龙头企业", "某白酒企业"]
             ),
         ),
         "159915": FundProfile(
-            code="159915", name="易方达创业板ETF",
+            code="159915", name="某基金公司创业板ETF",
             returns=ReturnData(m1=4.5, m3=10.8, m6=19.2, y1=35.8, y3=108.6),
             risk=RiskData(sharpe=1.92, max_drawdown=38.5, volatility=24.3, calmar=0.93),
             info=FundInfo(
-                code="159915", name="易方达创业板ETF",
+                code="159915", name="某基金公司创业板ETF",
                 fund_type="指数型", scale=182.3, establish_date="2011-09-20",
                 management_fee=0.005, manager="刘树荣", manager_tenure="8年6个月", manager_exp=9
             ),
             allocation=AssetAllocation(
                 stock_pct=99.5, bond_pct=0.0, cash_pct=0.5,
-                top_holdings=["宁德时代", "东方财富", "迈瑞医疗", "爱尔眼科", "智飞生物"]
+                top_holdings=["某新能源龙头企业", "某互联网券商", "迈瑞医疗", "爱尔眼科", "智飞生物"]
             ),
         ),
         # ---- 债券型 ----
         "000171": FundProfile(
-            code="000171", name="易方达高等级信用债",
+            code="000171", name="某基金公司高等级信用债",
             returns=ReturnData(m1=0.8, m3=2.1, m6=3.9, y1=6.2, y3=18.5),
             risk=RiskData(sharpe=1.85, max_drawdown=3.2, volatility=3.8, calmar=1.94),
             info=FundInfo(
-                code="000171", name="易方达高等级信用债",
+                code="000171", name="某基金公司高等级信用债",
                 fund_type="债券型", scale=52.3, establish_date="2013-09-10",
                 management_fee=0.006, manager="胡剑", manager_tenure="5年11个月", manager_exp=9
             ),
@@ -204,14 +204,14 @@ def _init_builtin():
             ),
         ),
         # ---- 知名基金名称映射 ----
-        "易方达中小盘": "110011",
+        "某基金公司中小盘": "XXXXXX",
         "兴全趋势": "163402",
         "景顺新兴成长": "260101",
         "汇添富价值精选": "519068",
         "工银医疗保健": "000831",
         "沪深300ETF": "510300",
         "创业板ETF": "159915",
-        "易方达高等级信用债": "000171",
+        "某基金公司高等级信用债": "000171",
         "招商产业债券": "217022",
     }
 

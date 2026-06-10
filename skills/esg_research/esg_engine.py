@@ -16,7 +16,7 @@ class ESGEngine:
     # ============================================================
     ESG_DATA: Dict[str, Dict] = {
         # === 新能源汽车/动力电池 ===
-        "宁德时代": {
+        "某新能源龙头企业": {
             "industry": "动力电池",
             "e": {"score": 82, "carbon": "范围一/二碳排放强度持续下降，2023年碳排放强度同比-12%",
                   "energy": "清洁能源使用率62%，绿电采购量行业第一",
@@ -35,7 +35,7 @@ class ESGEngine:
                  "risks": "海外业务合规架构尚待完善", "strengths": "ESG评级纳入高管薪酬考核"},
             "overall": 79, "rating": "AA", "highlights": "动力电池行业ESG标杆，环保技术全球领先"
         },
-        "比亚迪": {
+        "某新能源汽车企业": {
             "industry": "新能源汽车",
             "e": {"score": 80, "carbon": "整车碳足迹同比-15%，2025年目标全价值链碳中和",
                   "energy": "光伏自发自用，绿电采购占比55%",
@@ -84,7 +84,7 @@ class ESGEngine:
         },
 
         # === 商业银行 ===
-        "招商银行": {
+        "某股份制银行": {
             "industry": "商业银行",
             "e": {"score": 72, "carbon": "自身运营碳中和实现，绿色建筑认证率100%",
                   "energy": "网点节能改造完成率85%", "water": "水资源消耗极低",
@@ -101,7 +101,7 @@ class ESGEngine:
                  "risks": "关联交易管理压力", "strengths": "风控模型领先"},
             "overall": 79, "rating": "AA", "highlights": "零售银行标杆，ESG治理水平行业最优"
         },
-        "工商银行": {
+        "某国有大行": {
             "industry": "商业银行",
             "e": {"score": 70, "carbon": "自身运营碳减排有序推进", "energy": "绿色信贷余额超3万亿",
                   "water": "网点节水改造成效显著", "waste": "电子废物的规范回收",
@@ -116,7 +116,7 @@ class ESGEngine:
                  "strengths": "系统性重要银行，风控严格"},
             "overall": 74, "rating": "A", "highlights": "宇宙行，规模最大，绿色金融布局全面"
         },
-        "兴业银行": {
+        "某股份制银行": {
             "industry": "商业银行",
             "e": {"score": 78, "carbon": "首家官方碳中和银行，赤道原则项目超300个",
                   "energy": "绿色建筑运营面积超百万平方米", "water": "水资源管理体系完善",
@@ -132,7 +132,7 @@ class ESGEngine:
         },
 
         # === 保险 ===
-        "中国平安": {
+        "某大型保险集团": {
             "industry": "保险",
             "e": {"score": 75, "carbon": "平安信托绿色投融资规模持续扩大",
                   "energy": "运营端节能减排推进", "water": "水资源管理措施有效",
@@ -140,7 +140,7 @@ class ESGEngine:
                   "strengths": "保险资金绿色投资超千亿"},
             "s": {"score": 82, "employee": "平安希望小学超100所，员工培训体系行业领先",
                   "safety": "零重大安全事故", "supply_chain": "供应链ESG审核落地",
-                  "community": "中国平安教育公益投入超10亿，乡村振兴专项支持",
+                  "community": "某大型保险集团教育公益投入超10亿，乡村振兴专项支持",
                   "risks": "保险理赔纠纷投诉率较高", "strengths": "三村工程覆盖乡村超百万"},
             "g": {"score": 80, "board": "董事会结构优化，女性董事2人，独董3人",
                  "disclosure": "ESG报告评级AA，ESG绩效纳入高管薪酬",
@@ -148,7 +148,7 @@ class ESGEngine:
                  "risks": "复杂集团架构带来治理难度", "strengths": "金融科技赋能风控"},
             "overall": 79, "rating": "AA", "highlights": "综合金融巨头，社会公益投入巨大"
         },
-        "中国人寿": {
+        "某大型寿险公司": {
             "industry": "保险",
             "e": {"score": 68, "carbon": "保险资金绿色投资布局加速", "energy": "运营节能改造ing",
                   "water": "水资源管理措施建立", "waste": "电子化程度提升",
@@ -163,7 +163,7 @@ class ESGEngine:
         },
 
         # === 白酒 ===
-        "贵州茅台": {
+        "某白酒龙头企业": {
             "industry": "白酒",
             "e": {"score": 70, "carbon": "碳足迹核算试点中", "energy": "酿造过程能耗下降",
                   "water": "赤水河保护力度最强，单位产品水耗极低",
@@ -178,7 +178,7 @@ class ESGEngine:
                  "risks": "关联交易管理（销售子公司）", "strengths": "品牌护城河极强"},
             "overall": 76, "rating": "A", "highlights": "酱香龙头，产区生态保护典范"
         },
-        "五粮液": {
+        "某白酒企业": {
             "industry": "白酒",
             "e": {"score": 68, "carbon": "碳排放核算体系建设中", "energy": "清洁能源使用率持续提升",
                   "water": "长江上游水源保护投入大", "waste": "酒糟综合利用",
@@ -193,7 +193,7 @@ class ESGEngine:
         },
 
         # === 互联网/科技 ===
-        "阿里巴巴": {
+        "某互联网巨头": {
             "industry": "互联网",
             "e": {"score": 80, "carbon": "2023年范围一/二碳排放同比-12%，范围三推进中",
                   "energy": "数据中心PUE降至1.22，液冷技术领先",
@@ -210,7 +210,7 @@ class ESGEngine:
                  "risks": "VIE架构监管风险", "strengths": "ESG绩效纳入高管长期激励"},
             "overall": 80, "rating": "AA", "highlights": "电商科技巨头，ESG治理架构成熟"
         },
-        "腾讯": {
+        "某互联网巨头": {
             "industry": "互联网",
             "e": {"score": 83, "carbon": "2023年实现运营碳中和，可再生能源比例71%",
                   "energy": "数据中心能效全球领先，浸没液冷规模化应用",
@@ -275,7 +275,7 @@ class ESGEngine:
         },
 
         # === 金融机构 ===
-        "中国银行": {
+        "某国有大行": {
             "industry": "商业银行",
             "e": {"score": 69, "carbon": "绿色信贷余额超2万亿", "energy": "运营节能改造推进",
                   "water": "节水措施完善", "waste": "绿色办公",
@@ -289,7 +289,7 @@ class ESGEngine:
                  "strengths": "全球布局风控体系"},
             "overall": 73, "rating": "A", "highlights": "跨境金融标杆，国际化程度最高"
         },
-        "建设银行": {
+        "某国有大行": {
             "industry": "商业银行",
             "e": {"score": 71, "carbon": "绿色信贷规模领先", "energy": "绿色建筑运营",
                   "water": "水资源管理", "waste": "电子化减废",
@@ -302,7 +302,7 @@ class ESGEngine:
                  "risks": "治理透明度空间", "strengths": "金融科技投入大"},
             "overall": 73, "rating": "A", "highlights": "大行绿色信贷领先，住房租赁布局早"
         },
-        "交通银行": {
+        "某国有大行": {
             "industry": "商业银行",
             "e": {"score": 68, "carbon": "绿色信贷增速稳健", "energy": "运营节能",
                   "water": "水资源管理", "waste": "绿色办公",
@@ -359,7 +359,7 @@ class ESGEngine:
         },
 
         # === 制造业 ===
-        "美的集团": {
+        "某家电龙头企业": {
             "industry": "家电制造",
             "e": {"score": 78, "carbon": "碳排放强度同比-10%", "energy": "绿色工厂超100座",
                   "water": "节水改造", "waste": "废旧家电回收超2000万台",
@@ -374,7 +374,7 @@ class ESGEngine:
                  "risks": "全球化治理复杂度", "strengths": "职业经理人机制行业最优"},
             "overall": 77, "rating": "A", "highlights": "家电龙头全球化标杆，治理结构好"
         },
-        "格力电器": {
+        "某家电龙头企业": {
             "industry": "家电制造",
             "e": {"score": 76, "carbon": "光伏空调减碳贡献", "energy": "工厂节能改造",
                   "water": "绿色制造", "waste": "废旧家电回收",
@@ -476,7 +476,7 @@ class ESGEngine:
         },
 
         # === 消费 ===
-        "伊利股份": {
+        "某乳制品龙头企业": {
             "industry": "乳制品",
             "e": {"score": 74, "carbon": "牧场碳足迹核算，饲喂端减碳", "energy": "工厂节能改造",
                   "water": "奶源水耗管理", "waste": "包装轻量化",
@@ -506,7 +506,7 @@ class ESGEngine:
         },
 
         # === 光伏/新能源 ===
-        "隆基绿能": {
+        "某光伏龙头企业": {
             "industry": "光伏",
             "e": {"score": 86, "carbon": "使用100%清洁电力，HPBC电池效率全球领先",
                   "energy": "工厂PUE超低", "water": "硅片清洗用水循环",
@@ -537,7 +537,7 @@ class ESGEngine:
         },
 
         # === 电力/公用事业 ===
-        "长江电力": {
+        "某电力龙头企业": {
             "industry": "水电",
             "e": {"score": 95, "carbon": "清洁能源零碳排放，2023年提供绿电超2100亿千瓦时",
                   "energy": "梯级调度效率全球最高", "water": "长江流域水资源综合利用",

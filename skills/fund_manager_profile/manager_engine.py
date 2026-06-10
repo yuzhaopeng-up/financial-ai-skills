@@ -21,18 +21,18 @@ class FundManagerEngine:
 
         "张坤": {
             "name": "张坤",
-            "fund_company": "易方达基金管理有限公司",
-            "representative_fund": "易方达蓝筹精选混合（005827）",
-            "representative_fund_2": "易方达优质精选混合（110011）",
+            "fund_company": "某头部基金公司",
+            "representative_fund": "某基金公司蓝筹精选混合（XXXXXX）",
+            "representative_fund_2": "某基金公司优质精选混合（XXXXXX）",
             "experience_years": 18,
-            "career_start": "2006年加入易方达",
+            "career_start": "2006年加入某基金公司",
             "first_fund_year": "2012年",
             "management_scale_bn": 650,  # 亿元
             "investment_style": ["大盘成长", "价值投资", "长期持有"],
             "style_tags": ["逆向投资", "高ROE", "商业模式护城河"],
             "area_expertise": ["消费", "白酒", "医疗器械", "互联网"],
             "holding_preference": {
-                "top_holdings": ["贵州茅台", "五粮液", "泸州老窖", "腾讯控股", "美团"],
+                "top_holdings": ["某白酒龙头企业", "某白酒企业", "泸州老窖", "某互联网巨头", "美团"],
                 "sector_concentration": "高",
                 "stock_concentration": "高（前十大持仓占比60%-80%）",
                 "holding_period": "长期（平均2-3年）",
@@ -61,8 +61,8 @@ class FundManagerEngine:
 
         "朱少醒": {
             "name": "朱少醒",
-            "fund_company": "富国基金管理有限公司",
-            "representative_fund": "富国天惠精选成长混合（161005）",
+            "fund_company": "某头部基金公司",
+            "representative_fund": "某明星基金精选成长混合（XXXXXX）",
             "experience_years": 20,
             "career_start": "2000年加入富国",
             "first_fund_year": "2005年",
@@ -71,7 +71,7 @@ class FundManagerEngine:
             "style_tags": ["自下而上", "高仓位运作", "低换手率"],
             "area_expertise": ["制造业", "消费", "医药", "金融"],
             "holding_preference": {
-                "top_holdings": ["贵州茅台", "招商银行", "中国平安", "伊利股份", "宁波银行"],
+                "top_holdings": ["某白酒龙头企业", "某股份制银行", "某大型保险集团", "某乳制品龙头企业", "某城商行"],
                 "sector_concentration": "中",
                 "stock_concentration": "中等（前十大约50%）",
                 "holding_period": "超长期（部分持仓超10年）",
@@ -110,7 +110,7 @@ class FundManagerEngine:
             "style_tags": ["行业分散", "个股集中", "择时灵活"],
             "area_expertise": ["制造业", "消费电子", "医药", "新能源", "金融"],
             "holding_preference": {
-                "top_holdings": ["海尔智家", "三安光电", "海康威视", "晶盛机电", "芒果超媒"],
+                "top_holdings": ["某家电龙头企业", "三安光电", "海康威视", "晶盛机电", "芒果超媒"],
                 "sector_concentration": "低-中",
                 "stock_concentration": "中等（前十大约45%）",
                 "holding_period": "中长期（1-3年）",
@@ -149,7 +149,7 @@ class FundManagerEngine:
             "style_tags": ["大消费", "高ROE", "行业集中"],
             "area_expertise": ["白酒", "免税", "医药", "食品饮料", "消费电子"],
             "holding_preference": {
-                "top_holdings": ["贵州茅台", "五粮液", "中国中免", "泸州老窖", "迈瑞医疗"],
+                "top_holdings": ["某白酒龙头企业", "某白酒企业", "中国中免", "泸州老窖", "迈瑞医疗"],
                 "sector_concentration": "高（消费占比60%以上）",
                 "stock_concentration": "高（前十大60-70%）",
                 "holding_period": "长期（2-4年）",
@@ -187,7 +187,7 @@ class FundManagerEngine:
             "style_tags": ["逆向投资", "低估值", "仓位管理"],
             "area_expertise": ["制造业", "地产链", "金融", "消费", "周期"],
             "holding_preference": {
-                "top_holdings": ["紫金矿业", "万科A", "中国平安", "保利发展", "三安光电"],
+                "top_holdings": ["紫金矿业", "万科A", "某大型保险集团", "保利发展", "三安光电"],
                 "sector_concentration": "低",
                 "stock_concentration": "分散（前十大约40%）",
                 "holding_period": "中长期（1-3年）",
@@ -226,7 +226,7 @@ class FundManagerEngine:
             "style_tags": ["自上而下", "行业景气度", "轮动配置"],
             "area_expertise": ["消费电子", "医药", "新能源", "金融", "制造业"],
             "holding_preference": {
-                "top_holdings": ["立讯精密", "恒瑞医药", "宁德时代", "东方财富", "歌尔股份"],
+                "top_holdings": ["立讯精密", "恒瑞医药", "某新能源龙头企业", "某互联网券商", "歌尔股份"],
                 "sector_concentration": "中",
                 "stock_concentration": "中（前十大约50%）",
                 "holding_period": "中短期（0.5-2年）",
@@ -264,7 +264,7 @@ class FundManagerEngine:
             "style_tags": ["平衡型", "回撤控制", "低估稳健"],
             "area_expertise": ["医药", "消费", "制造业", "金融"],
             "holding_preference": {
-                "top_holdings": ["山东药玻", "我武生物", "长春高新", "华域汽车", "平安银行"],
+                "top_holdings": ["山东药玻", "我武生物", "长春高新", "华域汽车", "某股份制银行"],
                 "sector_concentration": "低",
                 "stock_concentration": "分散（前十大约35%）",
                 "holding_period": "中长期（1-3年）",
@@ -302,7 +302,7 @@ class FundManagerEngine:
             "style_tags": ["成长猎手", "高仓位", "择股能力强"],
             "area_expertise": ["软件信息", "电子", "医药", "化工", "新材料"],
             "holding_preference": {
-                "top_holdings": ["恒生电子", "广联达", "宁德时代", "药明康德", "立讯精密"],
+                "top_holdings": ["恒生电子", "广联达", "某新能源龙头企业", "药明康德", "立讯精密"],
                 "sector_concentration": "中",
                 "stock_concentration": "中等（前十大约50%）",
                 "holding_period": "中短期（0.5-1.5年）",
@@ -339,7 +339,7 @@ class FundManagerEngine:
             "style_tags": ["时代趋势", "制造业", "高增长"],
             "area_expertise": ["新能源汽车", "光伏", "半导体", "消费电子", "制造业升级"],
             "holding_preference": {
-                "top_holdings": ["宁德时代", "隆基绿能", "亿纬锂能", "立讯精密", "三安光电"],
+                "top_holdings": ["某新能源龙头企业", "某光伏龙头企业", "亿纬锂能", "立讯精密", "三安光电"],
                 "sector_concentration": "高（科技制造）",
                 "stock_concentration": "高（前十大60-70%）",
                 "holding_period": "中长期（1-2年）",
@@ -377,7 +377,7 @@ class FundManagerEngine:
             "style_tags": ["安全边际", "自下而上", "择股不择时"],
             "area_expertise": ["银行", "地产", "制造业", "消费", "保险"],
             "holding_preference": {
-                "top_holdings": ["招商银行", "宁波银行", "中国平安", "万科A", "保利发展"],
+                "top_holdings": ["某股份制银行", "某城商行", "某大型保险集团", "万科A", "保利发展"],
                 "sector_concentration": "中",
                 "stock_concentration": "中等（前十大约50%）",
                 "holding_period": "长期（2-5年）",
@@ -414,7 +414,7 @@ class FundManagerEngine:
             "style_tags": ["大消费", "长期主义", "品牌护城河"],
             "area_expertise": ["白酒", "家电", "食品饮料", "农业", "医疗服务"],
             "holding_preference": {
-                "top_holdings": ["贵州茅台", "五粮液", "泸州老窖", "洋河股份", "山西汾酒"],
+                "top_holdings": ["某白酒龙头企业", "某白酒企业", "泸州老窖", "洋河股份", "山西汾酒"],
                 "sector_concentration": "高（白酒为主）",
                 "stock_concentration": "高（前十大60-75%）",
                 "holding_period": "超长期（3-5年）",
@@ -441,7 +441,7 @@ class FundManagerEngine:
 
         "胡昕炜": {
             "name": "胡昕炜",
-            "fund_company": "汇添富基金管理股份有限公司",
+            "fund_company": "某头部基金公司管理股份有限公司",
             "representative_fund": "汇添富消费行业混合（000083）",
             "experience_years": 13,
             "career_start": "2011年加入汇添富",
@@ -451,7 +451,7 @@ class FundManagerEngine:
             "style_tags": ["消费全产业链", "品牌消费", "新兴消费"],
             "area_expertise": ["白酒", "免税", "美妆", "餐饮旅游", "医美"],
             "holding_preference": {
-                "top_holdings": ["贵州茅台", "五粮液", "中国中免", "泸州老窖", "山西汾酒"],
+                "top_holdings": ["某白酒龙头企业", "某白酒企业", "中国中免", "泸州老窖", "山西汾酒"],
                 "sector_concentration": "高（消费占比70%+）",
                 "stock_concentration": "高（前十大65-75%）",
                 "holding_period": "长期（2-4年）",
@@ -488,7 +488,7 @@ class FundManagerEngine:
             "style_tags": ["TMT", "新兴消费", "高仓位"],
             "area_expertise": ["互联网", "通信", "传媒", "消费电子", "智能制造"],
             "holding_preference": {
-                "top_holdings": ["腾讯控股", "美团", "舜宇光学科技", "海康威视", "芒果超媒"],
+                "top_holdings": ["某互联网巨头", "美团", "舜宇光学科技", "海康威视", "芒果超媒"],
                 "sector_concentration": "中",
                 "stock_concentration": "中等（前十大约50%）",
                 "holding_period": "中长期（1-2年）",
@@ -526,7 +526,7 @@ class FundManagerEngine:
             "style_tags": ["质量成长", "全球化视野", "个股精选"],
             "area_expertise": ["化工", "电子", "医药", "新能源", "消费"],
             "holding_preference": {
-                "top_holdings": ["万华化学", "宁德时代", "立讯精密", "华鲁恒升", "中芯国际"],
+                "top_holdings": ["万华化学", "某新能源龙头企业", "立讯精密", "华鲁恒升", "中芯国际"],
                 "sector_concentration": "低-中",
                 "stock_concentration": "中等（前十大约45%）",
                 "holding_period": "中长期（1-3年）",
@@ -564,7 +564,7 @@ class FundManagerEngine:
             "style_tags": ["半导体", "新能源", "科技追风"],
             "area_expertise": ["半导体", "新能源汽车", "光伏", "医药", "军工"],
             "holding_preference": {
-                "top_holdings": ["宁德时代", "隆基绿能", "亿纬锂能", "圣邦股份", "晶澳科技"],
+                "top_holdings": ["某新能源龙头企业", "某光伏龙头企业", "亿纬锂能", "圣邦股份", "晶澳科技"],
                 "sector_concentration": "高（科技制造）",
                 "stock_concentration": "高（前十大65-80%）",
                 "holding_period": "中短期（0.5-2年）",
@@ -601,7 +601,7 @@ class FundManagerEngine:
             "style_tags": ["TMT", "新能源", "产业链研究"],
             "area_expertise": ["半导体", "新能源", "电子", "计算机", "通信"],
             "holding_preference": {
-                "top_holdings": ["宁德时代", "璞泰来", "恩捷股份", "天齐锂业", "赣锋锂业"],
+                "top_holdings": ["某新能源龙头企业", "璞泰来", "恩捷股份", "天齐锂业", "赣锋锂业"],
                 "sector_concentration": "高（新能源+科技）",
                 "stock_concentration": "分散（前十大约40%）",
                 "holding_period": "中短期（0.5-1.5年）",
@@ -674,7 +674,7 @@ class FundManagerEngine:
             "style_tags": ["均衡配置", "品质成长", "回撤控制"],
             "area_expertise": ["食品饮料", "家电", "医药", "电子", "新能源汽车"],
             "holding_preference": {
-                "top_holdings": ["贵州茅台", "五粮液", "宁德时代", "立讯精密", "海康威视"],
+                "top_holdings": ["某白酒龙头企业", "某白酒企业", "某新能源龙头企业", "立讯精密", "海康威视"],
                 "sector_concentration": "中",
                 "stock_concentration": "中等（前十大约50%）",
                 "holding_period": "中长期（1-2年）",
@@ -701,7 +701,7 @@ class FundManagerEngine:
 
         "归凯": {
             "name": "归凯",
-            "fund_company": "嘉实基金管理有限公司",
+            "fund_company": "某头部基金公司",
             "representative_fund": "嘉实泰和混合（000595）",
             "representative_fund_2": "嘉实增长混合（070002）",
             "experience_years": 14,
@@ -712,7 +712,7 @@ class FundManagerEngine:
             "style_tags": ["大消费", "大健康", "科技升级"],
             "area_expertise": ["医药", "消费", "制造升级", "半导体", "云计算"],
             "holding_preference": {
-                "top_holdings": ["贵州茅台", "迈瑞医疗", "宁德时代", "立讯精密", "恒生电子"],
+                "top_holdings": ["某白酒龙头企业", "迈瑞医疗", "某新能源龙头企业", "立讯精密", "恒生电子"],
                 "sector_concentration": "中",
                 "stock_concentration": "中等（前十大约50%）",
                 "holding_period": "长期（2-4年）",
@@ -739,18 +739,18 @@ class FundManagerEngine:
 
         "陈皓": {
             "name": "陈皓",
-            "fund_company": "易方达基金管理有限公司",
-            "representative_fund": "易方达科翔混合（110013）",
-            "representative_fund_2": "易方达创新成长混合（009293）",
+            "fund_company": "某头部基金公司",
+            "representative_fund": "某基金公司科翔混合（110013）",
+            "representative_fund_2": "某基金公司创新成长混合（009293）",
             "experience_years": 14,
-            "career_start": "2007年加入易方达",
+            "career_start": "2007年加入某基金公司",
             "first_fund_year": "2014年",
             "management_scale_bn": 320,
             "investment_style": ["成长风格", "制造业升级", "高仓位运作"],
             "style_tags": ["先进制造", "军民融合", "科技成长"],
             "area_expertise": ["军工", "半导体", "新能源汽车", "高端装备", "新能源"],
             "holding_preference": {
-                "top_holdings": ["紫光国微", "振华科技", "西部超导", "宁德时代", "亿纬锂能"],
+                "top_holdings": ["紫光国微", "振华科技", "西部超导", "某新能源龙头企业", "亿纬锂能"],
                 "sector_concentration": "高（制造+科技）",
                 "stock_concentration": "高（前十大60-70%）",
                 "holding_period": "中长期（1-3年）",
@@ -777,7 +777,7 @@ class FundManagerEngine:
 
         "雷鸣": {
             "name": "雷鸣",
-            "fund_company": "汇添富基金管理股份有限公司",
+            "fund_company": "某头部基金公司管理股份有限公司",
             "representative_fund": "汇添富成长焦点混合（519068）",
             "representative_fund_2": "汇添富外延增长主题股票（000925）",
             "experience_years": 16,
@@ -788,7 +788,7 @@ class FundManagerEngine:
             "style_tags": ["核心资产", "高ROE", "行业龙头"],
             "area_expertise": ["医药", "白酒", "免税", "食品饮料", "医疗器械"],
             "holding_preference": {
-                "top_holdings": ["贵州茅台", "恒瑞医药", "药明康德", "中国中免", "五粮液"],
+                "top_holdings": ["某白酒龙头企业", "恒瑞医药", "药明康德", "中国中免", "某白酒企业"],
                 "sector_concentration": "高（消费+医药）",
                 "stock_concentration": "高（前十大65-75%）",
                 "holding_period": "长期（2-4年）",
@@ -826,7 +826,7 @@ class FundManagerEngine:
             "style_tags": ["景气度投资", "TMT+消费", "轮动配置"],
             "area_expertise": ["新能源汽车", "半导体", "白酒", "医药", "消费电子"],
             "holding_preference": {
-                "top_holdings": ["宁德时代", "隆基绿能", "贵州茅台", "立讯精密", "药明康德"],
+                "top_holdings": ["某新能源龙头企业", "某光伏龙头企业", "某白酒龙头企业", "立讯精密", "药明康德"],
                 "sector_concentration": "中",
                 "stock_concentration": "中等（前十大约50%）",
                 "holding_period": "中短期（0.5-2年）",

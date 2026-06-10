@@ -2,8 +2,8 @@
 """
 ESG CLI - ESG研究命令行工具
 用法：
-  python3 scripts/esg_cli.py generate "ESG研究 宁德时代"
-  python3 scripts/esg_cli.py generate "ESG分析 招商银行" --format=markdown
+  python3 scripts/esg_cli.py generate "ESG研究 某新能源龙头企业"
+  python3 scripts/esg_cli.py generate "ESG分析 某股份制银行" --format=markdown
   python3 scripts/esg_cli.py list
   python3 scripts/esg_cli.py search "白酒"
 """
@@ -31,7 +31,7 @@ def cmd_generate(engine: ESGEngine, args):
         company = query.strip()
 
     if not company:
-        print("错误：请提供公司名称，如：ESG研究 宁德时代")
+        print("错误：请提供公司名称，如：ESG研究 某新能源龙头企业")
         sys.exit(1)
 
     fmt = args.format or "text"
@@ -117,7 +117,7 @@ def main():
 
     # generate
     p_gen = subparsers.add_parser("generate", help="生成ESG报告")
-    p_gen.add_argument("query", help="查询内容，如：ESG研究 宁德时代")
+    p_gen.add_argument("query", help="查询内容，如：ESG研究 某新能源龙头企业")
     p_gen.add_argument("--format", "-f", choices=["text", "json", "markdown"],
                        default="text", help="输出格式")
     p_gen.add_argument("--output", "-o", help="输出文件路径")

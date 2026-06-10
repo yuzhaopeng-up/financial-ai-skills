@@ -242,7 +242,7 @@ def main():
     parser.add_argument("--wecom_userid", type=str, help="企微用户ID")
     parser.add_argument("--format", choices=["card", "markdown", "json"], default="card")
     parser.add_argument("--strategy", type=str, default="ma_cross")
-    parser.add_argument("--symbol", type=str, default="000001.SH")
+    parser.add_argument("--symbol", type=str, default="XXXXXX.SH")
     parser.add_argument("--start", type=str, default="2024-01-01")
     parser.add_argument("--end", type=str, default="2024-12-31")
 

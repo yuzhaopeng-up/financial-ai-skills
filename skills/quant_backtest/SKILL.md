@@ -23,7 +23,7 @@ from quant_backtest import BacktestEngine
 
 engine = BacktestEngine(
     strategy="ma_cross",      # 策略类型
-    symbol="000001.SH",        # 标的代码
+    symbol="XXXXXX.SH",        # 标的代码
     start_date="2024-01-01",  # 开始日期
     end_date="2024-12-31",    # 结束日期
     initial_capital=1000000,  # 初始资金

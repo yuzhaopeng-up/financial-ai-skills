@@ -131,7 +131,7 @@ def send_compare_card(inputs: list[str], webhook_url: str) -> dict:
     便捷函数：直接发送基金对比卡片
 
     Args:
-        inputs: 基金代码或名称，如 ["110011", "163402"]
+        inputs: 基金代码或名称，如 ["XXXXXX", "163402"]
         webhook_url: 企微群机器人 webhook 地址
 
     Returns:

@@ -27,7 +27,7 @@
 
 | 参数 | 类型 | 必填 | 说明 | 示例 |
 |------|------|------|------|------|
-| `core_enterprise` | string | ✅ | 核心企业名称 | "比亚迪"、"汽车整车厂" |
+| `core_enterprise` | string | ✅ | 核心企业名称 | "某新能源汽车企业"、"汽车整车厂" |
 | `supplier_type` | string | ✅ | 供应商类型/行业 | "汽车零部件"、"电子元器件" |
 | `accounts_payable` | float | ✅ | 应付账款规模（**万元**） | 100000 (= 10亿元) |
 | `payment_term_days` | int | ✅ | 账期（天） | 90 |
@@ -53,7 +53,7 @@ from supply_chain_finance import SCFEngine, SCFProfile, parse_input
 
 # 方式1：直接构造 Profile
 profile = SCFProfile(
-    core_enterprise="比亚迪",
+    core_enterprise="某新能源汽车企业",
     supplier_type="汽车零部件",
     accounts_payable=100000,      # 10亿元 → 100000万元
     payment_term_days=90,

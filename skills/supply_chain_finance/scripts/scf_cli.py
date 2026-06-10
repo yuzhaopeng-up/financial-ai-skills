@@ -52,7 +52,7 @@ def main():
 示例：
   python3 scripts/scf_cli.py generate "供应链金融 汽车整车厂 应付账款10亿"
   python3 scripts/scf_cli.py generate "汽车整车厂 应付账款5亿 账期90天" --format json
-  python3 scripts/scf_cli.py generate "核心企业:比亚迪 供应商:汽车零部件 应付账款20亿" --verbose
+  python3 scripts/scf_cli.py generate "核心企业:某新能源汽车企业 供应商:汽车零部件 应付账款20亿" --verbose
         """,
     )
 
