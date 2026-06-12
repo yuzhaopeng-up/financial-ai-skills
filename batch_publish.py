@@ -44,7 +44,8 @@ ARTICLES = [
     "articles/series3/03_llm_plus_rules.md",
     "articles/series3/04_book_writing.md",
     "articles/series3/05_ai_assessment.md",
-    "articles/series3/06_ecosystem_building.md",
+    "articles/series8/01_esg_quant_crossborder.md",
+    "articles/series9/01_63_scenes_full_coverage.md",
 ]
 
 # 昨天已发布的文章（标题 -> URL）

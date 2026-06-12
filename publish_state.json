@@ -29,8 +29,22 @@
       "url": "https://zhuanlan.zhihu.com/p/2046935621588013745",
       "published_at": "2026-06-07T12:44:43.735550+08:00",
       "article_id": "2046935621588013745"
+    },
+    "银行信贷审批智能化：信用评分88分自动通过50万": {
+      "url": "https://zhuanlan.zhihu.com/p/2048019405355874079",
+      "published_at": "2026-06-10T12:31:18.391329+08:00",
+      "article_id": "2048019405355874079"
+    },
+    "银行运营7×24无人值守：工单自动分派+流程编排+监控告警": {
+      "url": "https://zhuanlan.zhihu.com/p/2048019499727708596",
+      "published_at": "2026-06-10T12:31:40.694184+08:00",
+      "article_id": "2048019499727708596"
     }
   },
-  "last_attempt": "2026-06-07T12:44:43.735550+08:00",
-  "last_error": null
+  "last_attempt": "2026-06-10T12:48:52.473499+08:00",
+  "last_error": {
+    "time": "2026-06-10T12:48:52.473499+08:00",
+    "error": "发布失败: 403",
+    "detail": "{\"error\": {\"message\": \"\\u8fd1\\u671f\\u53d1\\u5e03\\u9891\\u7387\\u8fc7\\u9ad8\\uff0c\\u8bf724\\u5c0f\\u65f6\\u540e\\u91cd\\u8bd5~\", \"code\": 4031, \"name\": \"PublishArticleLimitException\"}}"
+  }
 }

@@ -19,8 +19,8 @@ def test_parse_industry_company_year():
 
 
 def test_parse_with_prefix_variant():
-    r = parse_request("研报 招商银行 2025")
-    assert r.company == "招商银行"
+    r = parse_request("研报 某股份制银行A 2025")
+    assert r.company == "某股份制银行A"
     assert r.industry == "金融"
     assert r.year == 2025
 
@@ -70,8 +70,8 @@ def test_generate_unknown_falls_back_general_templates():
 
 def test_summary_contains_company_when_known():
     e = ReportEngine()
-    r = e.generate("研报 招商银行 2025")
-    assert "招商银行" in r.summary
+    r = e.generate("研报 某股份制银行A 2025")
+    assert "某股份制银行A" in r.summary
 
 
 def test_summary_does_not_crash_for_unknown():
@@ -95,8 +95,8 @@ def test_rating_for_unknown_industry():
 
 def test_dict_input():
     e = ReportEngine()
-    r = e.generate({"industry": "金融", "company": "招商银行", "year": 2025})
-    assert "招商银行" in r.title
+    r = e.generate({"industry": "金融", "company": "某股份制银行A", "year": 2025})
+    assert "某股份制银行A" in r.title
 
 
 def test_request_object_input():

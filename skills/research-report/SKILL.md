@@ -28,7 +28,7 @@ prerequisites:
 |------|------|
 | **自然语言解析** | 从 `研报生成 新能源 宁德时代 2025` 自动提取行业/公司/年度 |
 | **行业趋势分析** | 6 大行业（新能源/金融/半导体/医药/消费/汽车）预置趋势、驱动因素、风险、龙头名单 |
-| **公司基本面** | 5 家龙头（宁德时代/比亚迪/招商银行/贵州茅台/宝钢股份）预置护城河、亮点、风险 |
+| **公司基本面** | 5 家龙头（宁德时代/比亚迪/某股份制银行A/贵州茅台/宝钢股份）预置护城河、亮点、风险 |
 | **财务估值参考** | 估值方法说明（PE/PB/DCF）+ 关键指标 + 可比公司 |
 | **风险提示** | 行业风险 + 公司风险 + 系统性风险自动汇总 |
 | **投资建议** | 规则引擎自动评级（买入/增持/中性/减持） |
@@ -46,7 +46,7 @@ python3 scripts/report_cli.py list
 
 # 生成知名公司完整报告（置信度 100%）
 python3 scripts/report_cli.py generate "研报生成 新能源 宁德时代 2025"
-python3 scripts/report_cli.py generate "研报 招商银行 2025"
+python3 scripts/report_cli.py generate "研报 某股份制银行A 2025"
 
 # 仅行业报告（置信度 70%）
 python3 scripts/report_cli.py generate "研报 半导体 2025"
@@ -74,7 +74,7 @@ print(r.summary)            # 摘要
 print(r.investment_view)    # 投资建议
 
 # 结构化输入
-r = eng.generate({"industry": "金融", "company": "招商银行", "year": 2025})
+r = eng.generate({"industry": "金融", "company": "某股份制银行A", "year": 2025})
 
 # 输出报告
 print(ReportFormatter.to_text(r))
@@ -87,7 +87,7 @@ print(ReportFormatter.to_markdown(r))
 
 ```
 研报生成 新能源 宁德时代 2025
-研报 招商银行 2025
+研报 某股份制银行A 2025
 研报生成 半导体行业 2025  
 研报 比亚迪
 研报 某公司 2025
@@ -119,7 +119,7 @@ print(ReportFormatter.to_markdown(r))
 |------|------|------|---------|--------|
 | 宁德时代 | 300750.SZ | 新能源 | 3 | 3 |
 | 比亚迪 | 002594.SZ | 汽车 | 3 | 3 |
-| 招商银行 | 600036.SH | 金融 | 3 | 3 |
+| 某股份制银行A | 600036.SH | 金融 | 3 | 3 |
 | 贵州茅台 | 600519.SH | 消费 | 3 | 3 |
 | 宝钢股份 | 600019.SH | 通用 | 3 | 3 |
 

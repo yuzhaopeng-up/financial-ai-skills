@@ -7,7 +7,7 @@
 
 支持自然语言：
   研报生成 新能源 宁德时代 2025
-  研报 招商银行 2025
+  研报 某股份制银行A 2025
   研报生成 半导体行业 2025
   研报 比亚迪
 """
@@ -32,7 +32,7 @@ def _load_templates() -> Dict[str, Any]:
 class ReportRequest:
     """报告请求参数。"""
     industry: str = ""    # 新能源/金融/半导体/...
-    company: str = ""     # 宁德时代/招商银行/...
+    company: str = ""     # 宁德时代/某股份制银行A/...
     year: int = 0         # 报告年度，0=当年
     raw_text: str = ""
 

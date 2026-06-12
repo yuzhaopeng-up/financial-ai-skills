@@ -26,7 +26,7 @@ def build_home_card() -> Dict[str, Any]:
         ],
         "quote_area": {
             "title": "💡 输入示例",
-            "quote_text": "研报生成 新能源 宁德时代 2025\n研报 招商银行 2025\n研报 半导体 2025",
+            "quote_text": "研报生成 新能源 宁德时代 2025\n研报 某股份制银行A 2025\n研报 半导体 2025",
         },
     }
 
