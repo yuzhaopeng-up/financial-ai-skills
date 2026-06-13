@@ -1,276 +1,279 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-审计智能抽样 - 企微卡片集成
-
-将审计抽样结果格式化为企业微信消息卡片，
-支持通过企微API或wecom-mcp工具发送。
+审计抽样 - 企微集成
+支持企微消息卡片格式的接入
 """
 
 import json
-import sys
-from typing import Dict, Any, Optional, List
-from pathlib import Path
-
-# 尝试导入可选依赖
-try:
-    from企微 import WeComClient
-    HAS_WECOM_SDK = True
-except ImportError:
-    HAS_WECOM_SDK = False
+from audit_sampling_engine import AuditSamplingEngine
 
 
-def format_wecom_card(result: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    将审计抽样结果格式化为企微消息卡片
-    
-    Args:
-        result: audit_sampling_engine.generate() 返回的结果
-        
-    Returns:
-        企微消息卡片JSON
-    """
-    plan = result["sampling_plan"]
-    res = result["sampling_results"]
-    findings = result["audit_findings"]
-    conclusion = result["population_conclusion"]
-    pop = result["population_summary"]
-    
-    # 判断审计意见颜色
-    if "无保留" in conclusion["opinion_impact"]:
-        opinion_color = "green"
-        opinion_emoji = "✅"
-    elif "保留" in conclusion["opinion_impact"]:
-        opinion_color = "yellow"
-        opinion_emoji = "⚠️"
-    else:
-        opinion_color = "red"
-        opinion_emoji = "❌"
-    
-    # 格式化金额
-    def fmt_amount(a: float) -> str:
-        if abs(a) >= 100000000:
-            return f"{a/100000000:.2f}亿"
-        elif abs(a) >= 10000:
-            return f"{a/10000:.2f}万"
-        else:
-            return f"{a:,.2f}"
-    
-    card = {
-        "msgtype": "interactive",
-        "card": {
-            "header": {
-                "title": f"📊 审计智能抽样报告 - {result['scenario']}",
-                "banner": "",
-                "color": opinion_color
-            },
-            "elements": [
-                {
-                    "tag": "markdown",
-                    "content": (
-                        "**【总体概况】**\n"
-                        f"- 总体数量: **{pop['total_count']:,}** 件\n"
-                        f"- 总体金额: **{fmt_amount(pop['total_amount'])}** 元\n"
-                        f"- 风险等级: {pop['risk_level']}\n\n"
-                        "**【抽样方案】**\n"
-                        f"- 方法: **{plan['method']}**\n"
-                        f"- 样本量: **{plan['sample_size']}** 件\n"
-                        f"- 置信水平: **{plan['confidence_level']*100:.0f}%**\n"
-                        f"- 可容忍误差: **{plan['tolerable_error_rate']*100:.1f}%**"
-                    )
-                },
-                {
-                    "tag": "hr"
-                },
-                {
-                    "tag": "markdown",
-                    "content": (
-                        "**【抽样结果】**\n"
-                        f"- 实际抽样: **{res['sample_size']}** 件\n"
-                        f"- 发现问题: **{res['findings_count']}** 件 ({res['findings_rate']:.2f}%)\n"
-                        f"- 问题金额: **{fmt_amount(res['findings_amount'])}** 元\n\n"
-                        "**【误差推断】**\n"
-                        f"- 估计误差率: **{findings['estimated_error_rate']:.2f}%**\n"
-                        f"- 误差范围: {findings['error_rate_lower']:.2f}% ~ {findings['error_rate_upper']:.2f}%\n"
-                        f"- 推断总体误差: **{fmt_amount(findings['projected_total_amount'])}** 元"
-                    )
-                },
-                {
-                    "tag": "hr"
-                },
-                {
-                    "tag": "markdown",
-                    "content": (
-                        f"**{opinion_emoji} 【总体结论】**\n"
-                        f"审计意见: **{conclusion['opinion_impact']}**\n"
-                        f"{conclusion['recommendation']}\n\n"
-                        f"📌 {pop['risk_level']} | {plan['method']} | "
-                        f"置信{plan['confidence_level']*100:.0f}%"
-                    )
-                }
-            ],
-            "actions": [
-                {
-                    "tag": "button",
-                    "text": "查看抽样明细",
-                    "type": "view_more",
-                    "expand": True
-                }
-            ],
-            "extra": {
-                "scene": "audit_sampling",
-                "scenario": result["scenario"],
-                "confidence": plan["confidence_level"]
-            }
+class AuditSamplingWecom:
+    def __init__(self):
+        self.engine = AuditSamplingEngine(api_mode=True)
+
+    def handle_message(self, text: str, user_id: str = None) -> dict:
+        text = text.strip()
+
+        # 解析命令
+        if text.startswith("审计抽样") or text.startswith("抽样"):
+            return self._handle_sampling(text)
+
+        elif text.startswith("抽样方案"):
+            return self._handle_plan(text)
+
+        elif text in ["审计帮助", "帮助", "抽样帮助"]:
+            return self._build_help()
+
+        # 默认为抽样
+        return self._handle_sampling("抽样 " + text)
+
+    def _handle_sampling(self, text: str) -> dict:
+        """处理抽样命令"""
+        # 提取参数
+        params = {}
+        content = text.replace("审计抽样", "").replace("抽样", "").strip()
+
+        # 解析 key=value 格式
+        for part in content.split():
+            if "=" in part:
+                key, value = part.split("=", 1)
+                key = key.strip()
+                try:
+                    if "." in value:
+                        params[key] = float(value)
+                    else:
+                        params[key] = int(value)
+                except ValueError:
+                    params[key] = value
+
+        coverage = params.get("coverage", params.get("覆盖", 0.95))
+        high_threshold = params.get("high_threshold", params.get("高风险阈值", 1_000_000))
+        medium_threshold = params.get("medium_threshold", params.get("中风险阈值", 100_000))
+
+        # 生成演示数据
+        import random
+        random.seed(42)
+        types = [
+            "转账", "贷款发放", "还款", "手续费", "理财购买", "理财赎回",
+            "担保", "信用证", "贴现", "咨询费", "资产处置"
+        ]
+        transactions = []
+        for i in range(200):
+            amount = random.uniform(100, 5_000_000)
+            if i < 20:
+                amount = random.uniform(1_000_000, 5_000_000)
+            elif i < 60:
+                amount = random.uniform(100_000, 1_000_000)
+            transactions.append({
+                "id": f"TXN_{i+1:06d}",
+                "amount": round(amount, 2),
+                "type": random.choice(types),
+                "date": f"2024-{(i % 12) + 1:02d}-{(i % 28) + 1:02d}",
+                "counterparty": f"对手方{random.randint(1, 20)}",
+                "description": random.choice(["正常", "大额", "异常", "关联交易"])
+            })
+
+        config = {
+            "high_risk_amount_threshold": high_threshold,
+            "medium_risk_amount_threshold": medium_threshold,
+            "coverage_target": coverage,
         }
-    }
-    
-    return card
+        engine = AuditSamplingEngine(config=config, api_mode=True)
+        processed = engine.load_transactions(transactions)
+        result = engine.sample(processed, coverage_target=coverage)
 
+        return self._build_result_card(result)
 
-def format_wecom_text(result: Dict[str, Any]) -> str:
-    """格式化文本消息（适用于企微文本消息）"""
-    plan = result["sampling_plan"]
-    res = result["sampling_results"]
-    findings = result["audit_findings"]
-    conclusion = result["population_conclusion"]
-    pop = result["population_summary"]
-    
-    def fmt_amount(a: float) -> str:
-        if abs(a) >= 100000000:
-            return f"{a/100000000:.2f}亿"
-        elif abs(a) >= 10000:
-            return f"{a/10000:.2f}万"
-        else:
-            return f"{a:,.2f}"
-    
-    lines = [
-        f"📊审计抽样报告 | {result['scenario']}",
-        f"总体: {pop['total_count']:,}件 {fmt_amount(pop['total_amount'])}元 [{pop['risk_level']}]",
-        f"抽样: {plan['method']} | 样本{plan['sample_size']}件 | 置信{plan['confidence_level']*100:.0f}%",
-        f"结果: 发现{res['findings_count']}个问题 ({res['findings_rate']:.2f}%)",
-        f"推断: 误差率{findings['estimated_error_rate']:.2f}% | 总体误差{fmt_amount(findings['projected_total_amount'])}元",
-        f"结论: {conclusion['opinion_impact']}",
-    ]
-    
-    return "\n".join(lines)
+    def _handle_plan(self, text: str) -> dict:
+        """处理抽样方案命令"""
+        params = {}
+        content = text.replace("抽样方案", "").strip()
+        for part in content.split():
+            if "=" in part:
+                key, value = part.split("=", 1)
+                try:
+                    params[key.strip()] = float(value) if "." in value else int(value)
+                except ValueError:
+                    params[key.strip()] = value
 
+        coverage = params.get("coverage", params.get("覆盖", 0.95))
 
-def send_wecom_card(
-    card: Dict[str, Any],
-    chat_id: Optional[str] = None,
-    webhook_url: Optional[str] = None
-) -> Dict[str, Any]:
-    """
-    发送企微消息卡片
-    
-    Args:
-        card: format_wecom_card() 返回的卡片JSON
-        chat_id: 企微群聊ID（使用应用消息API时）
-        webhook_url: 企微群机器人Webhook地址
-        
-    Returns:
-        API响应结果
-    """
-    import urllib.request
-    import urllib.error
-    
-    if webhook_url:
-        # 使用Webhook发送
-        data = json.dumps(card).encode("utf-8")
-        req = urllib.request.Request(
-            webhook_url,
-            data=data,
-            headers={"Content-Type": "application/json"}
-        )
-        try:
-            with urllib.request.urlopen(req, timeout=10) as resp:
-                return json.loads(resp.read().decode("utf-8"))
-        except urllib.error.URLError as e:
-            return {"success": False, "error": str(e)}
-    elif chat_id:
-        # 使用应用API发送（需要access_token）
-        # 此处返回占位，实际使用时需接入wecom-mcp
+        # 生成演示数据
+        import random
+        random.seed(42)
+        transactions = []
+        for i in range(200):
+            transactions.append({
+                "id": f"TXN_{i+1:06d}",
+                "amount": round(random.uniform(100, 5_000_000), 2),
+                "type": random.choice(["转账", "贷款", "手续费"]),
+            })
+
+        engine = AuditSamplingEngine(api_mode=True)
+        processed = engine.load_transactions(transactions)
+        plan = engine.generate_sampling_plan(processed, {"coverage_target": coverage})
+
+        return self._build_plan_card(plan)
+
+    def _build_help(self) -> dict:
         return {
-            "success": False,
-            "error": "需要提供webhook_url或配置企微应用access_token",
-            "note": "建议使用企微群机器人Webhook方式发送"
-        }
-    else:
-        return {
-            "success": False,
-            "error": "请提供chat_id或webhook_url"
+            "type": "text",
+            "content": """🦞 **风险导向审计抽样引擎**
+
+📋 功能：基于风险模型自动生成审计抽样方案
+
+📝 命令：
+  `审计抽样` - 使用默认参数抽样200笔演示数据
+  `抽样 覆盖=0.95` - 指定覆盖率目标
+  `抽样 高风险阈值=100万 中风险阈值=10万` - 指定金额阈值
+  `抽样方案` - 生成抽样方案（不执行抽样）
+
+⚠️ 验收标准：覆盖率≥95%，高风险层100%覆盖
+
+示例：
+  `审计抽样`
+  `抽样 覆盖=0.95 高风险阈值=500000`"""
         }
 
+    def _build_result_card(self, result: dict) -> dict:
+        """构建结果卡片"""
+        status_icon = "success" if result.get("coverage_met") else "warning"
+        status_text = "✅ 达标" if result.get("coverage_met") else "⚠️ 未达标"
 
-class AuditSamplingWeCom:
-    """审计抽样企微集成类"""
-    
-    def __init__(
-        self,
-        webhook_url: Optional[str] = None,
-        chat_id: Optional[str] = None
-    ):
-        self.webhook_url = webhook_url
-        self.chat_id = chat_id
-    
-    def send_result(
-        self,
-        result: Dict[str, Any],
-        as_text: bool = False
-    ) -> Dict[str, Any]:
-        """发送审计抽样结果到企微"""
-        if as_text:
-            content = format_wecom_text(result)
-            msg = {
-                "msgtype": "text",
+        # 样本分布摘要
+        counts = result.get("sample_counts", {})
+        strata = result.get("strata_summary", {})
+
+        # 构造 elements
+        elements = [
+            {
+                "tag": "div",
                 "text": {
-                    "content": content
+                    "tag": "lark_md",
+                    "content": f"**📊 抽样概况**\n"
+                              f"总交易: {result.get('total_transactions', 0):,} 笔\n"
+                              f"样本量: {result.get('sample_size', 0):,} 笔 ({result.get('sample_ratio', 0)*100:.1f}%)\n"
+                              f"金额覆盖: {result.get('coverage', 0)*100:.2f}%\n"
+                              f"目标覆盖: {result.get('coverage_target', 0)*100:.0f}%\n"
+                              f"**{status_text}**"
                 }
+            },
+            {"tag": "hr"},
+            {
+                "tag": "div",
+                "text": {
+                    "tag": "lark_md",
+                    "content": f"**🔢 分层抽样**\n"
+                              f"🔴 高风险: {counts.get('high', 0)} 笔 "
+                              f"(全层{strata.get('high', {}).get('total', 0)}笔，"
+                              f"抽样率{strata.get('high', {}).get('sample_rate', 0)*100:.0f}%)\n"
+                              f"🟡 中风险: {counts.get('medium', 0)} 笔 "
+                              f"(全层{strata.get('medium', {}).get('total', 0)}笔，"
+                              f"抽样率{strata.get('medium', {}).get('sample_rate', 0)*100:.0f}%)\n"
+                              f"🟢 低风险: {counts.get('low', 0)} 笔 "
+                              f"(全层{strata.get('low', {}).get('total', 0)}笔，"
+                              f"抽样率{strata.get('low', {}).get('sample_rate', 0)*100:.0f}%)"
+                }
+            },
+        ]
+
+        # 添加样本清单（前5条）
+        samples = result.get("samples", [])
+        if samples:
+            sample_lines = ["**📋 样本清单（Top 5）**\n"]
+            sample_lines.append(f"{'ID':<12} {'金额':>12} {'风险级'}")
+            sample_lines.append("-" * 40)
+            for s in samples[:5]:
+                sample_lines.append(
+                    f"{str(s.get('id', '')):<12} "
+                    f"{s.get('amount', 0):>12,.2f} "
+                    f"{s.get('_risk_level', '')}"
+                )
+            elements.append({
+                "tag": "div",
+                "text": {"tag": "lark_md", "content": "\n".join(sample_lines)}
+            })
+
+        elements.append({"tag": "hr"})
+        elements.append({
+            "tag": "div",
+            "text": {
+                "tag": "lark_md",
+                "content": f"⏰ 生成时间: {result.get('sampled_at', '')}"
             }
-            return send_wecom_card(msg, webhook_url=self.webhook_url)
-        else:
-            card = format_wecom_card(result)
-            return send_wecom_card(card, webhook_url=self.webhook_url)
-    
-    def preview(self, result: Dict[str, Any]) -> str:
-        """预览企微卡片内容"""
-        card = format_wecom_card(result)
-        return json.dumps(card, ensure_ascii=False, indent=2)
+        })
+
+        header_template = "green" if result.get("coverage_met") else "orange"
+
+        return {
+            "type": "interactive",
+            "card": {
+                "header": {
+                    "title": "📊 审计抽样报告",
+                    "template": header_template
+                },
+                "elements": elements
+            }
+        }
+
+    def _build_plan_card(self, plan: dict) -> dict:
+        """构建方案卡片"""
+        strata = plan.get("strata", {})
+        total_est = plan.get("estimated_total", 0)
+
+        elements = [
+            {
+                "tag": "div",
+                "text": {
+                    "tag": "lark_md",
+                    "content": f"**📋 抽样方案预览**\n"
+                              f"预估样本量: ~{total_est} 笔\n"
+                              f"覆盖率目标: {plan.get('coverage_target', 0)*100:.0f}%\n"
+                              f"⏰ 生成时间: {plan.get('generated_at', '')}"
+                }
+            },
+            {"tag": "hr"},
+            {
+                "tag": "div",
+                "text": {
+                    "tag": "lark_md",
+                    "content": f"**📊 分层预估**\n"
+                              f"🔴 高风险: {strata.get('high', {}).get('total', 0)}笔 "
+                              f"→ 抽样{strata.get('high', {}).get('estimated_samples', 0)}笔 "
+                              f"(100%全抽)\n"
+                              f"🟡 中风险: {strata.get('medium', {}).get('total', 0)}笔 "
+                              f"→ 抽样{strata.get('medium', {}).get('estimated_samples', 0)}笔 "
+                              f"({strata.get('medium', {}).get('sample_rate', 0)*100:.0f}%)\n"
+                              f"🟢 低风险: {strata.get('low', {}).get('total', 0)}笔 "
+                              f"→ 抽样{strata.get('low', {}).get('estimated_samples', 0)}笔 "
+                              f"({strata.get('low', {}).get('sample_rate', 0)*100:.0f}%)"
+                }
+            },
+        ]
+
+        return {
+            "type": "interactive",
+            "card": {
+                "header": {
+                    "title": "📋 抽样方案",
+                    "template": "blue"
+                },
+                "elements": elements
+            }
+        }
 
 
-def main():
-    """CLI入口 - 测试发送"""
-    import argparse
-    import sys
-    
-    sys.path.insert(0, str(Path(__file__).parent))
-    from audit_sampling_engine import AuditSamplingEngine
-    
-    parser = argparse.ArgumentParser(description="审计抽样企微集成")
-    parser.add_argument("--webhook", "-w", help="企微Webhook地址")
-    parser.add_argument("--query", "-q", default="审计抽样 发票总量10000张 总金额5000万 高风险业务", help="场景描述")
-    parser.add_argument("--text", "-t", action="store_true", help="发送纯文本")
-    args = parser.parse_args()
-    
-    # 生成抽样结果
-    engine = AuditSamplingEngine(seed=42)
-    result = engine.generate(
-        scenario="发票审计",
-        total_count=10000,
-        total_amount=50000000,
-        risk_level="高风险"
-    )
-    
-    if args.webhook:
-        # 发送到企微
-        integration = AuditSamplingWeCom(webhook_url=args.webhook)
-        resp = integration.send_result(result, as_text=args.text)
-        print(json.dumps(resp, ensure_ascii=False, indent=2))
-    else:
-        # 仅预览卡片
-        integration = AuditSamplingWeCom()
-        print(integration.preview(result))
+def handle(text: str, user_id: str = None) -> dict:
+    """入口函数"""
+    return AuditSamplingWecom().handle_message(text, user_id)
 
 
 if __name__ == "__main__":
-    main()
+    # 测试
+    result = handle("审计抽样")
+    print(json.dumps(result, ensure_ascii=False, indent=2)[:1000])
+    print()
+    result2 = handle("抽样 覆盖=0.95")
+    print(json.dumps(result2, ensure_ascii=False, indent=2)[:1000])

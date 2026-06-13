@@ -1,603 +1,572 @@
+# -*- coding: utf-8 -*-
 """
-审计智能抽样引擎 (Audit Sampling Engine)
+审计抽样引擎 - 风险导向智能审计抽样
+支持覆盖率≥95%的验收标准
 
-基于统计学原理和审计准则（CAS/ISA），提供科学的样本量计算、
-抽样方法选择及误差推断能力。
+Author: ArkClaw
+Version: 1.0.0
 """
 
+import json
 import random
 import math
-import json
-from dataclasses import dataclass, field, asdict
-from typing import List, Dict, Optional, Any
-from enum import Enum
-
-
-class SamplingMethod(Enum):
-    RANDOM = "随机抽样"
-    STRATIFIED = "分层抽样"
-    CLUSTER = "整群抽样"
-    PPS = "PPS抽样"
-
-
-class RiskLevel(Enum):
-    HIGH = "高风险"
-    MEDIUM = "中风险"
-    LOW = "低风险"
-
-
-@dataclass
-class SampledItem:
-    """抽样项目"""
-    item_id: str
-    stratum: str
-    amount: float
-    is_flagged: bool = False
-    finding_type: Optional[str] = None
-    finding_amount: float = 0.0
-
-
-@dataclass
-class SamplingPlan:
-    """抽样方案"""
-    method: str
-    method_rationale: str
-    sample_size: int
-    confidence_level: float
-    tolerable_error_rate: float
-    expected_error_rate: float
-    stratification_key: Optional[str] = None
-    allocation_strategy: Optional[str] = None
-
-
-@dataclass
-class SamplingResult:
-    """抽样结果"""
-    sampled_items: List[Dict[str, Any]]
-    findings_count: int
-    findings_amount: float
-    findings_rate: float
-    high_value_items_sampled: int = 0
-
-
-@dataclass
-class AuditFindings:
-    """审计发现推断"""
-    estimated_error_rate: float
-    projected_total_errors: int
-    projected_total_amount: float
-    error_rate_lower: float
-    error_rate_upper: float
-
-
-@dataclass
-class PopulationConclusion:
-    """总体结论"""
-    error_rate_range: str
-    confidence_interval: str
-    opinion_impact: str
-    recommendation: str
-    needs_expansion: bool
+from datetime import datetime
+from typing import Dict, Any, List, Optional, Tuple
 
 
 class AuditSamplingEngine:
-    """
-    审计智能抽样引擎
-    
-    根据审计场景（总体数量/金额/风险等级）自动计算最优抽样方案，
-    支持随机/分层/整群/PPS四种抽样方法，并返回抽样结果及审计发现概率。
-    """
+    """风险导向智能审计抽样引擎"""
 
-    def __init__(self, seed: Optional[int] = None):
-        """
-        初始化审计抽样引擎
-        
-        Args:
-            seed: 随机种子，用于结果复现
-        """
-        if seed is not None:
-            random.seed(seed)
-        self._random_backup = random.Random(seed)
+    VERSION = "1.0.0"
 
-    def calculate_sample_size(
-        self,
-        population_size: int,
-        confidence_level: float = 0.95,
-        tolerable_error_rate: float = 0.05,
-        expected_error_rate: float = 0.01,
-        method: str = "auto"
-    ) -> int:
+    # 风险分层阈值配置
+    DEFAULT_CONFIG = {
+        "high_risk_amount_threshold": 1_000_000,      # 高风险金额阈值（元）
+        "medium_risk_amount_threshold": 100_000,       # 中风险金额阈值（元）
+        "high_risk_sample_rate": 1.0,                  # 高风险层抽样率 100%
+        "medium_risk_sample_rate": 0.3,                # 中风险层抽样率 30%
+        "low_risk_sample_rate": 0.05,                 # 低风险层抽样率 5%
+        "min_sample_size": 10,                         # 最小样本量
+        "max_sample_ratio": 0.20,                      # 最大抽样比例（总体的20%）
+        "coverage_target": 0.95,                       # 覆盖率目标 95%
+        "stratify_by_type": True,                      # 按交易类型分层
+        "stratify_by_amount": True,                    # 按金额分层
+        "stratify_by_frequency": True,                 # 按频率分层
+    }
+
+    # 高风险交易类型关键词
+    HIGH_RISK_TYPES = [
+        "大额", "异常", "可疑", "敏感", "关联交易",
+        "跨境", "衍生品", "担保", "抵押", "信用证",
+        "理财", "投资", "股权", "资产处置", "核销"
+    ]
+
+    # 中风险交易类型关键词
+    MEDIUM_RISK_TYPES = [
+        "跨行", "转账", "贴现", "承兑", "保理",
+        "租赁", "外包", "咨询", "顾问", "手续费"
+    ]
+
+    def __init__(self, config: Dict[str, Any] = None, api_mode: bool = False):
+        self.config = {**self.DEFAULT_CONFIG, **(config or {})}
+        self.api_mode = api_mode
+        self._log("初始化审计抽样引擎 v%s" % self.VERSION)
+        self._log("配置: %s" % self.config)
+
+    def _log(self, msg: str):
+        if not self.api_mode:
+            print(msg)
+
+    def load_transactions(self, data: List[Dict]) -> List[Dict]:
         """
-        计算样本量
-        
+        加载交易数据集
+
         Args:
-            population_size: 总体大小
-            confidence_level: 置信水平
-            tolerable_error_rate: 可容忍误差率
-            expected_error_rate: 预期误差率
-            method: 抽样方法
-            
+            data: 交易记录列表，每条记录需包含:
+                - id: 交易ID
+                - amount: 交易金额
+                - type: 交易类型（可选）
+                - date: 交易日期（可选）
+                - counterparty: 交易对手（可选）
+                - description: 交易描述（可选）
+
         Returns:
-            所需样本量
+            处理后的交易列表
         """
-        # 置信水平对应的Z值
-        z_scores = {
-            0.90: 1.645,
-            0.95: 1.96,
-            0.99: 2.576
-        }
-        z = z_scores.get(confidence_level, 1.96)
-        
-        # 有限总体校正因子
-        n0 = (z ** 2 * expected_error_rate * (1 - expected_error_rate)) / (tolerable_error_rate ** 2)
-        finite_correction = n0 / (1 + (n0 - 1) / population_size)
-        
-        sample_size = math.ceil(finite_correction)
-        
-        # 最低样本量保障
-        min_sample = 30 if population_size > 1000 else max(5, population_size // 10)
-        return max(sample_size, min_sample)
+        self._log("加载交易数据: %d 条" % len(data))
 
-    def _generate_mock_population(
-        self,
-        total_count: int,
-        total_amount: float,
-        risk_level: str
-    ) -> List[Dict[str, Any]]:
-        """生成模拟总体数据"""
-        avg_amount = total_amount / total_count
-        population = []
-        
-        # 金额分布：80%小额，20%大额
-        small_threshold = avg_amount * 2
-        
-        for i in range(total_count):
-            # 金额分布：指数分布模拟真实场景
-            if random.random() < 0.8:
-                amount = random.uniform(avg_amount * 0.1, small_threshold)
-            else:
-                amount = random.uniform(small_threshold, avg_amount * 50)
-            
-            # 风险标记：高风险业务金额偏大，更易出错
-            if risk_level == "高风险":
-                is_high_risk = random.random() < 0.3
-            elif risk_level == "中风险":
-                is_high_risk = random.random() < 0.15
-            else:
-                is_high_risk = random.random() < 0.05
-            
-            population.append({
-                "item_id": f"INV-{i+1:06d}",
-                "amount": round(amount, 2),
-                "date": f"2026-{random.randint(1,6):02d}-{random.randint(1,28):02d}",
-                "vendor": f"供应商{random.randint(1, 200)}",
-                "department": random.choice(["销售部", "采购部", "行政部", "研发部", "财务部"]),
-                "is_high_risk": is_high_risk,
-                "invoice_type": random.choice(["增值税专用发票", "增值税普通发票", "收据"])
-            })
-        
-        return population
+        processed = []
+        for idx, tx in enumerate(data):
+            # 确保必需字段存在
+            processed_tx = {
+                "id": tx.get("id", f"TXN_{idx+1}"),
+                "amount": float(tx.get("amount", 0)),
+                "type": tx.get("type", "未知"),
+                "date": tx.get("date", ""),
+                "counterparty": tx.get("counterparty", ""),
+                "description": tx.get("description", ""),
+                "_index": idx,
+            }
+            # 计算风险分数
+            processed_tx["_risk_score"] = self._calculate_risk_score(processed_tx)
+            # 确定风险层级
+            processed_tx["_risk_level"] = self._determine_risk_level(processed_tx)
+            processed.append(processed_tx)
 
-    def _simulate_audit_results(
-        self,
-        population: List[Dict[str, Any]],
-        sample: List[Dict[str, Any]],
-        risk_level: str
-    ) -> List[Dict[str, Any]]:
-        """模拟审计检查结果"""
-        # 基础误差率：基于风险等级
-        base_error_rates = {
-            "高风险": 0.08,
-            "中风险": 0.03,
-            "低风险": 0.01
-        }
-        base_rate = base_error_rates.get(risk_level, 0.03)
-        
-        sampled_results = []
-        for item in sample:
-            # 高风险项目误差率更高
-            error_rate = base_rate * 2 if item.get("is_high_risk") else base_rate
-            
-            # 大额项目误差率略高
-            avg_amount = sum(p["amount"] for p in population) / len(population)
-            if item["amount"] > avg_amount * 10:
-                error_rate *= 1.5
-            
-            has_error = random.random() < error_rate
-            
-            result = item.copy()
-            if has_error:
-                # 误差类型分布
-                error_types = ["金额错误", "日期错误", "审批缺失", "发票不合规", "重复入账"]
-                result["has_error"] = True
-                result["finding_type"] = random.choice(error_types)
-                result["finding_amount"] = item["amount"] * random.uniform(0.05, 0.30)
-                result["finding_amount"] = round(result["finding_amount"], 2)
-            else:
-                result["has_error"] = False
-                result["finding_type"] = None
-                result["finding_amount"] = 0.0
-            
-            sampled_results.append(result)
-        
-        return sampled_results
+        self._log("数据加载完成，风险分层完成")
+        return processed
 
-    def _select_method(
-        self,
-        total_count: int,
-        total_amount: float,
-        risk_level: str
-    ) -> str:
-        """智能选择抽样方法"""
-        avg_amount = total_amount / total_count
-        amount_cv = self._calculate_cv(total_count, total_amount)
-        
-        # 金额变异系数高 → PPS
-        if amount_cv > 1.5:
-            return "PPS抽样"
-        
-        # 高风险 → 分层抽样
-        if risk_level == "高风险":
-            return "分层抽样"
-        
-        # 中风险 + 中等变异 → 随机抽样
-        return "随机抽样"
+    def _calculate_risk_score(self, tx: Dict) -> float:
+        """
+        计算单笔交易的风险分数 (0-100)
 
-    def _calculate_cv(self, total_count: int, total_amount: float) -> float:
-        """计算金额变异系数（简化估算）"""
-        avg_amount = total_amount / total_count
-        # 估算标准差：假设金额服从指数分布
-        std_amount = avg_amount * 0.8
-        return std_amount / avg_amount if avg_amount > 0 else 0
+        考虑因素：
+        1. 金额大小（权重40%）
+        2. 交易类型（权重30%）
+        3. 频率异常（权重20%）
+        4. 描述关键词（权重10%）
+        """
+        score = 0.0
 
-    def _stratify_population(
-        self,
-        population: List[Dict[str, Any]]
-    ) -> Dict[str, List[Dict[str, Any]]]:
-        """分层总体"""
-        strata = {
-            "高金额区(>10万)": [],
-            "中金额区(1-10万)": [],
-            "低金额区(<1万)": []
-        }
-        
-        for item in population:
-            if item["amount"] > 100000:
-                strata["高金额区(>10万)"].append(item)
-            elif item["amount"] > 10000:
-                strata["中金额区(1-10万)"].append(item)
-            else:
-                strata["低金额区(<1万)"].append(item)
-        
+        # 1. 金额因素 (0-40分)
+        amount = tx.get("amount", 0)
+        if amount >= self.config["high_risk_amount_threshold"]:
+            score += 40
+        elif amount >= self.config["medium_risk_amount_threshold"]:
+            score += 20
+        elif amount >= 10_000:
+            score += 5
+
+        # 2. 交易类型因素 (0-30分)
+        tx_type = tx.get("type", "")
+        tx_type_text = tx_type + " " + tx.get("description", "")
+        tx_type_lower = tx_type_text.lower()
+
+        for keyword in self.HIGH_RISK_TYPES:
+            if keyword.lower() in tx_type_lower:
+                score += 15
+                break
+        else:
+            for keyword in self.MEDIUM_RISK_TYPES:
+                if keyword.lower() in tx_type_lower:
+                    score += 8
+                    break
+
+        # 3. 频率因素 (0-20分) - 占位，后续可接入频率统计
+        # 目前简化处理：描述中含"频繁"、"异常"关键词
+        if any(kw in tx_type_lower for kw in ["频繁", "异常", "可疑", "重复"]):
+            score += 20
+
+        # 4. 描述关键词因素 (0-10分)
+        risk_keywords = ["关联交易", "关联方", "利益输送", "虚构", "虚假", "隐瞒"]
+        if any(kw in tx_type_lower for kw in risk_keywords):
+            score += 10
+
+        return min(100.0, score)
+
+    def _determine_risk_level(self, tx: Dict) -> str:
+        """确定风险层级"""
+        score = tx.get("_risk_score", 0)
+        if score >= 50:
+            return "high"
+        elif score >= 20:
+            return "medium"
+        else:
+            return "low"
+
+    def stratify(self, transactions: List[Dict]) -> Dict[str, List[Dict]]:
+        """
+        对交易数据进行分层
+
+        Returns:
+            分层字典: {"high": [...], "medium": [...], "low": [...]}
+        """
+        strata = {"high": [], "medium": [], "low": []}
+
+        for tx in transactions:
+            level = tx.get("_risk_level", "low")
+            strata[level].append(tx)
+
+        for level, txs in strata.items():
+            self._log("  %s 层: %d 笔" % (level.upper(), len(txs)))
+
         return strata
 
-    def _allocate_sample_proportional(
-        self,
-        strata: Dict[str, List[Dict[str, Any]]],
-        total_sample_size: int
-    ) -> Dict[str, int]:
-        """比例分配样本量到各层"""
-        total_items = sum(len(s) for s in strata.values())
-        allocations = {}
-        
-        for stratum_name, items in strata.items():
-            proportion = len(items) / total_items if total_items > 0 else 0
-            # 金额加权调整
-            avg_amount = sum(i["amount"] for i in items) / len(items) if items else 0
-            amount_weight = min(avg_amount / 10000, 3)  # 封顶3倍
-            adjusted_proportion = proportion * (1 + amount_weight * 0.3)
-            
-            allocations[stratum_name] = max(1, int(total_sample_size * adjusted_proportion))
-        
-        # 调整总和
-        current_total = sum(allocations.values())
-        if current_total != total_sample_size:
-            diff = total_sample_size - current_total
-            # 补偿到最大层
-            max_stratum = max(allocations, key=allocations.get)
-            allocations[max_stratum] += diff
-        
-        return allocations
-
-    def _perform_stratified_sampling(
-        self,
-        population: List[Dict[str, Any]],
-        sample_size: int,
-        risk_level: str
-    ) -> List[Dict[str, Any]]:
-        """执行分层抽样"""
-        strata = self._stratify_population(population)
-        allocations = self._allocate_sample_proportional(strata, sample_size)
-        
-        sample = []
-        for stratum_name, items in strata.items():
-            n = allocations.get(stratum_name, 0)
-            n = min(n, len(items))
-            selected = random.sample(items, n) if len(items) >= n else items
-            for item in selected:
-                item["stratum"] = stratum_name
-            sample.extend(selected)
-        
-        return sample
-
-    def _perform_random_sampling(
-        self,
-        population: List[Dict[str, Any]],
-        sample_size: int
-    ) -> List[Dict[str, Any]]:
-        """执行随机抽样"""
-        sample_size = min(sample_size, len(population))
-        sample = random.sample(population, sample_size)
-        for item in sample:
-            item["stratum"] = "整体"
-        return sample
-
-    def _perform_pps_sampling(
-        self,
-        population: List[Dict[str, Any]],
-        sample_size: int
-    ) -> List[Dict[str, Any]]:
-        """执行PPS抽样（概率比例规模抽样）"""
-        total_amount = sum(item["amount"] for item in population)
-        
-        # 按金额排序
-        sorted_pop = sorted(population, key=lambda x: x["amount"], reverse=True)
-        
-        # 选择大额项目优先入样
-        sample = []
-        
-        # 第一阶段：选取前N个大额项目
-        large_items_count = max(3, sample_size // 3)
-        for item in sorted_pop[:large_items_count]:
-            item_copy = item.copy()
-            item_copy["stratum"] = "PPS大额优先"
-            item_copy["pps_weight"] = item["amount"] / total_amount
-            sample.append(item_copy)
-        
-        # 第二阶段：剩余样本随机抽取
-        remaining = sorted_pop[large_items_count:]
-        remaining_size = sample_size - len(sample)
-        if remaining_size > 0 and remaining:
-            selected = random.sample(remaining, min(remaining_size, len(remaining)))
-            for item in selected:
-                item_copy = item.copy()
-                item_copy["stratum"] = "PPS随机补抽"
-                item_copy["pps_weight"] = item["amount"] / total_amount
-                sample.append(item_copy)
-        
-        return sample
-
-    def _perform_cluster_sampling(
-        self,
-        population: List[Dict[str, Any]],
-        sample_size: int
-    ) -> List[Dict[str, Any]]:
-        """执行整群抽样（按部门聚类）"""
-        # 按部门分组
-        clusters = {}
-        for item in population:
-            dept = item.get("department", "未知")
-            if dept not in clusters:
-                clusters[dept] = []
-            clusters[dept].append(item)
-        
-        # 计算每个部门作为群体的样本量
-        cluster_list = list(clusters.items())
-        total_clusters = len(cluster_list)
-        
-        # 计算需要抽取的群体数
-        clusters_to_sample = max(1, min(sample_size // 20 + 1, total_clusters))
-        
-        # 随机选择群体
-        selected_clusters = random.sample(cluster_list, clusters_to_sample)
-        
-        sample = []
-        for dept_name, items in selected_clusters:
-            for item in items:
-                item_copy = item.copy()
-                item_copy["stratum"] = f"整群-{dept_name}"
-                sample.append(item_copy)
-        
-        return sample
-
-    def generate(
-        self,
-        scenario: str = "通用审计",
-        total_count: int = 1000,
-        total_amount: float = 10000000,
-        risk_level: str = "中风险",
-        confidence_level: float = 0.95,
-        tolerable_error_rate: float = 0.05,
-        expected_error_rate: float = 0.01,
-        method: str = "auto"
-    ) -> Dict[str, Any]:
+    def sample(self, transactions: List[Dict],
+               target_sample_size: int = None,
+               coverage_target: float = None) -> Dict[str, Any]:
         """
-        生成审计抽样方案和结果
-        
+        执行风险导向抽样
+
         Args:
-            scenario: 审计场景描述
-            total_count: 总体数量（如发票张数）
-            total_amount: 总体金额（元）
-            risk_level: 风险等级（高/中/低风险）
-            confidence_level: 置信水平
-            tolerable_error_rate: 可容忍误差率
-            expected_error_rate: 预期误差率
-            method: 抽样方法（auto/随机抽样/分层抽样/整群抽样/PPS抽样）
-            
+            transactions: 交易数据（已通过load_transactions处理）
+            target_sample_size: 目标样本量（可选，不指定时自动计算）
+            coverage_target: 覆盖率目标（默认95%）
+
         Returns:
-            完整的抽样结果，包含方案、结果、发现推断、总体结论
+            抽样结果字典
         """
-        # 智能选择方法
-        if method == "auto":
-            method = self._select_method(total_count, total_amount, risk_level)
-        
-        # 计算样本量
-        sample_size = self.calculate_sample_size(
-            population_size=total_count,
-            confidence_level=confidence_level,
-            tolerable_error_rate=tolerable_error_rate,
-            expected_error_rate=expected_error_rate,
-            method=method
-        )
-        
-        # 生成模拟总体
-        population = self._generate_mock_population(total_count, total_amount, risk_level)
-        
-        # 执行抽样
-        if method == "分层抽样":
-            sample = self._perform_stratified_sampling(population, sample_size, risk_level)
-        elif method == "整群抽样":
-            sample = self._perform_cluster_sampling(population, sample_size)
-        elif method == "PPS抽样":
-            sample = self._perform_pps_sampling(population, sample_size)
-        else:
-            sample = self._perform_random_sampling(population, sample_size)
-        
-        # 模拟审计检查
-        results = self._simulate_audit_results(population, sample, risk_level)
-        
-        # 统计结果
-        findings_count = sum(1 for r in results if r.get("has_error", False))
-        findings_amount = sum(r.get("finding_amount", 0) for r in results)
-        findings_rate = findings_count / len(results) if results else 0
-        high_value_sampled = sum(1 for r in results if r.get("stratum", "").startswith("高金额"))
-        
-        # 构建抽样计划
-        method_rationales = {
-            "随机抽样": "总体内部差异较小，边界清晰，随机抽样可保证代表性。",
-            "分层抽样": f"高风险业务总体内部差异较大，按金额分层可提高精度，确保大额项目充分覆盖。",
-            "整群抽样": "群体间差异小、群体内差异大，整群抽样效率高。",
-            "PPS抽样": f"金额分布不均（变异系数>{1.5:.1f}），少量大额项目主导总体，PPS确保大额项目入选概率与金额成正比。"
-        }
-        
-        sampling_plan = SamplingPlan(
-            method=method,
-            method_rationale=method_rationales.get(method, "基于审计判断选择。"),
-            sample_size=len(sample),
-            confidence_level=confidence_level,
-            tolerable_error_rate=tolerable_error_rate,
-            expected_error_rate=expected_error_rate,
-            stratification_key="金额分层" if method == "分层抽样" else None,
-            allocation_strategy="比例分配+金额加权" if method == "分层抽样" else None
-        )
-        
-        # 审计发现推断
-        # 使用泊松分布推断总体误差
-        z = 1.96 if confidence_level == 0.95 else (2.576 if confidence_level == 0.99 else 1.645)
-        error_std = math.sqrt(findings_rate * (1 - findings_rate) / len(results)) if len(results) > 0 else 0
-        margin = z * error_std
-        
-        estimated_error_rate = findings_rate
-        error_rate_lower = max(0, estimated_error_rate - margin)
-        error_rate_upper = min(1, estimated_error_rate + margin)
-        
-        projected_total_errors = int(estimated_error_rate * total_count)
-        projected_total_amount = findings_amount / len(results) * total_count if results else 0
-        
-        audit_findings = AuditFindings(
-            estimated_error_rate=round(estimated_error_rate * 100, 2),
-            projected_total_errors=projected_total_errors,
-            projected_total_amount=round(projected_total_amount, 2),
-            error_rate_lower=round(error_rate_lower * 100, 2),
-            error_rate_upper=round(error_rate_upper * 100, 2)
-        )
-        
-        # 总体结论
-        if estimated_error_rate <= tolerable_error_rate * 0.5:
-            opinion_impact = "无保留意见"
-            recommendation = "误差率显著低于可容忍水平，审计范围充分，结论可靠。"
-            needs_expansion = False
-        elif estimated_error_rate <= tolerable_error_rate:
-            opinion_impact = "保留意见或带说明段的无保留意见"
-            recommendation = "误差率接近但未超过可容忍水平，建议扩大样本量或执行替代程序。"
-            needs_expansion = True
-        else:
-            opinion_impact = "否定意见或拒绝表示意见"
-            recommendation = "误差率超过可容忍水平，需要扩大审计范围或建议管理层调整。"
-            needs_expansion = True
-        
-        population_conclusion = PopulationConclusion(
-            error_rate_range=f"{error_rate_lower*100:.1f}% ~ {error_rate_upper*100:.1f}%",
-            confidence_interval=f"{confidence_level*100:.0f}%",
-            opinion_impact=opinion_impact,
-            recommendation=recommendation,
-            needs_expansion=needs_expansion
-        )
-        
-        return {
-            "scenario": scenario,
-            "population_summary": {
-                "total_count": total_count,
-                "total_amount": total_amount,
-                "avg_amount": round(total_amount / total_count, 2) if total_count > 0 else 0,
-                "risk_level": risk_level
-            },
-            "sampling_plan": asdict(sampling_plan),
-            "sampling_results": {
-                "sample_size": len(sample),
-                "sampled_items": [
-                    {k: v for k, v in r.items() if k in ["item_id", "stratum", "amount", "date", "vendor", "has_error", "finding_type", "finding_amount"]}
-                    for r in results
-                ],
-                "findings_count": findings_count,
-                "findings_amount": round(findings_amount, 2),
-                "findings_rate": round(findings_rate * 100, 2),
-                "high_value_items_sampled": high_value_sampled
-            },
-            "audit_findings": asdict(audit_findings),
-            "population_conclusion": asdict(population_conclusion)
+        self._log("开始风险导向抽样...")
+        self._log("  交易总数: %d" % len(transactions))
+        self._log("  覆盖率目标: %.1f%%" % ((coverage_target or self.config["coverage_target"]) * 100))
+
+        if not transactions:
+            return self._empty_result()
+
+        # 分层
+        strata = self.stratify(transactions)
+
+        # 计算各层应抽样本数
+        total_amount = sum(tx.get("amount", 0) for tx in transactions)
+        total_high = sum(tx.get("amount", 0) for tx in strata["high"])
+        total_medium = sum(tx.get("amount", 0) for tx in strata["medium"])
+        total_low = sum(tx.get("amount", 0) for tx in strata["low"])
+
+        # 各层样本分配（基于金额加权）
+        samples = {"high": [], "medium": [], "low": []}
+        sample_counts = {"high": 0, "medium": 0, "low": 0}
+
+        # 高风险层：100%全抽
+        samples["high"] = strata["high"][:]
+        sample_counts["high"] = len(samples["high"])
+
+        # 中风险层：按比例抽样，但保证覆盖
+        medium_count = len(strata["medium"])
+        if medium_count > 0:
+            # 金额加权抽样
+            if total_medium > 0:
+                medium_sample_size = max(
+                    int(medium_count * self.config["medium_risk_sample_rate"]),
+                    min(10, medium_count)  # 最少10笔
+                )
+            else:
+                medium_sample_size = int(medium_count * self.config["medium_risk_sample_rate"])
+
+            # 金额分层抽样（确保大额优先）
+            medium_sorted = sorted(strata["medium"],
+                                  key=lambda x: x.get("amount", 0),
+                                  reverse=True)
+            # Top 50% 金额的记录全抽
+            top_count = max(1, medium_count // 2)
+            top_medium = medium_sorted[:top_count]
+            rest_medium = medium_sorted[top_count:]
+
+            # 从剩余中随机抽样补足
+            remaining_needed = medium_sample_size - len(top_medium)
+            if remaining_needed > 0 and rest_medium:
+                sampled_rest = random.sample(rest_medium,
+                                            min(remaining_needed, len(rest_medium)))
+            else:
+                sampled_rest = []
+
+            samples["medium"] = top_medium + sampled_rest
+            sample_counts["medium"] = len(samples["medium"])
+
+        # 低风险层：统计抽样
+        low_count = len(strata["low"])
+        if low_count > 0:
+            # 使用泊松分布抽样，大额优先
+            low_sorted = sorted(strata["low"],
+                                key=lambda x: x.get("amount", 0),
+                                reverse=True)
+
+            # 按四分位数分层抽样
+            q1 = low_count // 4
+            q2 = low_count // 2
+            q3 = low_count * 3 // 4
+
+            low_samples = []
+            # Q1 (最大额25%) - 抽取30%
+            if q1 > 0:
+                low_samples.extend(random.sample(low_sorted[:q1],
+                                                min(max(1, int(q1 * 0.3)), q1)))
+            # Q2 (次大额25%) - 抽取10%
+            q2_count = q2 - q1
+            if q2_count > 0:
+                low_samples.extend(random.sample(low_sorted[q1:q2],
+                                                min(max(1, int(q2_count * 0.1)), q2_count)))
+            # Q3-Q4 (小额50%) - 抽取3%
+            q34_count = low_count - q2
+            if q34_count > 0:
+                low_samples.extend(random.sample(low_sorted[q2:],
+                                                min(max(1, int(q34_count * 0.03)), q34_count)))
+
+            samples["low"] = low_samples
+            sample_counts["low"] = len(samples["low"])
+
+        # 合并样本
+        all_samples = samples["high"] + samples["medium"] + samples["low"]
+
+        # 去重（按id）
+        seen = set()
+        unique_samples = []
+        for s in all_samples:
+            if s["id"] not in seen:
+                seen.add(s["id"])
+                unique_samples.append(s)
+
+        # 按风险分数降序排列
+        unique_samples.sort(key=lambda x: x.get("_risk_score", 0), reverse=True)
+
+        # 检查覆盖率
+        coverage = self._calculate_coverage(unique_samples, transactions)
+
+        # 如果覆盖率不达标，补充抽样
+        target_cov = coverage_target or self.config["coverage_target"]
+        if coverage < target_cov and strata["low"]:
+            # 从低风险层补充大额记录
+            shortfall = int(len(transactions) * (target_cov - coverage))
+            补充 = [tx for tx in strata["low"]
+                    if tx not in unique_samples]
+            补充.sort(key=lambda x: x.get("amount", 0), reverse=True)
+            unique_samples.extend(补充[:min(shortfall, len(补充))])
+            coverage = self._calculate_coverage(unique_samples, transactions)
+
+        # 如果仍不达标，触发高风险层的追加（全量已抽时跳过）
+        if coverage < target_cov and strata["medium"]:
+            补充 = [tx for tx in strata["medium"]
+                    if tx not in unique_samples]
+            unique_samples.extend(补充)
+            coverage = self._calculate_coverage(unique_samples, transactions)
+
+        # 按风险分数降序
+        unique_samples.sort(key=lambda x: x.get("_risk_score", 0), reverse=True)
+        sample_counts = {
+            "high": len([s for s in unique_samples if s.get("_risk_level") == "high"]),
+            "medium": len([s for s in unique_samples if s.get("_risk_level") == "medium"]),
+            "low": len([s for s in unique_samples if s.get("_risk_level") == "low"]),
         }
 
-    def generate_text_report(self, result: Dict[str, Any]) -> str:
-        """生成文本格式的审计抽样报告"""
-        plan = result["sampling_plan"]
-        results = result["sampling_results"]
-        findings = result["audit_findings"]
-        conclusion = result["population_conclusion"]
-        pop_summary = result["population_summary"]
-        
+        self._log("抽样完成:")
+        self._log("  总样本量: %d (占总交易 %.1f%%)" % (
+            len(unique_samples),
+            len(unique_samples) / len(transactions) * 100 if transactions else 0
+        ))
+        self._log("  高风险: %d, 中风险: %d, 低风险: %d" % (
+            sample_counts["high"], sample_counts["medium"], sample_counts["low"]
+        ))
+        self._log("  覆盖率: %.2f%%" % (coverage * 100))
+
+        return {
+            "total_transactions": len(transactions),
+            "sample_size": len(unique_samples),
+            "sample_ratio": len(unique_samples) / len(transactions) if transactions else 0,
+            "coverage": coverage,
+            "coverage_target": target_cov,
+            "coverage_met": coverage >= target_cov,
+            "sample_counts": sample_counts,
+            "samples": unique_samples,
+            "strata_summary": {
+                "high": {
+                    "total": len(strata["high"]),
+                    "sampled": sample_counts["high"],
+                    "sample_rate": sample_counts["high"] / len(strata["high"]) if strata["high"] else 0,
+                },
+                "medium": {
+                    "total": len(strata["medium"]),
+                    "sampled": sample_counts["medium"],
+                    "sample_rate": sample_counts["medium"] / len(strata["medium"]) if strata["medium"] else 0,
+                },
+                "low": {
+                    "total": len(strata["low"]),
+                    "sampled": sample_counts["low"],
+                    "sample_rate": sample_counts["low"] / len(strata["low"]) if strata["low"] else 0,
+                },
+            },
+            "total_amount_sampled": sum(s.get("amount", 0) for s in unique_samples),
+            "total_amount_audited": total_amount,
+            "amount_coverage": sum(s.get("amount", 0) for s in unique_samples) / total_amount if total_amount else 0,
+            "sampled_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        }
+
+    def _calculate_coverage(self, samples: List[Dict], all_transactions: List[Dict]) -> float:
+        """计算覆盖率（基于金额）"""
+        if not all_transactions:
+            return 0.0
+        sampled_amount = sum(s.get("amount", 0) for s in samples)
+        total_amount = sum(tx.get("amount", 0) for tx in all_transactions)
+        return sampled_amount / total_amount if total_amount else 0.0
+
+    def _empty_result(self) -> Dict[str, Any]:
+        return {
+            "total_transactions": 0,
+            "sample_size": 0,
+            "sample_ratio": 0,
+            "coverage": 0,
+            "coverage_target": self.config["coverage_target"],
+            "coverage_met": False,
+            "sample_counts": {"high": 0, "medium": 0, "low": 0},
+            "samples": [],
+            "strata_summary": {},
+            "total_amount_sampled": 0,
+            "total_amount_audited": 0,
+            "amount_coverage": 0,
+            "sampled_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        }
+
+    def generate_sampling_plan(self, transactions: List[Dict],
+                               params: Dict = None) -> Dict[str, Any]:
+        """
+        生成完整抽样方案（含方案描述，不执行抽样）
+
+        Args:
+            transactions: 交易数据
+            params: 抽样参数覆盖
+
+        Returns:
+            抽样方案描述
+        """
+        config = {**self.config, **(params or {})}
+        processed = self.load_transactions(transactions)
+        strata = self.stratify(processed)
+
+        # 计算各层应抽数量（不实际抽样）
+        plan = {
+            "config": config,
+            "strata": {
+                level: {
+                    "count": len(txs),
+                    "sample_rate": (1.0 if level == "high"
+                                    else config.get(f"{level}_risk_sample_rate", 0.1)),
+                    "estimated_samples": int(len(txs) * (1.0 if level == "high"
+                                    else config.get(f"{level}_risk_sample_rate", 0.1))),
+                }
+                for level, txs in strata.items()
+            },
+            "estimated_total": sum(
+                int(len(txs) * (1.0 if level == "high"
+                 else config.get(f"{level}_risk_sample_rate", 0.1)))
+                for level, txs in strata.items()
+            ),
+            "coverage_target": config["coverage_target"],
+            "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        }
+
+        return plan
+
+    def format_plan_text(self, result: Dict) -> str:
+        """格式化输出抽样方案（文本）"""
         lines = [
-            "=" * 60,
-            "审计智能抽样报告",
-            "=" * 60,
+            "📊 **风险导向审计抽样报告**",
             "",
-            f"【审计场景】{result['scenario']}",
+            f"⏰ 生成时间: {result.get('sampled_at', '')}",
             "",
-            "【总体概况】",
-            f"  总体数量: {pop_summary['total_count']:,} 件",
-            f"  总体金额: {pop_summary['total_amount']:,.2f} 元",
-            f"  平均金额: {pop_summary['avg_amount']:,.2f} 元/件",
-            f"  风险等级: {pop_summary['risk_level']}",
+            "=" * 40,
             "",
-            "【抽样方案】",
-            f"  抽样方法: {plan['method']}",
-            f"  方法说明: {plan['method_rationale']}",
-            f"  置信水平: {plan['confidence_level']*100:.0f}%",
-            f"  可容忍误差率: {plan['tolerable_error_rate']*100:.1f}%",
-            f"  预期误差率: {plan['expected_error_rate']*100:.1f}%",
-            f"  计算样本量: {plan['sample_size']} 件",
+            "**一、抽样概况**",
+            f"  总交易笔数: {result.get('total_transactions', 0):,} 笔",
+            f"  抽样样本量: {result.get('sample_size', 0):,} 笔",
+            f"  抽样比例:   {result.get('sample_ratio', 0)*100:.2f}%",
+            f"  金额覆盖率: {result.get('coverage', 0)*100:.2f}%",
             "",
-            "【抽样结果】",
-            f"  实际抽样: {results['sample_size']} 件",
-            f"  发现问题: {results['findings_count']} 件 ({results['findings_rate']:.2f}%)",
-            f"  问题金额: {results['findings_amount']:,.2f} 元",
-            f"  大额项目抽样: {results['high_value_items_sampled']} 件",
+            f"  ✅ 覆盖率达标: {'是' if result.get('coverage_met') else '否'} "
+            f"(目标 {result.get('coverage_target', 0)*100:.0f}%)",
             "",
-            "【误差推断】",
-            f"  估计误差率: {findings['estimated_error_rate']:.2f}%",
-            f"  误差率区间({findings['projected_total_errors']}项): {findings['error_rate_lower']:.2f}% ~ {findings['error_rate_upper']:.2f}%",
-            f"  推断总体误差金额: {findings['projected_total_amount']:,.2f} 元",
+            "=" * 40,
             "",
-            "【总体结论】",
-            f"  {confidence_interval}置信水平下误差率范围: {conclusion['error_rate_range']}",
-            f"  对审计意见的影响: {conclusion['opinion_impact']}",
-            f"  建议: {conclusion['recommendation']}",
-            "",
-            "=" * 60
+            "**二、分层抽样详情**",
         ]
-        
+
+        summary = result.get("strata_summary", {})
+        for level, label in [("high", "🔴 高风险"), ("medium", "🟡 中风险"), ("low", "🟢 低风险")]:
+            if level in summary:
+                s = summary[level]
+                lines.append(
+                    f"  {label}层: "
+                    f"全层{summary[level].get('total', 0)}笔 "
+                    f"→ 抽样{s.get('sampled', 0)}笔 "
+                    f"(抽样率{s.get('sample_rate', 0)*100:.1f}%)"
+                )
+
+        lines.extend([
+            "",
+            "=" * 40,
+            "",
+            "**三、样本清单**",
+        ])
+
+        samples = result.get("samples", [])
+        if samples:
+            lines.append(f"  {'ID':<15} {'金额':>15} {'风险分':>8} {'风险级':<6} {'交易类型'}")
+            lines.append("  " + "-" * 70)
+            for s in samples[:50]:  # 最多显示50条
+                lines.append(
+                    f"  {str(s.get('id', '')):<15} "
+                    f"{s.get('amount', 0):>15,.2f} "
+                    f"{s.get('_risk_score', 0):>8.1f} "
+                    f"{s.get('_risk_level', ''):<6} "
+                    f"{str(s.get('type', ''))[:20]}"
+                )
+            if len(samples) > 50:
+                lines.append(f"  ... (共 {len(samples)} 条，仅显示前50条)")
+        else:
+            lines.append("  (无样本)")
+
+        lines.extend([
+            "",
+            "=" * 40,
+            "",
+            "**四、审计建议**",
+        ])
+
+        if result.get("coverage_met"):
+            lines.append("  ✓ 抽样方案满足覆盖率≥95%要求，可执行审计程序")
+        else:
+            lines.append("  ⚠️ 覆盖率未达标，建议增加高风险层样本量")
+
+        high_count = result.get("sample_counts", {}).get("high", 0)
+        if high_count > 0:
+            lines.append(f"  ✓ 高风险层 {high_count} 笔已全量纳入，需重点审计")
+
         return "\n".join(lines)
 
+    def format_json(self, result: Dict) -> str:
+        """格式化输出为JSON"""
+        # 去除样本中的内部字段
+        output = {k: v for k, v in result.items() if k != "samples"}
+        output["samples"] = [
+            {
+                "id": s.get("id"),
+                "amount": s.get("amount"),
+                "type": s.get("type"),
+                "date": s.get("date"),
+                "counterparty": s.get("counterparty"),
+                "description": s.get("description"),
+                "risk_score": s.get("_risk_score"),
+                "risk_level": s.get("_risk_level"),
+            }
+            for s in result.get("samples", [])
+        ]
+        return json.dumps(output, ensure_ascii=False, indent=2)
 
-# 兼容性别名
-AuditSamplingEngine().generate_text_report = lambda r: AuditSamplingEngine.generate_text_report(None, r)
+
+def main():
+    """主函数 - CLI测试"""
+    print("=" * 50)
+    print("🦞 风险导向审计抽样引擎 v1.0")
+    print("=" * 50)
+    print()
+
+    engine = AuditSamplingEngine()
+
+    # 生成模拟交易数据
+    import random
+    random.seed(42)  # 复现性
+
+    types = ["转账", "贷款发放", "还款", "手续费", "理财购买", "理财赎回",
+             "担保", "信用证", "贴现", "咨询费", "资产处置"]
+
+    transactions = []
+    for i in range(500):
+        amount = random.uniform(100, 5_000_000)
+        # 10%大额
+        if i < 50:
+            amount = random.uniform(1_000_000, 5_000_000)
+        # 20%中等
+        elif i < 150:
+            amount = random.uniform(100_000, 1_000_000)
+
+        transactions.append({
+            "id": f"TXN_{i+1:06d}",
+            "amount": round(amount, 2),
+            "type": random.choice(types),
+            "date": f"2024-{(i%12)+1:02d}-{(i%28)+1:02d}",
+            "counterparty": f"对手方{random.randint(1, 50)}",
+            "description": random.choice(["正常", "大额", "异常", "关联交易"])
+        })
+
+    print(f"加载测试数据: {len(transactions)} 笔交易")
+    print()
+
+    # 加载并分层
+    processed = engine.load_transactions(transactions)
+
+    # 执行抽样
+    result = engine.sample(processed, coverage_target=0.95)
+
+    print()
+    print(engine.format_plan_text(result))
+
+
+if __name__ == "__main__":
+    main()
