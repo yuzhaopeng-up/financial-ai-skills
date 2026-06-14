@@ -28,11 +28,11 @@ SKILL_DIR = os.path.dirname(SCRIPT_DIR)
 sys.path.insert(0, SKILL_DIR)
 
 # 添加 wecom formatters 路径以导入 BaseFormatter
-sys.path.insert(0, os.path.join(SKILL_DIR, "..", "..", "..", "tmp", "openclaw-workspace", "wecom", "formatters"))
+sys.path.insert(0, os.path.join(SKILL_DIR, "..", "..", "..", "tmp", "financial-ai-workspace", "wecom", "formatters"))
 
-# 添加 openclaw-workspace 路径
-sys.path.insert(0, "/tmp/openclaw-workspace")
-sys.path.insert(0, "/tmp/openclaw-workspace/wecom/formatters")
+# 添加 financial-ai-workspace 路径
+sys.path.insert(0, "/tmp/financial-ai-workspace")
+sys.path.insert(0, "/tmp/financial-ai-workspace/wecom/formatters")
 
 from engines import (
     InvoiceEngine, BudgetEngine, ReportEngine,

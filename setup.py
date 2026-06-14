@@ -11,7 +11,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name="financial-ai-skills",
     version="1.0.0",
-    author="于兆鹏 (Yu Zhaopeng)",
+    author="Financial AI Contributors (Yu Zhaopeng)",
     author_email="",
     description="AI Agent Skills for Financial Institutions",
     long_description=long_description,

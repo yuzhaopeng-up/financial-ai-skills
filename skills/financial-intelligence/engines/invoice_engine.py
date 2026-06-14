@@ -8,7 +8,7 @@
 - 合规性审查
 - 重复报销检测
 
-协同: KimiClaw (OCR+代码实现) / ArkClaw (合规分析)
+协同: RemoteAgentB (OCR+代码实现) / RemoteAgentA (合规分析)
 """
 
 import re

@@ -8,7 +8,7 @@
 - 缺口预警
 - 资金调度建议
 
-协同: ArkClaw (分析建模) / KimiClaw (数据对接)
+协同: RemoteAgentA (分析建模) / RemoteAgentB (数据对接)
 """
 
 from typing import Dict, Any, Optional, List

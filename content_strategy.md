@@ -97,7 +97,7 @@
 ```python
 # 方案：Cookie持久化+定时发布
 headers = {
-    "Cookie": "z_c0=xxx",  # 从浏览器获取
+    "Cookie": "ZHIHU_COOKIE=xxx",  # 从浏览器获取
     "x-requested-with": "fetch"
 }
 # API: /api/v4/answers 或 /api/v4/articles

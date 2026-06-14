@@ -8,7 +8,7 @@
 - 超支预警
 - 趋势预测
 
-协同: ArkClaw (分析决策) / KimiClaw (数据抓取)
+协同: RemoteAgentA (分析决策) / RemoteAgentB (数据抓取)
 """
 
 import json

@@ -8,7 +8,7 @@
 - 审批流建议
 - 重复报销检测
 
-协同: KimiClaw (自动化) / ArkClaw (规则分析)
+协同: RemoteAgentB (自动化) / RemoteAgentA (规则分析)
 """
 
 import re

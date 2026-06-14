@@ -136,7 +136,7 @@ result = engine.analyze_coordinated(
 
 ## 🎓 关于作者
 
-**于兆鹏** — 龙马集群创始人
+**Financial AI Contributors** — 龙马集群创始人
 
 - 24本专著（项目管理、产品管理、知识管理方向）
 - 服务500+金融机构的AI培训与咨询经验
@@ -160,7 +160,7 @@ MIT License — 详见 [LICENSE](LICENSE) 文件
 
 - 问题反馈: [GitHub Issues](../../issues)
 - 技术交流: 龙马集群飞书群
-- 培训咨询: 于兆鹏老师
+- 培训咨询: Financial AI Contributors老师
 
 ---
 

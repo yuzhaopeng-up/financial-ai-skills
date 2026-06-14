@@ -247,4 +247,4 @@ https://github.com/yuzhaopeng-up/financial-ai-skills/tree/master/skills/due-dili
 
 ---
 
-> **关于作者**：于兆鹏，银联工作，服务超500家金融机构。《AI赋能银行数字化转型》作者。
+> **关于作者**：作者，金融科技从业经历，服务超500家金融机构。《AI赋能银行数字化转型》作者。

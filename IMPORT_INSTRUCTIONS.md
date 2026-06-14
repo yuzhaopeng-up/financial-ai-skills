@@ -93,4 +93,4 @@ python scripts/github_metrics_tracker.py --chart
 
 ---
 
-*龙马集群出品 | 于兆鹏*
+*龙马集群出品 | Financial AI Contributors*

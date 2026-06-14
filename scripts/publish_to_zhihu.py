@@ -6,7 +6,7 @@
 
 使用方法:
 1. 从浏览器获取 z_c0 Cookie
-2. 设置环境变量: export ZHihu_COOKIE="z_c0=你的cookie值"
+2. 设置环境变量: export ZHihu_COOKIE="ZHIHU_COOKIE=你的cookie值"
 3. 运行: python publish_to_zhihu.py --article articles/series1/01_financial_intelligence.md
 
 注意：
@@ -41,7 +41,7 @@ class ZhihuPublisher:
         初始化发布器
         
         Args:
-            cookie: z_c0 cookie字符串，如 "z_c0=MTY4NTk0MjE5Mnx..."
+            cookie: z_c0 cookie字符串，如 "ZHIHU_COOKIE=MTY4NTk0MjE5Mnx..."
                    如果为None，则从环境变量 ZHihu_COOKIE 读取
         """
         if cookie is None:
@@ -50,8 +50,8 @@ class ZhihuPublisher:
         if not cookie:
             raise ValueError(
                 "请提供 z_c0 Cookie\n"
-                "方法1: 设置环境变量 export ZHihu_COOKIE='z_c0=你的cookie值'\n"
-                "方法2: 传入参数 cookie='z_c0=你的cookie值'"
+                "方法1: 设置环境变量 export ZHihu_COOKIE='ZHIHU_COOKIE=你的cookie值'\n"
+                "方法2: 传入参数 cookie='ZHIHU_COOKIE=你的cookie值'"
             )
         
         self.cookie = cookie

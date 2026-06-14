@@ -6,4 +6,4 @@ Financial Intelligence Skill
 """
 
 __version__ = "1.0.0"
-__author__ = "于兆鹏 (Yu Zhaopeng)"
+__author__ = "Financial AI Contributors (Yu Zhaopeng)"

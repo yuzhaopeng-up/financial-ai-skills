@@ -8,7 +8,7 @@
 - 合规性检查
 - 节税建议
 
-协同: ArkClaw (策略分析) / KimiClaw (法规查询)
+协同: RemoteAgentA (策略分析) / RemoteAgentB (法规查询)
 """
 
 from typing import Dict, Any, Optional, List

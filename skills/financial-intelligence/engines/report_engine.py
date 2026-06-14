@@ -8,7 +8,7 @@
 - 行业对比
 - 风险信号扫描
 
-协同: ArkClaw (长文本分析+报告生成) / KimiClaw (数据抓取)
+协同: RemoteAgentA (长文本分析+报告生成) / RemoteAgentB (数据抓取)
 """
 
 import re
