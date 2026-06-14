@@ -12,7 +12,7 @@
 示例:
     python3 financial_cli.py invoice 011001900111 12345678
     python3 financial_cli.py budget 市场部
-    python3 financial_cli.py report 美的集团 2025
+    python3 financial_cli.py report 示例制造集团 2025
     python3 financial_cli.py tax 银联商务
     python3 financial_cli.py expense "北京出差机票" 1580
     python3 financial_cli.py cashflow 30
@@ -67,7 +67,7 @@ def main():
 
         elif scenario == "report":
             engine = ReportEngine()
-            company = args[0] if len(args) > 0 else "美的集团"
+            company = args[0] if len(args) > 0 else "示例制造集团"
             year = int(args[1]) if len(args) > 1 else None
             result = engine.analyze(company_name=company, year=year)
             output = formatter.format_report(result)

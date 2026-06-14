@@ -77,7 +77,7 @@ python -m skills.financial_intelligence.scripts.financial_cli invoice 0110019001
 python -m skills.financial_intelligence.scripts.financial_cli budget 市场部
 
 # 财报速读
-python -m skills.financial_intelligence.scripts.financial_cli report 美的集团 2025
+python -m skills.financial_intelligence.scripts.financial_cli report 示例制造集团 2025
 ```
 
 ---

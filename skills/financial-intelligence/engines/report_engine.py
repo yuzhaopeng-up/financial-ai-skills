@@ -21,7 +21,7 @@ class ReportEngine:
     
     # 模拟财报数据库（演示用）
     MOCK_REPORTS = {
-        "美的集团": {
+        "示例制造集团": {
             "year": 2025,
             "period": "年报",
             "revenue": 384700000000,  # 3847亿
@@ -53,7 +53,7 @@ class ReportEngine:
                 "rd": 1,
             }
         },
-        "招商银行": {
+        "示例银行A": {
             "year": 2025,
             "period": "年报",
             "revenue": 331000000000,
