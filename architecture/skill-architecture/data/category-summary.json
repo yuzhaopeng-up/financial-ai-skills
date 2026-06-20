@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-06-20T18:55:04.350726+08:00",
+  "raw_skill_files": 283,
+  "unique_skills": 153,
+  "by_level": {
+    "L2 组合Skill": 86,
+    "L1 基础Skill": 36,
+    "L0 原子/连接器Skill": 23,
+    "L3 组合的组合Skill": 8
+  },
+  "by_scope": {
+    "行业专用：金融": 73,
+    "跨行业通用": 63,
+    "行业可迁移": 17
+  },
+  "by_capability_domain": {
+    "C02 数据分析与洞察": 36,
+    "C09 集成连接器": 32,
+    "C05 风险/合规/安全": 16,
+    "C07 客户/营销/服务": 16,
+    "C01 信息提取与结构化": 5,
+    "C06 流程编排与路由": 7,
+    "C10 沉淀归档与治理": 3,
+    "C08 投资/组合/定价": 17,
+    "C04 报告/文档生成": 12,
+    "C03 知识检索与RAG": 9
+  },
+  "by_source": {
+    "private_financial": 90,
+    "workspace_installed": 55,
+    "agent_installed": 7,
+    "workspace_agent_installed": 1
+  }
+}
