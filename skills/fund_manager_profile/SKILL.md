@@ -1,3 +1,18 @@
+---
+name: fund_manager_profile
+description: "技能名称：fund_manager_profile（基金经理画像）"
+version: 1.0.0
+author: Hermes-Brain
+license: MIT
+layer: L3
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "SKILL.md - 基金经理画像技能"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # SKILL.md - 基金经理画像技能
 
 ## 1. 技能概述

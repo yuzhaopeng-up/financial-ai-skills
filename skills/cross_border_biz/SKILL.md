@@ -1,3 +1,18 @@
+---
+name: cross_border_biz
+description: "跨境业务综合解决方案引擎，支持进出口结算、外汇避险、跨境人民币、ODI备案及特殊贸易区政策咨询。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C02, C10, C11]
+industry: financial
+metadata:
+  raw_title: "跨境业务技能 (cross_border_biz)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 跨境业务技能 (cross_border_biz)
 
 ## 概述

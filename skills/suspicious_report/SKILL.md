@@ -1,3 +1,18 @@
+---
+name: suspicious_report
+description: "本技能用于识别和生成可疑交易报告，符合《金融机构大额交易和可疑交易报告管理办法》（中国人民银行令〔2006〕第2号）要求。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L1
+capability_domain: [C02, C11]
+industry: financial
+metadata:
+  raw_title: "可疑交易报告技能 (suspicious_report)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 可疑交易报告技能 (suspicious_report)
 
 ## 概述

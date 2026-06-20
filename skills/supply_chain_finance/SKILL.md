@@ -1,3 +1,18 @@
+---
+name: supply_chain_finance
+description: "技能名称：supply_chain_finance"
+version: 1.0.0
+author: Hermes-Brain
+license: MIT
+layer: L3
+capability_domain: [C02, C09, C11]
+industry: financial
+metadata:
+  raw_title: "SKILL.md — 供应链金融技能（Supply Chain Finance）"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # SKILL.md — 供应链金融技能（Supply Chain Finance）
 
 ## 技能概述

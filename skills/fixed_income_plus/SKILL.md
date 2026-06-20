@@ -1,3 +1,18 @@
+---
+name: fixed_income_plus
+description: "固收+策略技能，专注于债券组合的收益分解、久期管理、信用风险管理、类属配置优化，以及与纯债组合的对比分析。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "Fixed Income Plus (固收+) Skill"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Fixed Income Plus (固收+) Skill
 
 ## 概述

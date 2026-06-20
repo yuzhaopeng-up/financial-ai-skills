@@ -1,3 +1,18 @@
+---
+name: performance_attribution
+description: "本技能对基金/组合进行 Brinson 双归因分析，拆解超额收益来源为行业配置效应、选股效应和交互效应，并输出与基准对比的风险收益指标（超额收益、信息比率、跟踪误差）。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L1
+capability_domain: [C01, C02, C03]
+industry: financial
+metadata:
+  raw_title: "Performance Attribution Skill（基金业绩归因）"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Performance Attribution Skill（基金业绩归因）
 
 ## 概述

@@ -1,3 +1,18 @@
+---
+name: underwriting_v2
+description: "券商两融智能核保引擎 v2（券商信用交易专用版），基于客户信息自动评估两融准入资格，输出准入决定、额度建议、担保物折算率、风险提示及利率建议。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C05, C11]
+industry: financial
+metadata:
+  raw_title: "UnderwritingV2 券商两融智能核保引擎"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # UnderwritingV2 券商两融智能核保引擎
 
 ## 概述

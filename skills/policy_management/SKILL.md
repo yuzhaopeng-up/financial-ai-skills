@@ -1,3 +1,18 @@
+---
+name: policy_management
+description: "保单管理技能提供完整的保单检视与保全服务，涵盖保障缺口分析、现金价值计算、保全建议及家庭保障全景图。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C05]
+industry: universal
+metadata:
+  raw_title: "保单管理技能 (Policy Management Skill)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 保单管理技能 (Policy Management Skill)
 
 ## 概述

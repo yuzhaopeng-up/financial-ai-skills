@@ -1,3 +1,18 @@
+---
+name: financial_extract
+description: "输入财务报表原始数据（营收、利润、资产、负债），输出结构化财务指标、同业对比、杜邦分析、异常预警。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L1
+capability_domain: [C02, C03, C09]
+industry: financial
+metadata:
+  raw_title: "financial_extract — 财报智能提取"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # financial_extract — 财报智能提取
 
 ## 定位

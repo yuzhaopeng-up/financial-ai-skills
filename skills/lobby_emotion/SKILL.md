@@ -1,3 +1,18 @@
+---
+name: lobby_emotion
+description: "lobby_emotion 技能用于识别银行/营业厅客户情绪，辅助大堂经理和客服人员提供针对性服务策略，降低投诉升级风险。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L1
+capability_domain: [C01, C04, C05]
+industry: financial
+metadata:
+  raw_title: "Lobby Emotion Skill - 客户情绪识别技能"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Lobby Emotion Skill - 客户情绪识别技能
 
 ## 概述

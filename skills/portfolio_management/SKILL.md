@@ -1,3 +1,18 @@
+---
+name: portfolio_management
+description: "本技能基于经典投资组合理论（Modern Portfolio Theory / MPT），为客户提供三种量化策略生成的资产配置方案。支持输入客户风险偏好、资产规模、投资期限和目标收益，返回马科维茨有效前沿推荐组合、风险平价组合和最大多样化组合，并附带持仓明细、预期收益、年化波动率和夏普比率。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "Portfolio Management Skill（投资组合管理技能）"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Portfolio Management Skill（投资组合管理技能）
 
 ## 概述

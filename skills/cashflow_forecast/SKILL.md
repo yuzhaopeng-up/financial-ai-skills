@@ -1,3 +1,18 @@
+---
+name: cashflow_forecast
+description: "输入企业资金数据，返回未来1/3/6/12个月的资金预测及缺口预警（含应对方案）。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L1
+capability_domain: [C02, C03, C09]
+industry: universal
+metadata:
+  raw_title: "资金预测（Cashflow Forecast）技能"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 资金预测（Cashflow Forecast）技能
 
 ## 概述

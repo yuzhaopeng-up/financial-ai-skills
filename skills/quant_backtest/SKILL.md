@@ -1,3 +1,18 @@
+---
+name: quant_backtest
+description: "基于随机模拟K线数据的量化策略回测引擎，支持六种策略类型，返回完整回测报告。"
+version: 1.0.0
+author: Hermes-Brain
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "quant_backtest - 量化回测引擎"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # quant_backtest - 量化回测引擎
 
 ## 功能概述

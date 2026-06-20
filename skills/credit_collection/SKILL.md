@@ -1,3 +1,18 @@
+---
+name: credit_collection
+description: "本技能提供标准化的信用卡逾期催收决策引擎，支持M1-M3+全阶段催收策略生成、合规红线检测、催收话术输出及企微卡片推送。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C04, C05]
+industry: legal
+metadata:
+  raw_title: "Credit Collection Skill - 信用卡逾期催收引擎"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Credit Collection Skill - 信用卡逾期催收引擎
 
 ## 概述

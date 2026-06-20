@@ -1,3 +1,18 @@
+---
+name: actuarial_model
+description: "本技能提供保险精算核心功能：保费定价、准备金评估、偿付能力评估，适用于终身寿险、定期寿险、重疾险等主要险种。"
+version: 1.0.0
+author: Hermes-Brain
+license: MIT
+layer: L1
+capability_domain: [C02, C05, C07]
+industry: financial
+metadata:
+  raw_title: "精算模型技能 (Actuarial Model Skill)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 精算模型技能 (Actuarial Model Skill)
 
 ## 概述

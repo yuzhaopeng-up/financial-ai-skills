@@ -1,3 +1,18 @@
+---
+name: aml_rating
+description: "aml_rating 是金融场景下的反洗钱（Anti-Money Laundering）客户风险评级技能，对客户进行多维度洗钱风险评估，返回风险等级、风险评分及管控措施建议。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "AML Rating Skill — 反洗钱客户评级"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # AML Rating Skill — 反洗钱客户评级
 
 ## 概述

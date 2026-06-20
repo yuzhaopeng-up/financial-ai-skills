@@ -1,3 +1,18 @@
+---
+name: portfolio_optimize
+description: "智能持仓分析：解析客户现有持仓（股票/债券/基金/现金比例） - 有效前沿优化：在风险约束下计算最优配置 - 调仓建议生成：买入/卖出/持有建议 + 执行优先级 - 风险收益评估：预期收益、年化波动率、夏普比率、最大回撤 - 对比分析：当前组合 vs 优化组合差异分析"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "portfolio_optimize - 投资组合优化引擎"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # portfolio_optimize - 投资组合优化引擎
 
 ## 功能概述

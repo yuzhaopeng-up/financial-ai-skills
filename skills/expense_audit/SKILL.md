@@ -1,3 +1,18 @@
+---
+name: expense_audit
+description: "费用报销审计技能，自动审核员工报销单据，判断通过/驳回/需补充，识别违规类型，提供风险提示与合规建议。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L1
+capability_domain: [C02, C04, C10]
+industry: financial
+metadata:
+  raw_title: "Expense Audit Skill（费用报销审计）"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Expense Audit Skill（费用报销审计）
 
 ## 概述

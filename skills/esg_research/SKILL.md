@@ -1,3 +1,18 @@
+---
+name: esg_research
+description: "ESG研究技能提供中国上市公司的ESG（环境、社会、治理）评分分析报告，支持E/S/G三维评分 + 综合评分 + 同业对比 + 风险点 + 改进建议。"
+version: 1.0.0
+author: Hermes-Brain
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C09]
+industry: financial
+metadata:
+  raw_title: "ESG Research Skill - ESG研究技能"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # ESG Research Skill - ESG研究技能
 
 ## 概述

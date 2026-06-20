@@ -1,3 +1,18 @@
+---
+name: renewal_alert
+description: "renewal_alert 技能用于分析客户保单的续保情况，提供续保建议、客户挽留策略及话术支持。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "续保提醒技能 (Renewal Alert)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 续保提醒技能 (Renewal Alert)
 
 ## 概述

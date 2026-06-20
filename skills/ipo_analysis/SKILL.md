@@ -1,3 +1,18 @@
+---
+name: ipo_analysis
+description: "IPO分析技能：输入公司名称/行业/上市板块/预计募资额，返回完整估值分析报告。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C11]
+industry: financial
+metadata:
+  raw_title: "IPO Analysis Skill"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # IPO Analysis Skill
 
 ## 概述

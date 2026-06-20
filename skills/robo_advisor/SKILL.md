@@ -1,3 +1,18 @@
+---
+name: robo_advisor
+description: "智能投顾增强技能：基于现代投资组合理论（MPT）和 Black-Litterman 模型框架，为用户提供个性化资产配置方案、投资组合建议及再平衡计划。支持风险偏好解析、资产规模评估、投资目标识别，合规提示全链路覆盖。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "Robo Advisor Skill - 智能投顾引擎"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Robo Advisor Skill - 智能投顾引擎
 
 ## Description

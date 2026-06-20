@@ -1,3 +1,18 @@
+---
+name: insurance_recommend
+description: "技能名称: insurance_recommend"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L1
+capability_domain: [C03, C08, C11]
+industry: financial
+metadata:
+  raw_title: "Insurance Recommend Skill - 保险产品智能推荐"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Insurance Recommend Skill - 保险产品智能推荐
 
 ## 1. 技能概述

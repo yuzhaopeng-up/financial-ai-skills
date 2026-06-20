@@ -1,3 +1,18 @@
+---
+name: trade_optimize
+description: "交易标的 + 手数 + 价格 → 优化下单策略"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C03, C05, C09]
+industry: universal
+metadata:
+  raw_title: "trade_optimize - 交易指令优化引擎"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # trade_optimize - 交易指令优化引擎
 
 > 交易标的 + 手数 + 价格 → 优化下单策略

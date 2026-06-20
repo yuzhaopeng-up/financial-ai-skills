@@ -1,3 +1,18 @@
+---
+name: branch_analysis
+description: "网点分析技能是一个基于AI的银行网点竞争力评估与经营规划引擎。该技能综合分析网点的地理位置、竞争格局、客群特征等维度，输出SWOT分析、三年经营预测、重点发展业务方向及投入产出建议。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "网点分析技能 (Branch Analysis Skill)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 网点分析技能 (Branch Analysis Skill)
 
 ## 概述

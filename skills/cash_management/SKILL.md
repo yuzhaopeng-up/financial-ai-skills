@@ -1,3 +1,18 @@
+---
+name: cash_management
+description: "针对企业客户的现金管理方案生成引擎，输入企业类型、月度现金流规模、波动特征，输出优化建议。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C07, C09]
+industry: financial
+metadata:
+  raw_title: "现金管理技能 (Cash Management)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 现金管理技能 (Cash Management)
 
 ## 概述

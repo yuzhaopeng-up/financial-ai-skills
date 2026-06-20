@@ -1,3 +1,18 @@
+---
+name: stress_test
+description: "本技能用于商业银行压力测试场景，基于银行资产负债数据（资产规模、负债结构、资本金），模拟不同宏观经济压力情景下的风险传导，输出各情景下的资本充足率、不良率、ROE、流动性缺口等关键指标。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C02, C03, C09]
+industry: financial
+metadata:
+  raw_title: "银行压力测试技能 (Stress Test Skill)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 银行压力测试技能 (Stress Test Skill)
 
 ## 概述

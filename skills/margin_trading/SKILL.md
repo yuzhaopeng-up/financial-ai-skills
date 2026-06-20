@@ -1,3 +1,18 @@
+---
+name: margin_trading
+description: "融资融券监控技能，提供维保比率计算、平仓预警、追保建议、集中度风险分析及最佳减仓方案。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C07]
+industry: financial
+metadata:
+  raw_title: "Margin Trading Monitor（融资融券监控引擎）"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Margin Trading Monitor（融资融券监控引擎）
 
 ## 概述

@@ -1,3 +1,18 @@
+---
+name: claim_review_v2
+description: "寿险理赔审核引擎 V2 — 专注寿险理赔场景，输入理赔案件信息，自动输出："
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C04, C10, C11]
+industry: financial
+metadata:
+  raw_title: "寿险理赔审核技能 (Claim Review V2)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 寿险理赔审核技能 (Claim Review V2)
 
 ## 功能概述

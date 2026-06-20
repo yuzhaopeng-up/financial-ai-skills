@@ -1,3 +1,18 @@
+---
+name: lobby_queue
+description: "lobby_queue 是银行/证券/保险等金融机构大堂经理的智能排队预警引擎，基于等候人数×平均办理时长/服务窗口数计算排队指数（0-100），输出预警等级（红/黄/绿）+ 开台建议 + 客户等候预估 + 历史对比分析。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C03, C07, C09]
+industry: financial
+metadata:
+  raw_title: "Lobby Queue Skill — 排队预警 + 智能开台"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Lobby Queue Skill — 排队预警 + 智能开台
 
 ## 概述

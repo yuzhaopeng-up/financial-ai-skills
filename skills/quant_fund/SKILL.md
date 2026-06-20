@@ -1,3 +1,18 @@
+---
+name: quant_fund
+description: "quant_fund 是金融场景量化基金深度分析技能，提供因子暴露分析、风格漂移检测、Brinson归因等核心功能。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C02, C03, C07]
+industry: financial
+metadata:
+  raw_title: "quant_fund - 量化基金分析引擎"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # quant_fund - 量化基金分析引擎
 
 ## 概述

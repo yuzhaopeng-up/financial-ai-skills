@@ -1,3 +1,18 @@
+---
+name: invoice_check
+description: "发票查验技能用于对企业取得的增值税发票进行真伪鉴别、风险识别和税务合规性分析。支持查验发票类型包括：增值税专用发票、增值税普通发票（含卷式）、机动车销售统一发票、二手车销售统一发票。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C03, C04, C10]
+industry: financial
+metadata:
+  raw_title: "invoice_check — 发票查验技能"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # invoice_check — 发票查验技能
 
 ## 概述

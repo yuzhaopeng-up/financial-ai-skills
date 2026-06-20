@@ -1,3 +1,18 @@
+---
+name: regulatory_reporting
+description: "报送清单生成：输入报送类型+期间，输出完整报表清单及截止日期 - 指标口径说明：关键指标的定义、计算公式、填报说明 - 数据来源系统：各报表对应的源系统及取数逻辑 - 常见错误提示：历史高频错误及核查要点"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C09]
+industry: financial
+metadata:
+  raw_title: "监管报送技能 (Regulatory Reporting Skill)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 监管报送技能 (Regulatory Reporting Skill)
 
 金融监管报送全栈支持引擎，覆盖银保监、人民银行、金融稳定、EAST4.0等主流报送类型，输出报表清单、口径说明、数据来源及常见错误提示。

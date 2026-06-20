@@ -1,3 +1,18 @@
+---
+name: fraud_alert
+description: "本技能专注实时交易预警场景，基于20+条预警规则对交易进行毫秒级风险评估，返回欺诈预警等级（红色/橙色/黄色）、触发规则列表、紧急处置建议及人工复核必要性。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C03, C05, C07]
+industry: financial
+metadata:
+  raw_title: "fraud_alert - 实时欺诈预警技能"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # fraud_alert - 实时欺诈预警技能
 
 ## 概述

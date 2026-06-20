@@ -1,3 +1,18 @@
+---
+name: lobby_routing
+description: "厅堂智能分流系统，根据客户特征（年龄、办理业务类型、等候时间、VIP标识等）自动生成最优分流方案，提升网点运营效率，减少客户等候时间，优化客户体验。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C02, C05, C11]
+industry: financial
+metadata:
+  raw_title: "厅堂智能分流 (Lobby Routing)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 厅堂智能分流 (Lobby Routing)
 
 ## 概述

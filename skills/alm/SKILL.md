@@ -1,3 +1,18 @@
+---
+name: alm
+description: "ALM（Asset-Liability Management，资产负债管理）引擎专注于银行资产负债表的全方位分析与优化。输入银行资产负债数据（资产规模、负债结构、期限分布），输出完整的缺口分析、风险指标（LCR/NSFR/久期缺口）及优化建议。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C11]
+industry: financial
+metadata:
+  raw_title: "ALM - 资产负债管理引擎"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # ALM - 资产负债管理引擎
 
 ## 概述

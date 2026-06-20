@@ -1,3 +1,18 @@
+---
+name: securities_research
+description: "Skill Name: securities_research Skill Path: skills/securities_research/ Engine Class: SecuritiesResearchEngine Core Functionality: 基于行业研究框架，自动生成投研报告大纲、核心观点、数据支撑及投资建议"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "Securities Research Skill（投研报告生成引擎）"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Securities Research Skill（投研报告生成引擎）
 
 ## 概述

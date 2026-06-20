@@ -1,3 +1,18 @@
+---
+name: smart_underwriting
+description: "智能核保引擎，基于投保人信息自动评估风险等级，输出核保决定（标准体/次标体/拒保）、自动分级（优选/标准/加费/拒保）、保费调整系数及核保建议。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C05, C08]
+industry: financial
+metadata:
+  raw_title: "Smart Underwriting 智能核保引擎"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Smart Underwriting 智能核保引擎
 
 ## 概述

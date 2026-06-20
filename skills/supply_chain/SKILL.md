@@ -1,3 +1,18 @@
+---
+name: supply_chain
+description: "核心企业 + 供应商信息 → 融资方案 + 风险控制"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C04, C05]
+industry: financial
+metadata:
+  raw_title: "供应链金融方案引擎 v1.0"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 供应链金融方案引擎 v1.0
 
 > 核心企业 + 供应商信息 → 融资方案 + 风险控制

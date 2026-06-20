@@ -1,3 +1,18 @@
+---
+name: operational_risk
+description: "操作风险管理（Operational Risk Management）技能，通过自然语言描述业务场景，自动完成： - 风险分类：内部欺诈 / 外部欺诈 / 就业政策和工作场所安全 / 客户产品及业务操作 / 执行交割及流程管理 / 系统和技术故障 - 风险矩阵评分：可能性（1-5）× 影响程度（1-5）→ 高/中/低风险 - 损失估算：直接损失 + 间接损失…"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C01, C02, C03]
+industry: financial
+metadata:
+  raw_title: "Operational Risk Skill（操作风险管理技能）"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Operational Risk Skill（操作风险管理技能）
 
 ## 概述

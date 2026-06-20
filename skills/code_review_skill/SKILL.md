@@ -1,3 +1,18 @@
+---
+name: code_review_skill
+description: "代码安全审查技能，对输入代码片段进行多维度安全审查，识别 SQL 注入、XSS、敏感信息泄露等安全漏洞，并提供修复建议与代码质量评分。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L1
+capability_domain: [C02, C09, C10]
+industry: universal
+metadata:
+  raw_title: "Code Review Skill - 代码安全审查"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Code Review Skill - 代码安全审查
 
 ## 概述

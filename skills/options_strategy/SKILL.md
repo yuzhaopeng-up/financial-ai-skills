@@ -1,3 +1,18 @@
+---
+name: options_strategy
+description: "本技能提供完整的期权策略分析能力，基于 Black-Scholes 框架计算希腊值，并输出多情景损益分析。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "期权策略分析技能 (options_strategy)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 期权策略分析技能 (options_strategy)
 
 ## 概述

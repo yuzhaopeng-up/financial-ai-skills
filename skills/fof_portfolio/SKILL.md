@@ -1,3 +1,18 @@
+---
+name: fof_portfolio
+description: "FOF Portfolio Skill（基金中基金组合管理引擎）用于根据客户的风险偏好、组合规模、投资目标和持有期限，从内池 20+ 基金中筛选构建最优基金组合，提供战略资产配置（SAA）、战术资产配置（TAA）和权重优化方案。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "FOF Portfolio Skill - 基金组合技能"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # FOF Portfolio Skill - 基金组合技能
 
 ## 概述

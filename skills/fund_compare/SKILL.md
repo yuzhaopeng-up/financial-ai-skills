@@ -1,3 +1,18 @@
+---
+name: fund_compare
+description: "基金对比技能用于对 2-4 只基金进行多维度对比分析，帮助投资者快速了解基金之间的差异，辅助投资决策。"
+version: 1.0.0
+author: Hermes-Brain
+license: MIT
+layer: L1
+capability_domain: [C02, C03, C04]
+industry: financial
+metadata:
+  raw_title: "基金对比技能 (fund_compare)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 基金对比技能 (fund_compare)
 
 ## 简介

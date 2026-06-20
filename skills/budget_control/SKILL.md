@@ -1,3 +1,18 @@
+---
+name: budget_control
+description: "预算管控技能用于分析企业部门/项目的预算执行情况，提供执行率监控、超支风险预警、剩余期间预测和管控建议。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L1
+capability_domain: [C02, C03, C04]
+industry: financial
+metadata:
+  raw_title: "Budget Control Skill（预算管控）"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Budget Control Skill（预算管控）
 
 ## 概述

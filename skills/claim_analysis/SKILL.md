@@ -1,3 +1,18 @@
+---
+name: claim_analysis
+description: "理赔分析引擎 — 输入理赔案件信息，自动输出："
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C03, C04, C08]
+industry: financial
+metadata:
+  raw_title: "理赔分析技能 (Claim Analysis Skill)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 理赔分析技能 (Claim Analysis Skill)
 
 ## 功能概述

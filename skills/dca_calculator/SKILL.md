@@ -1,3 +1,18 @@
+---
+name: dca_calculator
+description: "定投计算器是一个金融分析工具，通过模拟定期定额投资策略，帮助用户评估定投指数基金的收益表现。"
+version: 1.0.0
+author: Hermes-Brain
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "定投计算器 (DCA Calculator)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 定投计算器 (DCA Calculator)
 
 ## 概述

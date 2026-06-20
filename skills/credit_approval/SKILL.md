@@ -1,3 +1,18 @@
+---
+name: credit_approval
+description: "信用审批技能通过多维度财务分析对企业及个人进行信用评估，输出信用评分（0-100）、杜邦分析、Altman Z-score财务预警、贷款额度建议、利率建议及最终审批结论。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L1
+capability_domain: [C03, C05, C10]
+industry: financial
+metadata:
+  raw_title: "credit_approval - 信用审批技能"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # credit_approval - 信用审批技能
 
 ## 描述

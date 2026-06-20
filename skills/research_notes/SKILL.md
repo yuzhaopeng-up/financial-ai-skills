@@ -1,3 +1,18 @@
+---
+name: research_notes
+description: "券商调研纪要结构化处理引擎，输入调研原始信息，返回标准化结构化纪要。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C01, C02, C03]
+industry: financial
+metadata:
+  raw_title: "Research Notes Skill - 调研纪要生成引擎"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Research Notes Skill - 调研纪要生成引擎
 
 ## 概述

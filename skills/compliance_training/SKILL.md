@@ -1,3 +1,18 @@
+---
+name: compliance_training
+description: "合规培训技能专注于金融行业合规培训方案生成，支持多种岗位类型、培训主题和时长要求，输出完整的培训方案、案例分析、测试题目和效果评估。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "合规培训技能 (compliance_training)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 合规培训技能 (compliance_training)
 
 ## 概述

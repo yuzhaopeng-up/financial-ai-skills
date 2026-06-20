@@ -1,3 +1,18 @@
+---
+name: kpi_performance
+description: "KPI 绩效考核引擎（KPIPerformanceEngine）针对银行一线岗位，自动生成绩效考核方案（KPI 指标设计 / 权重分配 / 评分标准）、考核数据要求 及 改进建议。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C03, C05]
+industry: financial
+metadata:
+  raw_title: "KPI 绩效考核引擎"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # KPI 绩效考核引擎
 
 ## 概述

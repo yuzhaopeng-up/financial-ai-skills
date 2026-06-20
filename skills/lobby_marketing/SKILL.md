@@ -1,3 +1,18 @@
+---
+name: lobby_marketing
+description: "技能名称：厅堂精准营销（Lobby Marketing）"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L1
+capability_domain: [C02, C04, C07]
+industry: financial
+metadata:
+  raw_title: "Lobby Marketing Skill（厅堂精准营销）"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # Lobby Marketing Skill（厅堂精准营销）
 
 ## 1. 技能概述

@@ -1,3 +1,18 @@
+---
+name: fraud_detection
+description: "本技能提供实时交易反欺诈检测能力，基于30+条规则对交易进行多维度风险评估，返回0-100的风险评分、风险等级、触发规则列表及建议行动。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C05, C07, C09]
+industry: universal
+metadata:
+  raw_title: "fraud_detection - 反欺诈检测技能"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # fraud_detection - 反欺诈检测技能
 
 ## 概述

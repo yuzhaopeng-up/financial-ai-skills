@@ -1,3 +1,18 @@
+---
+name: smart_customer_service
+description: "智能客服技能基于规则+关键词匹配的混合引擎，实现银行场景下的意图识别、FAQ匹配、自动回答和转人工判断。"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L3
+capability_domain: [C01, C02, C09]
+industry: financial
+metadata:
+  raw_title: "智能客服技能 (Smart Customer Service)"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 智能客服技能 (Smart Customer Service)
 
 ## 概述

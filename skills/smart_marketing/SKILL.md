@@ -1,3 +1,18 @@
+---
+name: smart_marketing
+description: "客户画像 + 产品信息 + 营销目标 → 个性化话术 + 异议预判"
+version: 1.0.0
+author: ArkClaw
+license: MIT
+layer: L2
+capability_domain: [C02, C11]
+industry: financial
+metadata:
+  raw_title: "智能营销话术引擎 v1.0"
+  auto_generated: true
+  auto_generated_at: "2026-06-20"
+---
+
 # 智能营销话术引擎 v1.0
 
 > 客户画像 + 产品信息 + 营销目标 → 个性化话术 + 异议预判
