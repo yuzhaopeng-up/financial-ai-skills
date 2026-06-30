@@ -404,6 +404,36 @@ print(formatter.format_enterprise_risk(result))
 
 ---
 
+
+## 🌐 Agent Skills 生态
+
+本项目是 **Agent Skills** 开源生态的一部分，三大仓库协同覆盖企业级 Agent 全链路：
+
+| 仓库 | 定位 | Skills 数 | 核心能力 |
+|------|------|----------|---------|
+| **[financial-ai-skills](https://github.com/yuzhaopeng-up/financial-ai-skills)** (本仓库) | 金融行业 Agent | 104 | 发票查验、预算管控、风控合规、财富管理 |
+| **[teleagent-skills](https://github.com/yuzhaopeng-up/teleagent-skills)** | 通用业务 Agent | 5 | 评分引擎、证据链、数据聚合、NL2Query、可视化 |
+| **[agent-cluster-comm](https://github.com/yuzhaopeng-up/agent-cluster-comm)** | Agent 集群通信 | 5 | 加密P2P、Redis消息总线、群聊机器人、GitHub异步交接、健康监控 |
+
+### 架构全景
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Agent Skills 生态                      │
+├──────────────┬──────────────────┬───────────────────────┤
+│ 金融行业层    │   通用业务层      │   集群通信层            │
+│ 104 Skills   │   5 Skills       │   5 Skills             │
+│              │                  │                        │
+│ · 发票查验    │ · 评分引擎       │ · L1 加密P2P           │
+│ · 预算管控    │ · 证据链分析     │ · L2 Redis消息总线     │
+│ · 风控合规    │ · 数据聚合器     │ · L3 群聊机器人        │
+│ · 财富管理    │ · NL2Query      │ · L4 GitHub异步交接    │
+│ · 营销话术    │ · 可视化渲染     │ · L5 健康监控          │
+└──────────────┴──────────────────┴───────────────────────┘
+```
+
+> 从金融场景到通用能力，再到集群通信，三层架构覆盖 Agent 开发全链路。
+
 ## 📄 许可证
 
 [MIT License](LICENSE) — 自由使用、修改、分发，保留署名。
@@ -412,7 +442,9 @@ print(formatter.format_enterprise_risk(result))
 
 ## 🌟 Star History
 
-如果这个项目对你有帮助，请点个 ⭐ Star，让更多人发现它！
+如果这些 Skills 对你有帮助，请点个 ⭐ Star —— 你的 Star 是我们持续发布的最大动力！
+
+> 想要更多 Skills？试试我们的其他仓库：[teleagent-skills](https://github.com/yuzhaopeng-up/teleagent-skills) | [agent-cluster-comm](https://github.com/yuzhaopeng-up/agent-cluster-comm)
 
 [![Star History Chart](https://api.star-history.com/svg?repos=yuzhaopeng-up/financial-ai-skills&type=Date)](https://star-history.com/#yuzhaopeng-up/financial-ai-skills&Date)
 
