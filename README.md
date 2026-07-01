@@ -414,6 +414,8 @@ print(formatter.format_enterprise_risk(result))
 | **[financial-ai-skills](https://github.com/yuzhaopeng-up/financial-ai-skills)** (本仓库) | 金融行业 Agent | 104 | 发票查验、预算管控、风控合规、财富管理 |
 | **[teleagent-skills](https://github.com/yuzhaopeng-up/teleagent-skills)** | 通用业务 Agent | 5 | 评分引擎、证据链、数据聚合、NL2Query、可视化 |
 | **[agent-cluster-comm](https://github.com/yuzhaopeng-up/agent-cluster-comm)** | Agent 集群通信 | 5 | 加密P2P、Redis消息总线、群聊机器人、GitHub异步交接、健康监控 |
+| **[skill-framework](https://github.com/yuzhaopeng-up/skill-framework)** | Skill 治理框架 & 模板 | 208 cataloged | Skill目录、治理模板、标准化工具 |
+| **[fintech-h5-demos](https://github.com/yuzhaopeng-up/fintech-h5-demos)** | 金融仪表盘演示(零依赖HTML) | 12 demos | 交互式金融可视化、纯前端实现 |
 
 ### 架构全景
 
